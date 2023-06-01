@@ -2,9 +2,13 @@ package com.fishekai.engine;
 
 import com.fishekai.models.*;
 import com.fishekai.utilities.AudioManager;
+import com.fishekai.utilities.FrameHandler;
 import com.fishekai.utilities.Prompter;
 import com.fishekai.utilities.SplashApp;
+import com.fishekai.view.GamePanel;
+import com.fishekai.view.KeyHandler;
 
+import javax.swing.*;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -14,7 +18,7 @@ import static com.fishekai.engine.Mapa.locationCheck;
 import static com.fishekai.engine.Mapa.showStaticMap;
 import static com.fishekai.utilities.Console.*;
 
-public class Fishekai implements SplashApp {
+public class Fishekai extends JPanel implements SplashApp, Runnable {
     // constants
     private static final long PAUSE_VALUE = 1_500;
     private static final int LINE_WIDTH = 120;
@@ -34,11 +38,34 @@ public class Fishekai implements SplashApp {
     private final AudioManager audioManager = new AudioManager();
     VolumeControl volumeControl = new VolumeControl(audioManager);
     FishingMechanic fishingMechanic = new FishingMechanic();
+    private final FrameHandler frameHandler = new FrameHandler();
+    KeyHandler keyHandler = new KeyHandler();
+
 
     // methods
     public void start() {
         // show title here
         Display.showTitle();
+
+        // New JFrame
+        JFrame window = new JFrame();
+        window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        window.setResizable(false);
+        window.setTitle("Fishekai - Beach");
+
+        GamePanel gamePanel = new GamePanel();
+        window.add(gamePanel); // <---- The panel is IN the window and therefore is sharing the dispatch thread.
+
+        window.setLocationRelativeTo(null);
+
+        // Set the size of the frame, since the preferable size is failing:
+        window.setSize(768, 576);
+        window.setVisible(true);
+
+        gamePanel.startGameThread();
+
+
+
 
         // ask user for input and store it
         String input = prompter.prompt("Would you like to play a new game? [Y]es or [N]o.\n><(((º> ",
@@ -502,4 +529,8 @@ public class Fishekai implements SplashApp {
         audioManager.loadAudioFiles(); // loads audio files and stores them
     }
 
+    @Override
+    public void run() {
+
+    }
 }

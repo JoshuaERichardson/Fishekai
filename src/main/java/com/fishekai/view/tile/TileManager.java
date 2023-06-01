@@ -25,6 +25,10 @@ public class TileManager {
 
     public void getTileImage(){
         try{
+            // 0 = grass
+            // 1 = water
+            // 2 = dirt
+            // 3 = dock
 
             tile[0] = new Tile();
             tile[0].image = ImageIO.read(getClass().getResourceAsStream("/sprites/tiles/grass.png"));
