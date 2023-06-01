@@ -41,6 +41,7 @@ class StartGame {
         if(keyHandler.enterPressed || keyHandler.spacePressed){
             // Remove the image from the screen:
             splashImage = null;
+            // Remove the splash screen:
         }
     }
 }
