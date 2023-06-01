@@ -5,11 +5,20 @@ import java.awt.event.KeyListener;
 
 public class KeyHandler implements KeyListener {
     public boolean upPressed, downPressed, leftPressed, rightPressed, spacePressed, enterPressed;
+    public boolean spaceTyped, enterTyped;
 
 
 
     @Override
     public void keyTyped(KeyEvent e) {
+        char key = e.getKeyChar();
+
+        if (key == ' ') {
+            spaceTyped = true;
+        }
+        if (key == '\n') {
+            enterTyped = true;
+        }
 
     }
 
@@ -54,10 +63,10 @@ public class KeyHandler implements KeyListener {
             rightPressed = false;
         }
         if (code == KeyEvent.VK_SPACE) {
-
+            spacePressed = false;
         }
         if (code == KeyEvent.VK_ENTER) {
-
+            enterPressed = false;
         }
     }
 }

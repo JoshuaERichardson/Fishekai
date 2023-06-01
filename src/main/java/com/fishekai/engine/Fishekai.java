@@ -54,7 +54,7 @@ public class Fishekai extends JPanel implements SplashApp, Runnable {
         window.setTitle("Fishekai - Beach");
 
         GamePanel gamePanel = new GamePanel();
-        window.add(gamePanel);
+        window.add(gamePanel); // <---- The panel is IN the window and therefore is sharing the dispatch thread.
 
         window.setLocationRelativeTo(null);
 
@@ -65,10 +65,7 @@ public class Fishekai extends JPanel implements SplashApp, Runnable {
         gamePanel.startGameThread();
 
 
-        while(!keyHandler.spacePressed && !keyHandler.enterPressed) {
 
-        }
-        frameHandler.hideSplashScreen();
 
         // ask user for input and store it
         String input = prompter.prompt("Would you like to play a new game? [Y]es or [N]o.\n><(((º> ",
