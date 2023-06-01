@@ -25,6 +25,9 @@ public class GamePanel extends JPanel implements Runnable{
     Player player = new Player(this, keyH);
     TileManager tileM = new TileManager(this);
 
+    StartGame startGame = new StartGame(this, keyH);
+
+
 
 
     public GamePanel() {
@@ -77,7 +80,8 @@ public class GamePanel extends JPanel implements Runnable{
         }
 
     public void update() {
-        player.update();
+//        player.update();
+        startGame.update();
 
     }
 
@@ -85,14 +89,20 @@ public class GamePanel extends JPanel implements Runnable{
 
         super.paintComponent(g);
 
-        Graphics2D g2 = (Graphics2D) g;
+//        Graphics2D g2 = (Graphics2D) g;
+//
+//        tileM.draw(g2); // Note that tile is before player!!! Otherwise player will be drawn over the tile
+//
+//        player.draw(g2);
+//
+//
+//        g2.dispose();
 
-        tileM.draw(g2); // Note that tile is before player!!! Otherwise player will be drawn over the tile
-
-        player.draw(g2);
+        startGame.draw(g);
 
 
-        g2.dispose();
+
+
 
     }
 
