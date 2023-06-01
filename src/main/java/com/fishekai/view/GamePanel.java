@@ -15,7 +15,7 @@ public class GamePanel extends JPanel implements Runnable{
     public final int tileSize = originalTileSize * scale; // tile size
     public final int maxScreenCol = 16; // max screen columns
     public final int maxScreenRow = 12; // max screen rows
-    public final int screenWidth = tileSize * maxScreenCol; // screen width (768 pixels
+    public final int screenWidth = tileSize * maxScreenCol; // screen width (768 pixels)
     public final int screenHeight = tileSize * maxScreenRow; // screen height (576 pixels)
     final int FPS = 60; // screen frames per second
     private int order = 0;
@@ -94,7 +94,7 @@ public class GamePanel extends JPanel implements Runnable{
                 break;
             case 1: // Instructions screen
                 // Repaint the instructions screen
-                //fullScreenSplash.update(SplashPaths.INSTRUCTIONS_PATH);
+                fullScreenSplash.update(SplashPaths.INSTRUCTIONS_PATH);
                 break;
 
             case 2: // Main playthrough
