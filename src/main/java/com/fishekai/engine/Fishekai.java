@@ -61,15 +61,15 @@ public class Fishekai implements SplashApp {
 
     private void begin() {
         // show the intro
-        intro.showIntro();
         audioManager.playSoundEffect("intro");
+        audioManager.playMusic(true);
+        intro.showIntro();
 
         // initialize move counter and set to 0
         moveCounter = 0;
 
         // set starting point
         Location current_location = locations.get("Beach");
-        audioManager.playMusic(true);
 
         // starts the game
         while (!isGameOver) {
@@ -288,8 +288,10 @@ public class Fishekai implements SplashApp {
                 gameOver();
             }
             if (itemToEat.equals("banana")) { // return banana to jungle after eating
+                System.out.println("You eat the banana.");
                 locations.get("Jungle").getItems().put(itemToEat, player.getInventory().get(itemToEat));
             } else if (itemToEat.equals("apple")) { // return apple to jungle after eating
+                System.out.println("You eat the apple.");
                 locations.get("Mystical Grove").getItems().put(itemToEat, player.getInventory().get(itemToEat));
             }
             player.getInventory().remove(itemToEat);
@@ -363,7 +365,7 @@ public class Fishekai implements SplashApp {
             intro.askToContinue();
             gameOver();
         } else {
-            System.out.println("Oof, my knees aren't what they used to be.");
+            System.out.println("No volcano around here to jump into.");
         }
     }
 
@@ -373,22 +375,32 @@ public class Fishekai implements SplashApp {
         pause(PAUSE_VALUE);
     }
 
+
+
     private void talkWithNpc(Location current_location, String word) {
         String npcCharacter = word.toLowerCase();
         if (parser.getNpcList().contains(npcCharacter)) {
-            if (current_location.getNpc().containsKey(npcCharacter)) {
-                current_location.getNpc().get(npcCharacter).getRandomQuotes();
-                audioManager.randomTalk();
+            if (current_location.getNpc() != null) {
+                NPC targetNPC = current_location.getNpc().get(npcCharacter);
+                if (targetNPC != null) {
+                    targetNPC.getRandomQuotes();
+                    audioManager.randomTalk();
+                    pause(PAUSE_VALUE);
+                } else {
+                    System.out.println("There is no " + npcCharacter + " here.");
+                }
             } else {
-                System.out.println(current_location.getNpc().containsKey(npcCharacter));
-                System.out.println("There is no " + npcCharacter + "here.");
+                System.out.println("There are no NPCs here.");
             }
+        } else {
+            System.out.println(npcCharacter + " is not an NPC you can talk to.");
         }
     }
 
     private void getItem(Location current_location, String word) {
         String itemToGet = word.toLowerCase();
-        if (parser.getItemList().contains(itemToGet) || parser.getFoodList().contains(itemToGet)) {
+        if ((parser.getItemList().contains(itemToGet) || parser.getFoodList().contains(itemToGet))
+            && current_location.getItems().containsKey(itemToGet)) {
             if (!player.getInventory().containsKey(itemToGet) && !itemToGet.equals("water")) {
                 player.getInventory().put(itemToGet, current_location.getItems().get(itemToGet));
                 audioManager.randomGet();
@@ -408,6 +420,10 @@ public class Fishekai implements SplashApp {
             } else {
                 System.out.println("There is no " + itemToGet + " here.");
             }
+        } else if (parser.getItemList().contains(itemToGet) || parser.getFoodList().contains(itemToGet)) {
+            System.out.println("There is no " + itemToGet + " here.");
+        } else {
+            invalidInput();
         }
     }
 
@@ -473,6 +489,7 @@ public class Fishekai implements SplashApp {
         System.out.println("Thank you for playing!");
         pause(PAUSE_VALUE);
 
+        System.exit(0);
     }
 
     // load the data
