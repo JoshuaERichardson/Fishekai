@@ -23,7 +23,7 @@ public class Main {
         window.setSize(768, 576);
         window.setVisible(true);
 
-        gamePanel.startGameThread();
+
 
 
     }

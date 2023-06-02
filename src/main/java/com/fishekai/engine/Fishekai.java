@@ -67,7 +67,7 @@ public class Fishekai extends JPanel implements SplashApp, Runnable {
         window.setSize(1200, 800);
 
         window.setVisible(true);
-        gamePanel.startGameThread();
+        gamePanel.startGameTimer();
 
 
 
