@@ -9,4 +9,3 @@ public class Main {
         game.start(); // starts the game
     }
 }
-
