@@ -23,8 +23,8 @@ public class Display {
         System.out.println(banner);
     }
 
-    public static void showHelp() {
-        System.out.println(helpMenu);
+    public static String showHelp() {
+        return helpMenu;
     }
 
     public static void showStatus(Player player, Location location, Flask flask) {

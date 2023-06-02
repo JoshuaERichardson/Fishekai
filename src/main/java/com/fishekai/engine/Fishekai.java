@@ -9,6 +9,7 @@ import com.fishekai.view.GamePanel;
 import com.fishekai.view.KeyHandler;
 
 import javax.swing.*;
+import java.awt.*;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -40,7 +41,7 @@ public class Fishekai extends JPanel implements SplashApp, Runnable {
     FishingMechanic fishingMechanic = new FishingMechanic();
     private final FrameHandler frameHandler = new FrameHandler();
     KeyHandler keyHandler = new KeyHandler();
-
+    HelpPopup helpPopup = new HelpPopup(Display.showHelp());
 
     // methods
     public void start() {
@@ -52,16 +53,16 @@ public class Fishekai extends JPanel implements SplashApp, Runnable {
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setResizable(false);
         window.setTitle("Fishekai - Beach");
+        window.setLayout(new BorderLayout());
 
         GamePanel gamePanel = new GamePanel();
-        window.add(gamePanel); // <---- The panel is IN the window and therefore is sharing the dispatch thread.
-
+        window.add(gamePanel, BorderLayout.CENTER); // <---- The panel is IN the window and therefore is sharing the dispatch thread.
+        window.add(helpPopup.getButtonPanel(), BorderLayout.EAST);
         window.setLocationRelativeTo(null);
 
         // Set the size of the frame, since the preferable size is failing:
-        window.setSize(768, 576);
+        window.setSize(1200, 800);
         window.setVisible(true);
-
         gamePanel.startGameThread();
 
 
@@ -161,8 +162,8 @@ public class Fishekai extends JPanel implements SplashApp, Runnable {
                     case "help":
                         clear();
                         audioManager.playSoundEffect("help");
-                        Display.showHelp();
-                        intro.askToContinue();
+                        String helpMessage = Display.showHelp();
+                        JOptionPane.showMessageDialog(null, helpMessage, "Help", JOptionPane.INFORMATION_MESSAGE);
                         break;
 
                     case "music":
