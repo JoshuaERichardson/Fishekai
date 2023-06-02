@@ -1,6 +1,8 @@
 package com.fishekai.view;
 
+import com.fishekai.engine.Introduction;
 import com.fishekai.view.entity.Player;
+import com.fishekai.view.splashscreen.FullScreenScroll;
 import com.fishekai.view.splashscreen.FullScreenSplash;
 import com.fishekai.view.splashscreen.SplashPaths;
 import com.fishekai.view.tile.TileManager;
@@ -29,6 +31,7 @@ public class GamePanel extends JPanel implements Runnable{
     TileManager tileM = new TileManager(this);
 
     FullScreenSplash fullScreenSplash = new FullScreenSplash(this, keyH);
+    FullScreenScroll fullScreenScroll = new FullScreenScroll(this, keyH);
 
     public GamePanel() {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
@@ -37,6 +40,7 @@ public class GamePanel extends JPanel implements Runnable{
         this.setDoubleBuffered(true);
         this.addKeyListener(keyH);
         this.setFocusable(true);
+
     }
 
 
@@ -88,16 +92,18 @@ public class GamePanel extends JPanel implements Runnable{
      * Control the game state with the order variable
      */
     public void update() {
+        keyH.update();
         switch (order){
             case 0: // Welcome screen
                 fullScreenSplash.update(SplashPaths.INSTRUCTIONS_PATH);
                 break;
             case 1: // Instructions screen
-                // Repaint the instructions screen
+                // fullScreenSplash.update(SplashPaths.INSTRUCTIONS_PATH);
                 fullScreenSplash.update(SplashPaths.INSTRUCTIONS_PATH);
                 break;
 
             case 2: // Main playthrough
+                fullScreenSplash.remove();
                 player.update();
                 break;
         }
@@ -111,7 +117,8 @@ public class GamePanel extends JPanel implements Runnable{
                 break;
 
             case 1: // Instructions screen
-                fullScreenSplash.draw(g);
+                Introduction intro = new Introduction();
+                fullScreenSplash.draw(g, intro.showIntro());
                 break;
 
             case 2:
