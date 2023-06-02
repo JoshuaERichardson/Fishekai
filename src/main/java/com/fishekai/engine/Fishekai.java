@@ -7,6 +7,7 @@ import com.fishekai.utilities.Prompter;
 import com.fishekai.utilities.SplashApp;
 import com.fishekai.view.GamePanel;
 import com.fishekai.view.KeyHandler;
+import com.fishekai.view.MainWindow;
 import com.fishekai.view.buttons.HelpButton;
 
 import javax.swing.*;
@@ -50,24 +51,13 @@ public class Fishekai extends JPanel implements SplashApp, Runnable {
         Display.showTitle();
 
         // New JFrame
-        JFrame window = new JFrame();
-        window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        window.setResizable(false);
-        window.setTitle("Fishekai - Beach");
-        window.setLayout(new BorderLayout());
-
-        GamePanel gamePanel = new GamePanel();
+        MainWindow window = new MainWindow();
 
 
-        window.add(gamePanel, BorderLayout.CENTER); // <---- The panel is IN the window and therefore is sharing the dispatch thread.
-        window.add(helpPopup.getButtonPanel(), BorderLayout.EAST);
-        window.setLocationRelativeTo(null);
 
-        // Set the size of the frame, since the preferable size is failing:
-        window.setSize(1200, 800);
 
-        window.setVisible(true);
-        gamePanel.startGameTimer();
+
+
 
 
 

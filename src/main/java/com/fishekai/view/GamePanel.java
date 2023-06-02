@@ -12,7 +12,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class GamePanel extends JPanel{
+public class GamePanel extends MainPanel{
     // SCREEN SETTINGS
     final int originalTileSize = 16; // original tile size
     final int scale = 3; // scale of the game
