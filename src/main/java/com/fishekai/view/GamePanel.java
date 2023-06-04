@@ -3,7 +3,6 @@ package com.fishekai.view;
 import com.fishekai.engine.Introduction;
 import com.fishekai.view.entity.Player;
 import com.fishekai.view.splashscreen.FullScreenScroll;
-import com.fishekai.view.splashscreen.FullScreenSplash;
 import com.fishekai.view.splashscreen.SplashPaths;
 import com.fishekai.view.tile.TileManager;
 
@@ -25,25 +24,14 @@ public class GamePanel extends MainPanel{
     private int order = 0;
     private Timer gameTimer;
 
-    KeyHandler keyH = new KeyHandler();
-
-    Thread gameThread;
-
     // Note: Player from entity package NOT from models
-    Player player = new Player(this, keyH);
+    Player player;
     TileManager tileM = new TileManager(this);
+    KeyHandler kh;
 
-    FullScreenSplash fullScreenSplash = new FullScreenSplash(this, keyH);
-    FullScreenScroll fullScreenScroll = new FullScreenScroll(this, keyH);
-
-    public GamePanel() {
-        this.setPreferredSize(new Dimension(screenWidth, screenHeight));
-        System.out.println(screenHeight + " " + screenWidth);
-        this.setBackground(Color.black);
-        this.setDoubleBuffered(true);
-        this.addKeyListener(keyH);
-        this.setFocusable(true);
-
+    public GamePanel(KeyHandler kh) {
+        this.kh = kh;
+        player = new Player(this, kh);
     }
 
     public void startGameTimer(){
@@ -118,58 +106,20 @@ public class GamePanel extends MainPanel{
      * Control the game state with the order variable
      */
     public void update() {
-        keyH.update();
-        switch (order){
-            case 0: // Welcome screen
-                fullScreenSplash.update(SplashPaths.INSTRUCTIONS_PATH);
-                break;
-            case 1: // Instructions screen
-                // fullScreenSplash.update(SplashPaths.INSTRUCTIONS_PATH);
-                fullScreenSplash.update(SplashPaths.INSTRUCTIONS_PATH);
-                break;
-
-            case 2: // Main playthrough
-                fullScreenSplash.remove();
                 player.update();
-                break;
-        }
     }
 
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        switch (order){
-            case 0: // Welcome screen
-                fullScreenSplash.draw(g);
-                break;
+            Graphics2D g2 = (Graphics2D) g;
 
-            case 1: // Instructions screen
-                Introduction intro = new Introduction();
-                fullScreenSplash.draw(g, intro.showIntro());
-                break;
+            tileM.draw(g2); // Note that tile is before player!!! Otherwise player will be drawn over the tile
 
-            case 2:
-                Graphics2D g2 = (Graphics2D) g;
-
-                tileM.draw(g2); // Note that tile is before player!!! Otherwise player will be drawn over the tile
-
-                player.draw(g2);
+            player.draw(g2);
 
 
-                g2.dispose();
-                break;
+            g2.dispose();
 
         }
-
-
-
-
-
-
-
-    }
-
-    public void incrementOrder() {
-        this.order++;
-    }
 
 }

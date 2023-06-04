@@ -14,12 +14,20 @@ class MainPanel extends JPanel {
     public final int screenWidth = tileSize * maxScreenCol; // screen width (768 pixels)
     public final int screenHeight = tileSize * maxScreenRow; // screen height (576 pixels)
     final int FPS = 60; // screen frames per second
+    final Dimension MAIN_PANEL_SIZE = new Dimension(screenWidth, screenHeight);
 
     public MainPanel() {
         setMaximumSize(new Dimension(screenWidth, screenHeight));
-        setLayout(null);
         setVisible(true);
         setBackground(Color.BLACK);
     }
+
+    public MainPanel(LayoutManager layoutManager) {
+        this();
+        setLayout(layoutManager);
+
+    }
+
+
 
 }

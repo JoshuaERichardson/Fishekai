@@ -20,10 +20,9 @@ public class FullScreenSplash {
     FullScreenScroll fullScreenScroll;
 
     // Constructor
-    public FullScreenSplash(GamePanel gp, KeyHandler kh) {
+    public FullScreenSplash(GamePanel gp) {
         gamePanel = gp;
-        keyHandler = kh;
-        fullScreenScroll = new FullScreenScroll(gamePanel, keyHandler);
+        fullScreenScroll = new FullScreenScroll(gamePanel);
         try {
             splashImage = ImageIO.read(getClass().getResourceAsStream(path));
         } catch (IOException e) {
@@ -60,7 +59,6 @@ public class FullScreenSplash {
             // Remove the image from the screen:
             setSplashImage(path);
             fullScreenScroll.update();
-            gamePanel.incrementOrder();
         }
     }
 

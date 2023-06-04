@@ -5,14 +5,17 @@ import com.fishekai.utilities.AudioManager;
 import com.fishekai.utilities.FrameHandler;
 import com.fishekai.utilities.Prompter;
 import com.fishekai.utilities.SplashApp;
-import com.fishekai.view.GamePanel;
-import com.fishekai.view.KeyHandler;
-import com.fishekai.view.MainWindow;
+import com.fishekai.view.*;
 import com.fishekai.view.buttons.HelpButton;
+import com.fishekai.view.keys.CardProgress;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -42,8 +45,9 @@ public class Fishekai extends JPanel implements SplashApp, Runnable {
     VolumeControl volumeControl = new VolumeControl(audioManager);
     FishingMechanic fishingMechanic = new FishingMechanic();
     private final FrameHandler frameHandler = new FrameHandler();
-    KeyHandler keyHandler = new KeyHandler();
+    KeyHandler keyHandler = new KeyHandler(this);
     HelpPopup helpPopup = new HelpPopup(Display.showHelp());
+    public MainWindow window;
 
     // methods
     public void start() {
@@ -51,14 +55,7 @@ public class Fishekai extends JPanel implements SplashApp, Runnable {
         Display.showTitle();
 
         // New JFrame
-        MainWindow window = new MainWindow();
-
-
-
-
-
-
-
+        window = new MainWindow(keyHandler);
 
 
 

@@ -14,9 +14,8 @@ public class FullScreenScroll extends JScrollPane{
     Introduction intro = new Introduction();
 
     // Constructor
-    public FullScreenScroll(GamePanel gp, KeyHandler kh) {
+    public FullScreenScroll(GamePanel gp) {
         gamePanel = gp;
-        keyHandler = kh;
     }
 
 
