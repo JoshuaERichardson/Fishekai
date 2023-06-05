@@ -1,5 +1,10 @@
 package com.fishekai.view.physics;
 
-class LocationSwitcher {
+import com.fishekai.view.object.OBJ_Door;
+import com.fishekai.view.tile.TileManager;
 
+public class LocationSwitcher {
+    public static void moveScenes(String locationName){
+
+    }
 }

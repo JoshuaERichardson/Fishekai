@@ -10,9 +10,12 @@ public class SuperObject {
     public String name;
     public boolean collision = false;
     public int worldX, worldY;
+    public Rectangle solidArea = new Rectangle(0, 0, 48, 48);
+    public int solidAreaDefaultX = 0;
+    public int solidAreaDefaultY = 0;
 
     public void draw(Graphics2D g2, GamePanel gp) {
-        // TODO: change this to take the current location
+
 
         g2.drawImage(image, worldX, worldY, gp.tileSize, gp.tileSize, null);
 

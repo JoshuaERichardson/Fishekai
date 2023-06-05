@@ -11,6 +11,7 @@ class ItemPickUpChecker {
         this.gp = gp;
     }
 
-    // Check if there is collision between the
+    // Check if there is collision between the item and the player
+
 
 }

@@ -2,6 +2,8 @@ package com.fishekai.view.entity;
 
 import com.fishekai.view.GamePanel;
 import com.fishekai.view.KeyHandler;
+import com.fishekai.view.object.OBJ_Door;
+import com.fishekai.view.physics.LocationSwitcher;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -14,6 +16,7 @@ public class Player extends Entity{
 
     public final int screenX;
     public final int screenY;
+    public int hasApple = 0;
 
     public Player(GamePanel gp, KeyHandler keyH){
         this.gp = gp;
@@ -28,6 +31,9 @@ public class Player extends Entity{
         solidArea.y = 16;
         solidArea.width = 32;
         solidArea.height = 32;
+        solidAreaDefaultX = solidArea.x;
+        solidAreaDefaultY = solidArea.y;
+
 
         setDefaultValues();
         getPlayerImage();
@@ -84,6 +90,10 @@ public class Player extends Entity{
                 }
             }
 
+            // Check object Collision
+            int objIndex = gp.collisionChecker.checkObject(this, true);
+            pickUpObject(objIndex);
+
 
             spriteCounter++;
             if (spriteCounter > 12){
@@ -97,11 +107,24 @@ public class Player extends Entity{
         }
 
     }
+
+    public void pickUpObject(int i) {
+        if(i != 999) {
+            String objectName = gp.obj[i].name;
+            switch (objectName) {
+                case "Apple":
+                    hasApple++;
+                    gp.obj[i] = null;
+                    System.out.println("Apples: " + hasApple);
+                    break;
+                case "Door":
+//                    LocationSwitcher.moveScenes(((OBJ_Door)gp.obj[i]).getLocation());
+                    gp.tileM.loadMap("/maps/beachTiles.txt");
+            }
+
+        }
+    }
     public void draw(Graphics2D g2){
-
-//        g2.setColor(Color.white);
-//        g2.fillRect(x, y, gp.tileSize, gp.tileSize);
-
 
         BufferedImage image = null;
 
