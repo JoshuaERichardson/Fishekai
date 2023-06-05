@@ -9,7 +9,6 @@ public class IntroPanel extends MainPanel{
 
     public IntroPanel() {
         super();
-        setBackground(Color.BLACK);
 
         loadImage(PATH);
 

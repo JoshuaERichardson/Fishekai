@@ -1,5 +1,7 @@
 package com.fishekai.view;
 
+import com.fishekai.view.object.SuperObject;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -16,10 +18,13 @@ class MainPanel extends JPanel {
     final int FPS = 60; // screen frames per second
     final Dimension MAIN_PANEL_SIZE = new Dimension(screenWidth, screenHeight);
 
+
     public MainPanel() {
         setMaximumSize(new Dimension(screenWidth, screenHeight));
         setVisible(true);
-        setBackground(Color.BLACK);
+        setBackground(Color.BLUE);
+
+
     }
 
     public MainPanel(LayoutManager layoutManager) {

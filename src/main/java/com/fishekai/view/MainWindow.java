@@ -1,5 +1,7 @@
 package com.fishekai.view;
 
+import com.fishekai.view.object.SuperObject;
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
@@ -17,6 +19,7 @@ public class MainWindow extends JFrame {
         MainPanel mainPanels;
         private CardLayout cardLayout;
         private KeyHandler kh;
+        private SidePanel sidePanel;
 
 public MainWindow(KeyHandler kh) {
         // Overall display info
@@ -39,16 +42,20 @@ public MainWindow(KeyHandler kh) {
         mainPanels.add(instructionsPanel);
         mainPanels.add(gamePanel);
 
+        // Create the side panel:
+        sidePanel = new SidePanel();
+
+
         // Register the passed key handler:
         this.kh = kh;
         this.addKeyListener(kh);
 
-        // Add the main panel to the frame:
+
+        // Add all the panels to the main window:
         this.add(mainPanels);
+        this.add(sidePanel, BorderLayout.EAST);
         this.revalidate();
         this.repaint();
-
-
     }
 
     public void nextCard(){
@@ -59,6 +66,7 @@ public MainWindow(KeyHandler kh) {
 
 
         public void startGameTimer() {
+            gamePanel.setupGame();
             gamePanel.startGameTimer();
         }
 }

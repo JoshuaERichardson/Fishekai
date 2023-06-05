@@ -6,8 +6,7 @@ import com.fishekai.utilities.FrameHandler;
 import com.fishekai.utilities.Prompter;
 import com.fishekai.utilities.SplashApp;
 import com.fishekai.view.*;
-import com.fishekai.view.buttons.HelpButton;
-import com.fishekai.view.keys.CardProgress;
+
 
 import javax.swing.*;
 import java.awt.*;
@@ -46,7 +45,6 @@ public class Fishekai extends JPanel implements SplashApp, Runnable {
     FishingMechanic fishingMechanic = new FishingMechanic();
     private final FrameHandler frameHandler = new FrameHandler();
     KeyHandler keyHandler = new KeyHandler(this);
-    HelpPopup helpPopup = new HelpPopup(Display.showHelp());
     public MainWindow window;
 
     // methods

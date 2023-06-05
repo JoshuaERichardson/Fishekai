@@ -2,8 +2,9 @@ package com.fishekai.view;
 
 import com.fishekai.engine.Introduction;
 import com.fishekai.view.entity.Player;
-import com.fishekai.view.splashscreen.FullScreenScroll;
-import com.fishekai.view.splashscreen.SplashPaths;
+import com.fishekai.view.object.AssetSetter;
+import com.fishekai.view.object.SuperObject;
+import com.fishekai.view.physics.CollisionChecker;
 import com.fishekai.view.tile.TileManager;
 
 import javax.swing.*;
@@ -25,13 +26,20 @@ public class GamePanel extends MainPanel{
     private Timer gameTimer;
 
     // Note: Player from entity package NOT from models
-    Player player;
-    TileManager tileM = new TileManager(this);
+    public Player player;
+    public TileManager tileM = new TileManager(this);
     KeyHandler kh;
+    public CollisionChecker collisionChecker = new CollisionChecker(this);
+    public AssetSetter assetSetter = new AssetSetter(this);
+    public SuperObject obj[] = new SuperObject[10]; // 10 slots for objects but we can adjust
+
 
     public GamePanel(KeyHandler kh) {
         this.kh = kh;
         player = new Player(this, kh);
+    }
+    public void setupGame() {
+        assetSetter.setObject();
     }
 
     public void startGameTimer(){
@@ -56,52 +64,6 @@ public class GamePanel extends MainPanel{
     }
 
 
-
-
-//    public void startGameThread(){
-//        // The thread is managed by Swing
-//        gameThread = new Thread(this);
-//        gameThread.start();
-//    }
-//    @Override
-//    public void run() {
-//        while(gameThread != null) {
-//
-//            // Need to revamp run --- should not be messing with the thread.
-//            // Able to add the runnable "later" queue
-//            // We can make a timer thread for recurrent tasks.  <--- needs to be in the event listener <--- timer class!
-//
-//            double drawInterval = 1000000000 / FPS;
-//            double nextDrawTime = System.nanoTime() + drawInterval;
-//
-//            long currentTime = System.nanoTime();  // 1mil nano = 1 sec
-//
-//
-//                // 1 UPDATE: update game state
-//                update();
-//                // 2 DRAW: draw game state to screen
-//                repaint();
-//
-//
-//                // Forces the 60 FPS max
-//                try {
-//                    double remainingTime = nextDrawTime - System.nanoTime();
-//                    remainingTime = remainingTime / 1000000; // convert to milliseconds
-//
-//                    // If remaining time is negative, we need to draw immediately
-//                    if(remainingTime < 0) {
-//                        remainingTime = 0;
-//                    }
-//                    Thread.sleep((long) remainingTime);
-//
-//                    nextDrawTime += drawInterval;
-//                } catch (InterruptedException e) {
-//                    e.printStackTrace();
-//                }
-//
-//            }
-//        }
-
     /**
      * Control the game state with the order variable
      */
@@ -111,14 +73,23 @@ public class GamePanel extends MainPanel{
 
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-            Graphics2D g2 = (Graphics2D) g;
+        Graphics2D g2 = (Graphics2D) g;
 
-            tileM.draw(g2); // Note that tile is before player!!! Otherwise player will be drawn over the tile
+        // Tile
+        tileM.draw(g2); // Note that tile is before player!!! Otherwise player will be drawn over the tile
 
-            player.draw(g2);
+        // Object
+        for(int i = 0; i < obj.length; i++) {
+            if(obj[i] != null) {
+                obj[i].draw(g2, this);
+            }
+        }
+
+        // Player
+        player.draw(g2);
 
 
-            g2.dispose();
+        g2.dispose();
 
         }
 
