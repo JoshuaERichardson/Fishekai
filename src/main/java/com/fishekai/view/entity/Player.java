@@ -126,7 +126,7 @@ public class Player extends Entity{
                     break;
                 case "Door":
                     String destination = gp.obj[i].getLocation();
-
+                    gp.obj[i].getLocation();
                     locationSwitcher.moveScenes(fishekai,destination);
 //                    gp.tileM.loadMap();
             }

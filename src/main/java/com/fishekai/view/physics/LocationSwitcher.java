@@ -17,15 +17,26 @@ public class LocationSwitcher {
         // First set the player in the new location
         fishekai.current_location = fishekai.locations.get(locationName);
 
+        // Get the door on the opposite side of the prevLocation
+
+
         // Next redraw the tiles
         fishekai.window.gamePanel.tileM.loadMap(fishekai.current_location.getTiles());
 
         // Then redraw the objects
         fishekai.window.gamePanel.assetSetter.setObject();
 
-        // Then draw the player at the correct x and y.
-
-        // Find out if it came from north, east, south, or west:
+        // If NorthBeach from Beach:
+        if (locationName.equals("North Beach") && prevLocation.equals("Beach")) {
+            fishekai.window.gamePanel.player.worldX = 8 * fishekai.window.gamePanel.tileSize;
+            fishekai.window.gamePanel.player.worldY = 10 * fishekai.window.gamePanel.tileSize;
+        }
+        // If Beach from NorthBeach:
+        else if (locationName.equals("Beach") && prevLocation.equals("North Beach")) {
+            fishekai.window.gamePanel.player.worldX = 7 * fishekai.window.gamePanel.tileSize;
+            fishekai.window.gamePanel.player.worldY = 1 * fishekai.window.gamePanel.tileSize;
+        }
+        // Update the player's location
 
 
 

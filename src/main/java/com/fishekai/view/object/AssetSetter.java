@@ -46,24 +46,6 @@ public class AssetSetter {
             }
         }
 
-//
-//        gp.obj[0] = new OBJ_Apple();
-//        gp.obj[0].worldX = 8 * gp.tileSize; // Columns
-//        gp.obj[0].worldY = 8 * gp.tileSize; // Row
-//
-//        gp.obj[1] = new OBJ_Apple();
-//        gp.obj[1].worldX = 1 * gp.tileSize;
-//        gp.obj[1].worldY = 1 * gp.tileSize;
-//
-//        gp.obj[2] = new OBJ_Door();
-//        gp.obj[2].worldX = 15 * gp.tileSize;
-//        gp.obj[2].worldY = 6 * gp.tileSize;
-//
-//        gp.obj[3] = new OBJ_Door();
-//        ((OBJ_Door) gp.obj[3]).setLocation("beach");
-//        gp.obj[3].worldX = 8 * gp.tileSize;
-//        gp.obj[3].worldY = 11 * gp.tileSize;
-
     }
 
     private String switchDirection(int direction) {

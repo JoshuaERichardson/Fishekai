@@ -38,6 +38,7 @@ public class DataLoader {
         Map<String, Location> result = listLocations.stream()
                 .collect(Collectors.toMap(Location::getName, Function.identity()));
 
+
         return result;
     }
 
