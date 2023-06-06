@@ -12,6 +12,12 @@ import java.util.Map;
 
 import static com.fishekai.engine.Fishekai.moveCounter;
 
+/**
+ * This class is responsible for displaying the game status.
+ * It displays the player's status, the location's description, the inventory, the items available, the paths to other locations.
+ * It also displays the banner and the help menu.
+ * All static class!
+ */
 public class Display {
 
     private static final int LINE_WIDTH = 120;

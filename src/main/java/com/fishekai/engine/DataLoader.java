@@ -16,6 +16,9 @@ import java.util.Objects;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
+/**
+ * Loads data from json files and stores them in the game
+ */
 public class DataLoader {
     // file paths
     private static final String LOCATIONS_PATH = "/json/locations.json";
@@ -42,6 +45,7 @@ public class DataLoader {
         return result;
     }
 
+    // Reads the game information json file and stores data (story, objective, player_info, winning_condition)
     public static Map<String, String> processGameInfo() {
         Gson gson = new Gson();
 
@@ -50,6 +54,7 @@ public class DataLoader {
         return gson.fromJson(fileReader, token.getType());
     }
 
+    // Reads the game condition json file and stores data (Mystic_Feast, Volcanic_Plunge, Starvation_Embrace, Thrirst_Toll, Fanged_Death)
     public static Map<String, String> processGameCondition() {
         Gson gson = new Gson();
 
@@ -120,6 +125,7 @@ public class DataLoader {
             e.printStackTrace();
         }
     }
+
 
     public static void processNpc(Map<String, Location> locations) {
         Gson gson = new Gson();

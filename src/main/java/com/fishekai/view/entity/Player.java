@@ -3,7 +3,6 @@ package com.fishekai.view.entity;
 import com.fishekai.engine.Fishekai;
 import com.fishekai.view.GamePanel;
 import com.fishekai.view.KeyHandler;
-import com.fishekai.view.object.OBJ_Door;
 import com.fishekai.view.physics.LocationSwitcher;
 
 import javax.imageio.ImageIO;
@@ -69,7 +68,7 @@ public class Player extends Entity{
     }
 
     public void update(){
-        if(keyH.upPressed == true || keyH.downPressed == true || keyH.leftPressed == true || keyH.rightPressed == true){
+        if(keyH.upPressed == true || keyH.downPressed == true || keyH.leftPressed == true || keyH.rightPressed == true || keyH.spacePressed == true){
             if (keyH.upPressed) {
                 direction = "up";
 
@@ -81,7 +80,9 @@ public class Player extends Entity{
 
             } else if (keyH.rightPressed == true) {
                 direction = "right";
-
+            } else if (keyH.spacePressed ==  true) {
+                int objIndex = gp.collisionChecker.checkObject(this, true);
+                pickUpObject(objIndex);
             }
 
             // Check Tile Collision
@@ -97,9 +98,11 @@ public class Player extends Entity{
                 }
             }
 
-            // Check object Collision
+            // Check door Collision
             int objIndex = gp.collisionChecker.checkObject(this, true);
-            pickUpObject(objIndex);
+            walkThroughDoor(objIndex);
+
+
 
 
             spriteCounter++;
@@ -115,20 +118,36 @@ public class Player extends Entity{
 
     }
 
-    public void pickUpObject(int i) {
+    private void pickUpObject(int i) {
         if(i != 999) {
             String objectName = gp.obj[i].name;
             switch (objectName) {
                 case "Apple":
-                    hasApple++;
-                    gp.obj[i] = null;
-                    System.out.println("Apples: " + hasApple);
+                    if (keyH.spacePressed) {
+                        hasApple++;
+                        gp.obj[i] = null;
+                        System.out.println("Apples: " + hasApple);
+                    }
                     break;
+            }
+        }
+    }
+
+    public void walkThroughDoor(int i) {
+        if(i != 999) {
+            String objectName = gp.obj[i].name;
+            switch (objectName) {
+//                case "Apple":
+//                    if (keyH.spacePressed){
+//                        hasApple++;
+//                        gp.obj[i] = null;
+//                        System.out.println("Apples: " + hasApple);
+//                    }
+//                    break;
                 case "Door":
                     String destination = gp.obj[i].getLocation();
                     gp.obj[i].getLocation();
                     locationSwitcher.moveScenes(fishekai,destination);
-//                    gp.tileM.loadMap();
             }
 
         }

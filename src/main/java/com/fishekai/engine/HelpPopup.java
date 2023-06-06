@@ -4,6 +4,9 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * Displays the information on how to play the game
+ */
 public class HelpPopup {
     private String helpMessage;
     private JButton helpButton;

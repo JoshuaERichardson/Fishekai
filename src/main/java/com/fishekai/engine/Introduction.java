@@ -6,6 +6,12 @@ import java.util.Scanner;
 
 import static com.fishekai.utilities.Console.clear;
 
+/**
+ * This class is responsible for displaying the introduction of the game.
+ * It will display the game information from the DataLoader class.
+ * It will also prompt the user to press any key to continue.
+ * Part of the original text based game
+ */
 public class Introduction {
     private static final int LINE_WIDTH = 120;
 

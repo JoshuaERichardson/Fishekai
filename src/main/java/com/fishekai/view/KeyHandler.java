@@ -65,6 +65,7 @@ public class KeyHandler implements KeyListener {
             rightPressed = true;
         }
         if (code == KeyEvent.VK_SPACE) {
+            System.out.println("Space pressed");
             spacePressed = true;
         }
         if (code == KeyEvent.VK_ENTER) {

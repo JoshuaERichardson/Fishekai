@@ -23,6 +23,11 @@ import static com.fishekai.engine.Mapa.locationCheck;
 import static com.fishekai.engine.Mapa.showStaticMap;
 import static com.fishekai.utilities.Console.*;
 
+/**
+ * This class is responsible for the game engine.
+ * It contains the main method and the game loop.
+ * TODO: Handling too many methods and fields. Refactor!
+ */
 public class Fishekai extends JPanel implements SplashApp, Runnable {
     // constants
     private static final long PAUSE_VALUE = 1_500;
@@ -48,16 +53,14 @@ public class Fishekai extends JPanel implements SplashApp, Runnable {
     public MainWindow window;
     public Location current_location;
 
-    // methods
+    // Starting the game, and loads the Swing GUI
     public void start() {
         // show title here
         Display.showTitle();
 
         // Pre load the data
         loadData();
-        // Set the current location to the beach
-        current_location = locations.get("Beach");
-        // Load the map:
+        begin();
 
 
         // New JFrame
@@ -84,7 +87,17 @@ public class Fishekai extends JPanel implements SplashApp, Runnable {
         }
     }
 
-    private void begin() {
+    private void begin(){
+        audioManager.playSoundEffect("intro");
+        audioManager.playMusic(true);
+        // set starting point
+        current_location = locations.get("Beach");
+
+        // initialize move counter and set to 0
+        moveCounter = 0;
+    }
+    // TODO: Tie this into the GUI
+    private void beginOriginal() {
         // show the intro
         audioManager.playSoundEffect("intro");
         audioManager.playMusic(true);
@@ -291,6 +304,7 @@ public class Fishekai extends JPanel implements SplashApp, Runnable {
         }
     }
 
+    // Eating food handler
     private void timeToEat(String word) {
         String itemToEat = word.toLowerCase();
 
@@ -325,6 +339,7 @@ public class Fishekai extends JPanel implements SplashApp, Runnable {
         }
     }
 
+    // Drinking water handler
     private void rememberToHydrate() {
         if (player.getInventory().containsKey("flask") && parser.getItemList().contains("flask")) {
             if (player.getInventory().containsKey("flask") && flask.getCharges() > 0) {

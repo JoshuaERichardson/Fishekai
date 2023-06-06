@@ -10,6 +10,10 @@ import java.util.*;
 
 import static com.fishekai.utilities.Console.*;
 
+/**
+ * This class is responsible for the fishing mechanic.
+ * It displays the fishing mechanic and handles the logic.
+ */
 public class FishingMechanic {
     private static final int PAUSE_VALUE = 1_500;
 
