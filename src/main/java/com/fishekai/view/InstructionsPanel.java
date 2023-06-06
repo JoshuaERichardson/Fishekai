@@ -40,8 +40,8 @@ public class InstructionsPanel extends MainPanel{
         JScrollPane scrollPane = new JScrollPane(textArea);
         scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
         scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        scrollPane.setPreferredSize(MAIN_PANEL_SIZE);
-        add(scrollPane, BorderLayout.CENTER);
+        scrollPane.setSize((int)MAIN_PANEL_SIZE.getWidth(), (int)MAIN_PANEL_SIZE.getHeight());
+        add(scrollPane);
     }
     void loadImage(String path){
         ImageIcon icon = new ImageIcon(getClass().getResource(PATH));

@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class IntroPanel extends MainPanel{
-    public String PATH = "/images/FisheKaiTitle.jpg";
+    public String PATH = "/images/fishIslandblank.png";
     private Image image;
 
     public IntroPanel() {

@@ -2,13 +2,16 @@ package com.fishekai.view.entity;
 
 import com.fishekai.engine.Fishekai;
 import com.fishekai.view.GamePanel;
+import com.fishekai.view.InventoryPanel;
 import com.fishekai.view.KeyHandler;
+import com.fishekai.view.object.SuperObject;
 import com.fishekai.view.physics.LocationSwitcher;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.List;
 
 public class Player extends Entity{
     GamePanel gp;
@@ -19,12 +22,16 @@ public class Player extends Entity{
     public int hasApple = 0;
     private final Fishekai fishekai;
     private final LocationSwitcher locationSwitcher;
+    private final com.fishekai.models.Player textPlayer;
+    private final List<SuperObject> inventory;
 
     public Player(GamePanel gp, KeyHandler keyH, Fishekai fishekai){
 
         this.gp = gp;
         this.keyH = keyH;
         this.fishekai = fishekai;
+        textPlayer = new com.fishekai.models.Player("Ethan Rutherford", "Known for expertise in ancient artifacts.");
+        inventory = textPlayer.getInventory();
 
         screenX = gp.screenWidth/2 - (gp.tileSize/2);
         screenY = gp.screenHeight/2 - (gp.tileSize/2);
@@ -124,7 +131,11 @@ public class Player extends Entity{
             switch (objectName) {
                 case "Apple":
                     if (keyH.spacePressed) {
-                        hasApple++;
+                        inventory.add(gp.obj[i]);
+                        // Reload the side panel:
+                        fishekai.window.getInventoryPanel().updateInventory(inventory);
+
+
                         gp.obj[i] = null;
                         System.out.println("Apples: " + hasApple);
                     }

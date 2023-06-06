@@ -1,5 +1,6 @@
 package com.fishekai.view;
 
+import com.fishekai.models.Player;
 import com.fishekai.view.object.SuperObject;
 
 import javax.swing.*;
@@ -20,10 +21,10 @@ class MainPanel extends JPanel {
 
 
     public MainPanel() {
-        setMaximumSize(new Dimension(screenWidth, screenHeight));
+        setSize(MAIN_PANEL_SIZE);
+        System.out.println("MainPanel: " + getWidth() + " " + getHeight());
         setVisible(true);
         setBackground(Color.BLUE);
-
 
     }
 

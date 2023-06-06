@@ -2,19 +2,21 @@ package com.fishekai.view;
 
 import com.fishekai.engine.Display;
 import com.fishekai.engine.HelpPopup;
+import com.fishekai.models.Player;
 
 import javax.swing.*;
+import java.awt.*;
 
-class SidePanel extends JPanel {
+public class SidePanel extends JPanel {
     // Size:
     public static final int WIDTH = 400;
     public static final int HEIGHT = 1000;
     private final JPanel mainPanel;
     private HelpPopup helpPopup;
 
-    public SidePanel(JPanel mainPanel) {
+    public SidePanel(MainPanel mainPanel, Player textPlayer) {
         this.mainPanel = mainPanel;
-        setSize(WIDTH, HEIGHT);
+        setSize(new Dimension(HEIGHT, WIDTH));
         setVisible(true);
         setBackground(java.awt.Color.GREEN);
 
@@ -28,9 +30,13 @@ class SidePanel extends JPanel {
         // Add the button to the panel:
         this.add(helpButton);
 
-
     }
 
+    public JPanel getMainPanel() {
+        return mainPanel;
+    }
 
-
+    public HelpPopup getHelpPopup() {
+        return helpPopup;
+    }
 }

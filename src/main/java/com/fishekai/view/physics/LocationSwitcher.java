@@ -26,6 +26,7 @@ public class LocationSwitcher {
         // Then redraw the objects
         fishekai.window.gamePanel.assetSetter.setObject();
 
+        // Then redraw the player::: TODO: Need to simplify this!
         // If NorthBeach from Beach:
         if (locationName.equals("North Beach") && prevLocation.equals("Beach")) {
             fishekai.window.gamePanel.player.worldX = 8 * fishekai.window.gamePanel.tileSize;
@@ -36,7 +37,6 @@ public class LocationSwitcher {
             fishekai.window.gamePanel.player.worldX = 7 * fishekai.window.gamePanel.tileSize;
             fishekai.window.gamePanel.player.worldY = 1 * fishekai.window.gamePanel.tileSize;
         }
-        // Update the player's location
 
 
 

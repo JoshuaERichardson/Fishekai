@@ -1,6 +1,7 @@
 package com.fishekai.engine;
 
 import com.fishekai.models.*;
+import com.fishekai.view.object.SuperObject;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -67,8 +68,8 @@ public class Display {
 
     private static void showInventory(Player player) {
         List<String> inventoryList = new ArrayList<>();
-        for (Map.Entry<String, Item> entry : player.getInventory().entrySet()) {
-            inventoryList.add(entry.getKey());
+        for (SuperObject item : player.getInventory()) {
+            inventoryList.add(item.name);
         }
         System.out.printf("Inventory: %s\n", inventoryList);
     }

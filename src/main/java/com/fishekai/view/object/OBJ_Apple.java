@@ -7,6 +7,10 @@ class OBJ_Apple extends SuperObject {
     public OBJ_Apple() {
 
         name = "Apple";
+        description = "an apple a day keeps the doctor away";
+        type =  "food";
+        modifier = 2;
+
         try {
             image = ImageIO.read(getClass().getResourceAsStream("/sprites/items/apple.png"));
         } catch(IOException e){
@@ -14,6 +18,4 @@ class OBJ_Apple extends SuperObject {
             e.printStackTrace();
         }
     }
-
-
 }

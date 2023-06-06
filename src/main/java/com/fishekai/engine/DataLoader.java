@@ -78,7 +78,7 @@ public class DataLoader {
                 // checks where the item should be located
                 if (item.getLocation().equalsIgnoreCase("player")) {
                     // place the item in the player inventory
-                    player.getInventory().put(item.getName(), item);
+//                    player.getInventory().put(item.getName(), item);
                 } else if (locations.containsKey(item.getLocation())) {
                     // variable for accessing where the item will be located
                     String locationName = locations.get(item.getLocation()).getName();

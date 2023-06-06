@@ -97,4 +97,71 @@ public class GamePanel extends MainPanel{
 
         }
 
+    public int getOriginalTileSize() {
+        return originalTileSize;
+    }
+
+    public int getScale() {
+        return scale;
+    }
+
+    public int getTileSize() {
+        return tileSize;
+    }
+
+    public int getMaxScreenCol() {
+        return maxScreenCol;
+    }
+
+    public int getMaxScreenRow() {
+        return maxScreenRow;
+    }
+
+    public int getScreenWidth() {
+        return screenWidth;
+    }
+
+    public int getScreenHeight() {
+        return screenHeight;
+    }
+
+    public int getFPS() {
+        return FPS;
+    }
+
+    public int getOrder() {
+        return order;
+    }
+
+    public Timer getGameTimer() {
+        return gameTimer;
+    }
+
+    public Player getPlayer() {
+        return player;
+    }
+
+    public TileManager getTileM() {
+        return tileM;
+    }
+
+    public KeyHandler getKh() {
+        return kh;
+    }
+
+    public CollisionChecker getCollisionChecker() {
+        return collisionChecker;
+    }
+
+    public AssetSetter getAssetSetter() {
+        return assetSetter;
+    }
+
+    public SuperObject[] getObj() {
+        return obj;
+    }
+
+    public Fishekai getFishekai() {
+        return fishekai;
+    }
 }
