@@ -5,13 +5,11 @@ import com.fishekai.view.object.SuperObject;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.List;
 
 public class MainWindow extends JFrame {
-        // Screen Size:
-        public static final int SCREEN_WIDTH = 1200;
-        public static final int SCREEN_HEIGHT = 1000;
+    // Screen Size:
+    public static final int SCREEN_WIDTH = 1200;
+    public static final int SCREEN_HEIGHT = 1000;
 
         // The cards for the layout:
         private IntroPanel introPanel;
@@ -47,7 +45,7 @@ public MainWindow(KeyHandler kh, Fishekai fishekai) {
         mainPanels.add(gamePanel);
 
         // Create the side panel:
-        sidePanel = new SidePanel();
+        sidePanel = new SidePanel(mainPanels);
 
 
         // Register the passed key handler:
@@ -56,21 +54,21 @@ public MainWindow(KeyHandler kh, Fishekai fishekai) {
 
 
         // Add all the panels to the main window:
-        this.add(mainPanels);
+        this.add(mainPanels, BorderLayout.CENTER);
         this.add(sidePanel, BorderLayout.EAST);
         this.revalidate();
         this.repaint();
     }
 
-    public void nextCard(){
+    public void nextCard() {
         System.out.println("swapping cards");
         cardLayout.next(mainPanels);
 
     }
 
 
-        public void startGameTimer() {
-            gamePanel.setupGame();
-            gamePanel.startGameTimer();
-        }
+    public void startGameTimer() {
+        gamePanel.setupGame();
+        gamePanel.startGameTimer();
+    }
 }
