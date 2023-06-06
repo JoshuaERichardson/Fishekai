@@ -18,7 +18,7 @@ public class GamePanel extends MainPanel{
     final int originalTileSize = 16; // original tile size
     final int scale = 3; // scale of the game
     public final int tileSize = originalTileSize * scale; // tile size
-    public final int maxScreenCol = 16; // max screen columns
+    public final int maxScreenCol = 12; // max screen columns
     public final int maxScreenRow = 12; // max screen rows
     public final int screenWidth = tileSize * maxScreenCol; // screen width (768 pixels)
     public final int screenHeight = tileSize * maxScreenRow; // screen height (576 pixels)
@@ -28,7 +28,7 @@ public class GamePanel extends MainPanel{
 
     // Note: Player from entity package NOT from models
     public Player player;
-    public TileManager tileM = new TileManager(this);
+    public TileManager tileM;
     KeyHandler kh;
     public CollisionChecker collisionChecker = new CollisionChecker(this);
     public AssetSetter assetSetter = new AssetSetter(this);
@@ -40,7 +40,7 @@ public class GamePanel extends MainPanel{
         this.kh = kh;
         player = new Player(this, kh, fishekai);
         this.fishekai = fishekai;
-        tileM.loadMap(fishekai.current_location.getTiles());
+        tileM = new TileManager(this);
     }
     public void setupGame() {
         assetSetter.setObject();

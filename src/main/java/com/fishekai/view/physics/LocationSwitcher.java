@@ -21,7 +21,7 @@ public class LocationSwitcher {
 
 
         // Next redraw the tiles
-        fishekai.window.gamePanel.tileM.loadMap(fishekai.current_location.getTiles());
+        fishekai.window.gamePanel.tileM.getMapImage();
 
         // Then redraw the objects
         fishekai.window.gamePanel.assetSetter.setObject();
