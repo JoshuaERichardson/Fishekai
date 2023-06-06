@@ -1,6 +1,10 @@
 package com.fishekai.models;
 
+import com.fishekai.view.object.SuperObject;
+
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class Character {
     // constants
@@ -17,7 +21,7 @@ public class Character {
     private int hp = 10;    // range 0 ~ 10
     private int hunger = 5; // range 0 ~ 10
     private int thirst = 5; // range 0 ~ 10
-    private final HashMap<String, Item> inventory = new HashMap<>();
+    private final List<SuperObject> inventory = new ArrayList();
 
     // constructors
     public Character(String name) {
@@ -86,8 +90,10 @@ public class Character {
         }
     }
 
-    public HashMap<String, Item> getInventory() {
+    public List<SuperObject> getInventory() {
         return inventory;
     }
+
+
 
 }

@@ -1,16 +1,19 @@
 package com.fishekai.view;
 
+import com.fishekai.engine.Fishekai;
 import com.fishekai.engine.Introduction;
 import com.fishekai.view.entity.Player;
-import com.fishekai.view.splashscreen.FullScreenScroll;
-import com.fishekai.view.splashscreen.FullScreenSplash;
-import com.fishekai.view.splashscreen.SplashPaths;
+import com.fishekai.view.object.AssetSetter;
+import com.fishekai.view.object.SuperObject;
+import com.fishekai.view.physics.CollisionChecker;
 import com.fishekai.view.tile.TileManager;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class GamePanel extends JPanel implements Runnable{
+public class GamePanel extends MainPanel{
     // SCREEN SETTINGS
     final int originalTileSize = 16; // original tile size
     final int scale = 3; // scale of the game
@@ -21,129 +24,144 @@ public class GamePanel extends JPanel implements Runnable{
     public final int screenHeight = tileSize * maxScreenRow; // screen height (576 pixels)
     final int FPS = 60; // screen frames per second
     private int order = 0;
-
-    KeyHandler keyH = new KeyHandler();
-
-    Thread gameThread;
+    private Timer gameTimer;
 
     // Note: Player from entity package NOT from models
-    Player player = new Player(this, keyH);
-    TileManager tileM = new TileManager(this);
+    public Player player;
+    public TileManager tileM = new TileManager(this);
+    KeyHandler kh;
+    public CollisionChecker collisionChecker = new CollisionChecker(this);
+    public AssetSetter assetSetter = new AssetSetter(this);
+    public SuperObject obj[] = new SuperObject[10]; // 10 slots for objects but we can adjust
+    public Fishekai fishekai;
 
-    FullScreenSplash fullScreenSplash = new FullScreenSplash(this, keyH);
-    FullScreenScroll fullScreenScroll = new FullScreenScroll(this, keyH);
 
-    public GamePanel() {
-        this.setPreferredSize(new Dimension(screenWidth, screenHeight));
-        System.out.println(screenHeight + " " + screenWidth);
-        this.setBackground(Color.black);
-        this.setDoubleBuffered(true);
-        this.addKeyListener(keyH);
-        this.setFocusable(true);
-
+    public GamePanel(KeyHandler kh, Fishekai fishekai) {
+        this.kh = kh;
+        player = new Player(this, kh, fishekai);
+        this.fishekai = fishekai;
+        tileM.loadMap(fishekai.current_location.getTiles());
+    }
+    public void setupGame() {
+        assetSetter.setObject();
     }
 
-
-    public void startGameThread(){
-        // The thread is managed by Swing
-        gameThread = new Thread(this);
-        gameThread.start();
-    }
-    @Override
-    public void run() {
-        while(gameThread != null) {
-
-            // Need to revamp run --- should not be messing with the thread.
-            // Able to add the runnable "later" queue
-            // We can make a timer thread for recurrent tasks.  <--- needs to be in the event listener <--- timer class!
-
-            double drawInterval = 1000000000 / FPS;
-            double nextDrawTime = System.nanoTime() + drawInterval;
-
-            long currentTime = System.nanoTime();  // 1mil nano = 1 sec
-
-
-                // 1 UPDATE: update game state
+    public void startGameTimer(){
+        int delay = 1000 / FPS; // Delay in milliseconds between each frame
+        gameTimer = new Timer(delay, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Update game state
                 update();
-                // 2 DRAW: draw game state to screen
+                // Draw game state to screen
                 repaint();
-
-
-                // Forces the 60 FPS max
-                try {
-                    double remainingTime = nextDrawTime - System.nanoTime();
-                    remainingTime = remainingTime / 1000000; // convert to milliseconds
-
-                    // If remaining time is negative, we need to draw immediately
-                    if(remainingTime < 0) {
-                        remainingTime = 0;
-                    }
-                    Thread.sleep((long) remainingTime);
-
-                    nextDrawTime += drawInterval;
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-
             }
+        });
+        gameTimer.start();
+    }
+
+    public void stopGameTimer(){
+        if (gameTimer != null && gameTimer.isRunning()){
+            gameTimer.stop();
+            gameTimer = null;
         }
+    }
+
 
     /**
      * Control the game state with the order variable
      */
     public void update() {
-        keyH.update();
-        switch (order){
-            case 0: // Welcome screen
-                fullScreenSplash.update(SplashPaths.INSTRUCTIONS_PATH);
-                break;
-            case 1: // Instructions screen
-                // fullScreenSplash.update(SplashPaths.INSTRUCTIONS_PATH);
-                fullScreenSplash.update(SplashPaths.INSTRUCTIONS_PATH);
-                break;
-
-            case 2: // Main playthrough
-                fullScreenSplash.remove();
                 player.update();
-                break;
-        }
     }
 
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        switch (order){
-            case 0: // Welcome screen
-                fullScreenSplash.draw(g);
-                break;
+        Graphics2D g2 = (Graphics2D) g;
 
-            case 1: // Instructions screen
-                Introduction intro = new Introduction();
-                fullScreenSplash.draw(g, intro.showIntro());
-                break;
+        // Tile
+        tileM.draw(g2); // Note that tile is before player!!! Otherwise player will be drawn over the tile
 
-            case 2:
-                Graphics2D g2 = (Graphics2D) g;
+        // Object
+        for(int i = 0; i < obj.length; i++) {
+            if(obj[i] != null) {
+                obj[i].draw(g2, this);
+            }
+        }
 
-                tileM.draw(g2); // Note that tile is before player!!! Otherwise player will be drawn over the tile
-
-                player.draw(g2);
+        // Player
+        player.draw(g2);
 
 
-                g2.dispose();
-                break;
+        g2.dispose();
 
         }
 
-
-
-
-
-
-
+    public int getOriginalTileSize() {
+        return originalTileSize;
     }
 
-    public void incrementOrder() {
-        this.order++;
+    public int getScale() {
+        return scale;
     }
 
+    public int getTileSize() {
+        return tileSize;
+    }
+
+    public int getMaxScreenCol() {
+        return maxScreenCol;
+    }
+
+    public int getMaxScreenRow() {
+        return maxScreenRow;
+    }
+
+    public int getScreenWidth() {
+        return screenWidth;
+    }
+
+    public int getScreenHeight() {
+        return screenHeight;
+    }
+
+    public int getFPS() {
+        return FPS;
+    }
+
+    public int getOrder() {
+        return order;
+    }
+
+    public Timer getGameTimer() {
+        return gameTimer;
+    }
+
+    public Player getPlayer() {
+        return player;
+    }
+
+    public TileManager getTileM() {
+        return tileM;
+    }
+
+    public KeyHandler getKh() {
+        return kh;
+    }
+
+    public CollisionChecker getCollisionChecker() {
+        return collisionChecker;
+    }
+
+    public AssetSetter getAssetSetter() {
+        return assetSetter;
+    }
+
+    public SuperObject[] getObj() {
+        return obj;
+    }
+
+    public Fishekai getFishekai() {
+        return fishekai;
+    }
 }

@@ -23,8 +23,8 @@ public class AudioManager {
 
     public AudioManager() {
         soundEffects = new HashMap<>();
-        musicVolume = 0.75f; // Default volume is maximum (1.0)
-        soundEffectsVolume = 0.9f; // Default volume is maximum (1.0)
+        musicVolume = 0.3f; // Default volume is maximum (1.0)
+        soundEffectsVolume = 0.5f; // Default volume is maximum (1.0)
         soundEffectsEnabled = true; // Enable sound effects by default
     }
 

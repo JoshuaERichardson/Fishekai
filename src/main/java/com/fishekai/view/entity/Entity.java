@@ -1,11 +1,12 @@
 package com.fishekai.view.entity;
 
+import java.awt.*;
 import java.awt.image.BufferedImage;
 
 /**
  * Super class for player and NPC
  */
-class Entity {
+public class Entity {
     public int worldX, worldY;
     public int speed;
 
@@ -14,5 +15,9 @@ class Entity {
 
     public int spriteCounter = 0;
     public int spriteNum     = 1;
+    public Rectangle solidArea;
+    public int solidAreaDefaultX, solidAreaDefaultY;
+    public boolean collisionOn = false;
+
 
 }

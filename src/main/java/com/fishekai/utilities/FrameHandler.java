@@ -21,6 +21,7 @@ public class FrameHandler {
         window = new JFrame();
         window.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         window.setSize(800, 600);
+
     }
 
 

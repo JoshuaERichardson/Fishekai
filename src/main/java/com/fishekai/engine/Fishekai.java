@@ -5,21 +5,24 @@ import com.fishekai.utilities.AudioManager;
 import com.fishekai.utilities.FrameHandler;
 import com.fishekai.utilities.Prompter;
 import com.fishekai.utilities.SplashApp;
-import com.fishekai.view.GamePanel;
-import com.fishekai.view.KeyHandler;
-import com.fishekai.view.buttons.HelpButton;
+import com.fishekai.view.*;
+import com.fishekai.view.object.SuperObject;
+
 
 import javax.swing.*;
-import java.awt.*;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
 import static com.fishekai.engine.Introduction.formatText;
-import static com.fishekai.engine.Mapa.locationCheck;
 import static com.fishekai.engine.Mapa.showStaticMap;
 import static com.fishekai.utilities.Console.*;
 
+/**
+ * This class is responsible for the game engine.
+ * It contains the main method and the game loop.
+ * TODO: Handling too many methods and fields. Refactor!
+ */
 public class Fishekai extends JPanel implements SplashApp, Runnable {
     // constants
     private static final long PAUSE_VALUE = 1_500;
@@ -28,8 +31,8 @@ public class Fishekai extends JPanel implements SplashApp, Runnable {
     // fields
     private boolean isGameOver = false;
     public static int moveCounter;
-    private Map<String, Location> locations; // will contain the locations loaded from JSON file
-    Player player = new Player("Ethan Rutherford", "Known for expertise in ancient artifacts.");
+    public Map<String, Location> locations; // will contain the locations loaded from JSON file
+    public Player textPlayer = new Player("Ethan Rutherford", "Known for expertise in ancient artifacts.");
     Flask flask = new Flask("Hanley's flask");
     private final int drinkCharge = -2; // the value when you drink
 
@@ -41,34 +44,22 @@ public class Fishekai extends JPanel implements SplashApp, Runnable {
     VolumeControl volumeControl = new VolumeControl(audioManager);
     FishingMechanic fishingMechanic = new FishingMechanic();
     private final FrameHandler frameHandler = new FrameHandler();
-    KeyHandler keyHandler = new KeyHandler();
-    HelpPopup helpPopup = new HelpPopup(Display.showHelp());
+    KeyHandler keyHandler = new KeyHandler(this);
+    public MainWindow window;
+    public Location current_location;
 
-    // methods
+    // Starting the game, and loads the Swing GUI
     public void start() {
         // show title here
         Display.showTitle();
 
+        // Pre load the data
+        loadData();
+        begin();
+
+
         // New JFrame
-        JFrame window = new JFrame();
-        window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        window.setResizable(false);
-        window.setTitle("Fishekai - Beach");
-        window.setLayout(new BorderLayout());
-
-        GamePanel gamePanel = new GamePanel();
-
-
-        window.add(gamePanel, BorderLayout.CENTER); // <---- The panel is IN the window and therefore is sharing the dispatch thread.
-        window.add(helpPopup.getButtonPanel(), BorderLayout.EAST);
-        window.setLocationRelativeTo(null);
-
-        // Set the size of the frame, since the preferable size is failing:
-        window.setSize(1200, 800);
-
-        window.setVisible(true);
-        gamePanel.startGameThread();
-
+        window = new MainWindow(keyHandler, this);
 
 
 
@@ -80,7 +71,7 @@ public class Fishekai extends JPanel implements SplashApp, Runnable {
         // if New Game, go to begin()
         if (input.equalsIgnoreCase("yes") || input.equalsIgnoreCase("y")) {
             // initialize data
-            loadData();
+//            loadData();
             // begin the game
             begin();
         }
@@ -91,7 +82,17 @@ public class Fishekai extends JPanel implements SplashApp, Runnable {
         }
     }
 
-    private void begin() {
+    private void begin(){
+        audioManager.playSoundEffect("intro");
+        audioManager.playMusic(true);
+        // set starting point
+        current_location = locations.get("Beach");
+
+        // initialize move counter and set to 0
+        moveCounter = 0;
+    }
+    // TODO: Tie this into the GUI
+    private void beginOriginal() {
         // show the intro
         audioManager.playSoundEffect("intro");
         audioManager.playMusic(true);
@@ -101,7 +102,7 @@ public class Fishekai extends JPanel implements SplashApp, Runnable {
         moveCounter = 0;
 
         // set starting point
-        Location current_location = locations.get("Beach");
+        current_location = locations.get("Beach");
 
         // starts the game
         while (!isGameOver) {
@@ -109,16 +110,16 @@ public class Fishekai extends JPanel implements SplashApp, Runnable {
             clear();
 
             // health check
-            if (player.getHp() == 0) {
+            if (textPlayer.getHp() == 0) {
                 areYouStillAlive();
                 break;
             }
 
             // check for visited locations, used for showing on the map
-            locationCheck(current_location);
+            Mapa.locationCheck(current_location);
 
             // show display
-            Display.showStatus(player, current_location, flask);
+            Display.showStatus(textPlayer, current_location, flask);
 
             // ask user for input
             String input = prompter.prompt("What would you like to do?\n><(((º> ").trim().strip();
@@ -137,17 +138,17 @@ public class Fishekai extends JPanel implements SplashApp, Runnable {
                         break;
 
                     case "look": // need more testing
-                        lookAtItem(current_location, words[1]);
+//                        lookAtItem(current_location, words[1]);
                         pause(PAUSE_VALUE);
                         break;
 
                     case "drop":
-                        dropItem(current_location, words[1]);
+//                        dropItem(current_location, words[1]);
                         pause(PAUSE_VALUE);
                         break;
 
                     case "get":
-                        getItem(current_location, words[1]);
+//                        getItem(current_location, words[1]);
                         pause(PAUSE_VALUE);
                         break;
 
@@ -200,7 +201,7 @@ public class Fishekai extends JPanel implements SplashApp, Runnable {
                         break;
 
                     case "drink":
-                        rememberToHydrate();
+//                        rememberToHydrate();
                         pause(PAUSE_VALUE);
                         break;
 
@@ -209,12 +210,12 @@ public class Fishekai extends JPanel implements SplashApp, Runnable {
                         break;
 
                     case "build":
-                        createFishingPole();
+//                        createFishingPole();
                         pause(PAUSE_VALUE);
                         break;
 
                     case "fish":
-                        fish(player, current_location, audioManager, volumeControl);
+//                        fish(textPlayer, current_location, audioManager, volumeControl);
                         pause(PAUSE_VALUE);
                         break;
 
@@ -223,10 +224,10 @@ public class Fishekai extends JPanel implements SplashApp, Runnable {
                         Fish sunfish = locations.get("North Beach").getFishes().get("sunfish");
                         Fish fangfish = locations.get("North Beach").getFishes().get("fangfish");
                         Fish tuna = locations.get("North Beach").getFishes().get("tuna");
-                        player.getInventory().put("rod", rod);
-                        player.getInventory().put("fangfish", fangfish);
-                        player.getInventory().put("tuna", tuna);
-                        player.getInventory().put("sunfish", sunfish);
+//                        textPlayer.getInventory().put("rod", rod);
+//                        textPlayer.getInventory().put("fangfish", fangfish);
+//                        textPlayer.getInventory().put("tuna", tuna);
+//                        textPlayer.getInventory().put("sunfish", sunfish);
                         break;
 
                     default:
@@ -298,12 +299,14 @@ public class Fishekai extends JPanel implements SplashApp, Runnable {
         }
     }
 
+    // Eating food handler
     private void timeToEat(String word) {
         String itemToEat = word.toLowerCase();
+        SuperObject superObject = new SuperObject(); // TODO: Change to passed object eventually
 
-        if (parser.getFoodList().contains(itemToEat) && (player.getInventory().containsKey(itemToEat))) {
-            int nourishment = player.getInventory().get(itemToEat).getModifier();
-            player.setHunger(player.getHunger() - nourishment);
+        if (parser.getFoodList().contains(itemToEat) && (textPlayer.getInventory().contains(itemToEat))) {
+            int nourishment = superObject.modifier;
+            textPlayer.setHunger(textPlayer.getHunger() - nourishment);
 //            audioManager.playSoundEffect("eat");
             audioManager.randomEat();
             pause(1_000);
@@ -321,66 +324,67 @@ public class Fishekai extends JPanel implements SplashApp, Runnable {
             }
             if (itemToEat.equals("banana")) { // return banana to jungle after eating
                 System.out.println("You eat the banana.");
-                locations.get("Jungle").getItems().put(itemToEat, player.getInventory().get(itemToEat));
+//                locations.get("Jungle").getItems().put(itemToEat, player.getInventory().get(itemToEat));
             } else if (itemToEat.equals("apple")) { // return apple to jungle after eating
                 System.out.println("You eat the apple.");
-                locations.get("Mystical Grove").getItems().put(itemToEat, player.getInventory().get(itemToEat));
+//                locations.get("Mystical Grove").getItems().put(itemToEat, player.getInventory().get(itemToEat));
             }
-            player.getInventory().remove(itemToEat);
+            textPlayer.getInventory().remove(itemToEat);
         } else {
             System.out.printf("You can't eat that %s", itemToEat);
         }
     }
 
-    private void rememberToHydrate() {
-        if (player.getInventory().containsKey("flask") && parser.getItemList().contains("flask")) {
-            if (player.getInventory().containsKey("flask") && flask.getCharges() > 0) {
-                player.setThirst(player.getThirst() + drinkCharge);
-                flask.setCharges(flask.getCharges() - 1);
-                audioManager.randomDrink();
-                System.out.println("You take a drink from the flask.");
-            } else {
-                System.out.println("Your flask is empty");
-            }
-        } else {
-            System.out.println("You don't have any items to drink from.");
-        }
-    }
+    // Drinking water handler TODO: Commented out for now
+//    private void rememberToHydrate() {
+//        if (textPlayer.getInventory().containsKey("flask") && parser.getItemList().contains("flask")) {
+//            if (textPlayer.getInventory().containsKey("flask") && flask.getCharges() > 0) {
+//                textPlayer.setThirst(textPlayer.getThirst() + drinkCharge);
+//                flask.setCharges(flask.getCharges() - 1);
+//                audioManager.randomDrink();
+//                System.out.println("You take a drink from the flask.");
+//            } else {
+//                System.out.println("Your flask is empty");
+//            }
+//        } else {
+//            System.out.println("You don't have any items to drink from.");
+//        }
+//    }
 
-    private void createFishingPole() {
-        if (player.getInventory().containsKey("parachute")
-                && player.getInventory().containsKey("stick")
-                && player.getInventory().containsKey("hook")) {
-            audioManager.playSoundEffect("build");
-            System.out.println("I have all the items for a fishing pole");
-            Item rod = new Item("Fishing Pole", "tool", "You hold in your hands an artifact that you have created. Let's hope it catches a fish.");
-            player.getInventory().put("rod", rod);
-            player.getInventory().remove("parachute");
-            player.getInventory().remove("stick");
-            player.getInventory().remove("hook");
-        }
-    }
-
-    private void fish(Player player, Location current_Location, AudioManager audioManager, VolumeControl volumeControl) {
-        if (player.getInventory().containsKey("rod")
-                && current_Location.getName().equals("North Beach")) {
-            System.out.println("You cast your line to catch a fish.");
-            fishingMechanic.startFishing(player, current_Location, audioManager, volumeControl);
-        } else if (player.getInventory().containsKey("rod")
-                && !current_Location.getName().equals("North Beach")) {
-            System.out.println("There aren't any fish here. Try a different area.");
-        } else if (!player.getInventory().containsKey("rod")) {
-            System.out.println("How can you fish without a fishing rod?");
-        }
-    }
+//    private void createFishingPole() {
+//        if (textPlayer.getInventory().containsKey("parachute")
+//                && textPlayer.getInventory().containsKey("stick")
+//                && textPlayer.getInventory().containsKey("hook")) {
+//            audioManager.playSoundEffect("build");
+//            System.out.println("I have all the items for a fishing pole");
+//            Item rod = new Item("Fishing Pole", "tool", "You hold in your hands an artifact that you have created. Let's hope it catches a fish.");
+//            textPlayer.getInventory().put("rod", rod);
+//            textPlayer.getInventory().remove("parachute");
+//            textPlayer.getInventory().remove("stick");
+//            textPlayer.getInventory().remove("hook");
+//        }
+//    }
+//
+//    private void fish(Player player, Location current_Location, AudioManager audioManager, VolumeControl volumeControl) {
+//        if (player.getInventory().containsKey("rod")
+//                && current_Location.getName().equals("North Beach")) {
+//            System.out.println("You cast your line to catch a fish.");
+//            fishingMechanic.startFishing(player, current_Location, audioManager, volumeControl);
+//        } else if (player.getInventory().containsKey("rod")
+//                && !current_Location.getName().equals("North Beach")) {
+//            System.out.println("There aren't any fish here. Try a different area.");
+//        } else if (!player.getInventory().containsKey("rod")) {
+//            System.out.println("How can you fish without a fishing rod?");
+//        }
+//    }
 
     private void areYouStillAlive() {
-        if (player.getHp() == 0 && player.getThirst() == 10) {
+        if (textPlayer.getHp() == 0 && textPlayer.getThirst() == 10) {
             formatText(DataLoader.processGameCondition().get("Thirst_Toll"), LINE_WIDTH);
             blankLines(1);
             intro.askToContinue();
             gameOver();
-        } else if (player.getHp() == 0 && player.getHunger() == 10) {
+        } else if (textPlayer.getHp() == 0 && textPlayer.getHunger() == 10) {
             formatText(DataLoader.processGameCondition().get("Starvation_Embrace"), LINE_WIDTH);
             blankLines(1);
             intro.askToContinue();
@@ -429,76 +433,76 @@ public class Fishekai extends JPanel implements SplashApp, Runnable {
         }
     }
 
-    private void getItem(Location current_location, String word) {
-        String itemToGet = word.toLowerCase();
-        if ((parser.getItemList().contains(itemToGet) || parser.getFoodList().contains(itemToGet))
-            && current_location.getItems().containsKey(itemToGet)) {
-            if (!player.getInventory().containsKey(itemToGet) && !itemToGet.equals("water")) {
-                player.getInventory().put(itemToGet, current_location.getItems().get(itemToGet));
-                audioManager.randomGet();
-                current_location.getItems().remove(itemToGet);
-                System.out.println("You got the " + itemToGet + ".");
-            } else if (player.getInventory().containsKey(itemToGet)) {
-                System.out.println("You have the " + itemToGet + ".");
-            } else if (itemToGet.equals("water")) {
-                if (player.getInventory().containsKey("flask")) {
-                    flask.setCharges(5);
-                    System.out.println("You filled up the flask");
-                } else {
-                    player.setThirst(drinkCharge);
-                    audioManager.randomDrink();
-                    System.out.println("You drink a long pull of water. It would be nice to be able to carry some with you.");
-                }
-            } else {
-                System.out.println("There is no " + itemToGet + " here.");
-            }
-        } else if (parser.getItemList().contains(itemToGet) || parser.getFoodList().contains(itemToGet)) {
-            System.out.println("There is no " + itemToGet + " here.");
-        } else {
-            invalidInput();
-        }
-    }
+//    private void getItem(Location current_location, String word) {
+//        String itemToGet = word.toLowerCase();
+//        if ((parser.getItemList().contains(itemToGet) || parser.getFoodList().contains(itemToGet))
+//            && current_location.getItems().containsKey(itemToGet)) {
+//            if (!player.getInventory().containsKey(itemToGet) && !itemToGet.equals("water")) {
+//                player.getInventory().put(itemToGet, current_location.getItems().get(itemToGet));
+//                audioManager.randomGet();
+//                current_location.getItems().remove(itemToGet);
+//                System.out.println("You got the " + itemToGet + ".");
+//            } else if (player.getInventory().containsKey(itemToGet)) {
+//                System.out.println("You have the " + itemToGet + ".");
+//            } else if (itemToGet.equals("water")) {
+//                if (player.getInventory().containsKey("flask")) {
+//                    flask.setCharges(5);
+//                    System.out.println("You filled up the flask");
+//                } else {
+//                    player.setThirst(drinkCharge);
+//                    audioManager.randomDrink();
+//                    System.out.println("You drink a long pull of water. It would be nice to be able to carry some with you.");
+//                }
+//            } else {
+//                System.out.println("There is no " + itemToGet + " here.");
+//            }
+//        } else if (parser.getItemList().contains(itemToGet) || parser.getFoodList().contains(itemToGet)) {
+//            System.out.println("There is no " + itemToGet + " here.");
+//        } else {
+//            invalidInput();
+//        }
+//    }
 
-    private void dropItem(Location current_location, String word) {
-        String itemToDrop = word.toLowerCase();
-        if (parser.getItemList().contains(itemToDrop) || parser.getFoodList().contains(itemToDrop)) {
-            if (player.getInventory().containsKey(itemToDrop)) {
-                if (current_location.getItems() == null) {
-                    Map<String, Item> inventoryMap = new HashMap<>();
-                    inventoryMap.put(itemToDrop, player.getInventory().get(itemToDrop));
-                    player.getInventory().remove(itemToDrop);
-                    current_location.setItems(inventoryMap);
-                } else {
-                    current_location.getItems().put(itemToDrop, player.getInventory().get(itemToDrop));
-                    player.getInventory().remove(itemToDrop);
-                }
-                audioManager.playSoundEffect("drop");
-                System.out.println("You dropped the " + itemToDrop + ".");
-            } else {
-                System.out.println("You don't have a " + itemToDrop + "in your inventory.");
-            }
-        } else {
-            System.out.println("Please specify an item to drop.");
-        }
-    }
+//    private void dropItem(Location current_location, String word) {
+//        String itemToDrop = word.toLowerCase();
+//        if (parser.getItemList().contains(itemToDrop) || parser.getFoodList().contains(itemToDrop)) {
+//            if (textPlayer.getInventory().containsKey(itemToDrop)) {
+////                if (current_location.getItems() == null) {
+//                    Map<String, Item> inventoryMap = new HashMap<>();
+//                    inventoryMap.put(itemToDrop, textPlayer.getInventory().get(itemToDrop));
+//                    textPlayer.getInventory().remove(itemToDrop);
+////                    current_location.setItems(inventoryMap);
+//                } else {
+////                    current_location.getItems().put(itemToDrop, player.getInventory().get(itemToDrop));
+//                    textPlayer.getInventory().remove(itemToDrop);
+//                }
+//                audioManager.playSoundEffect("drop");
+//                System.out.println("You dropped the " + itemToDrop + ".");
+//            } else {
+//                System.out.println("You don't have a " + itemToDrop + "in your inventory.");
+//            }
+////        } else {
+//            System.out.println("Please specify an item to drop.");
+//        }
+////    }
 
-    private void lookAtItem(Location current_location, String word) {
-        String itemToLook = word.toLowerCase();
-        if (parser.getItemList().contains(itemToLook) || parser.getFoodList().contains(itemToLook)) {
-            if (player.getInventory().containsKey(itemToLook)) {
-                audioManager.playSoundEffect("look");
-                System.out.println("The " + player.getInventory().get(itemToLook).getName() + " looks like " + player.getInventory().get(itemToLook).getDescription());
-            } else if (current_location.getItems().containsKey(itemToLook)) {
-                audioManager.playSoundEffect("look");
-                System.out.println("The " + current_location.getItems().get(itemToLook).getName() + " looks like " + current_location.getItems().get(itemToLook).getDescription());
-            } else {
-                System.out.println("There is no " + itemToLook + " here.");
-            }
-        } else {
-            // Handle the case when the user didn't specify an item to look at
-            System.out.println("Please specify an item to look at.");
-        }
-    }
+//    private void lookAtItem(Location current_location, String word) {
+//        String itemToLook = word.toLowerCase();
+//        if (parser.getItemList().contains(itemToLook) || parser.getFoodList().contains(itemToLook)) {
+//            if (textPlayer.getInventory().containsKey(itemToLook)) {
+//                audioManager.playSoundEffect("look");
+//                System.out.println("The " + textPlayer.getInventory().get(itemToLook).getName() + " looks like " + textPlayer.getInventory().get(itemToLook).getDescription());
+////            } else if (current_location.getItems().containsKey(itemToLook)) {
+//                audioManager.playSoundEffect("look");
+////                System.out.println("The " + current_location.getItems().get(itemToLook).getName() + " looks like " + current_location.getItems().get(itemToLook).getDescription());
+//            } else {
+//                System.out.println("There is no " + itemToLook + " here.");
+//            }
+//        } else {
+//            // Handle the case when the user didn't specify an item to look at
+//            System.out.println("Please specify an item to look at.");
+//        }
+//    }
 
     private Location changeLocation(Location current_location, String word) {
         String direction = word.toLowerCase();
@@ -507,7 +511,7 @@ public class Fishekai extends JPanel implements SplashApp, Runnable {
             audioManager.randomGo();
             current_location = locations.get(current_location.getDirections().get(direction));
             // check move counter and apply damage
-            player.moveDamage(moveCounter);
+            textPlayer.moveDamage(moveCounter);
             moveCounter += 1;
         } else {
             System.out.println("Please specify a valid direction.");
@@ -527,7 +531,7 @@ public class Fishekai extends JPanel implements SplashApp, Runnable {
     // load the data
     private void loadData() {
         locations = DataLoader.processLocations(); // load the locations
-        DataLoader.processItems(player, locations); // load items and place in locations
+        DataLoader.processItems(textPlayer, locations); // load items and place in locations
         DataLoader.processFishes(locations); // load fishes and place in locations
         DataLoader.processNpc(locations); // load NPCs and place in locations
         parser.loadTextArguments(); // loads text arguments in UserInputParser

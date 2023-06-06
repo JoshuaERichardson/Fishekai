@@ -1,6 +1,7 @@
 package com.fishekai.engine;
 
 import com.fishekai.models.*;
+import com.fishekai.view.object.SuperObject;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -12,6 +13,12 @@ import java.util.Map;
 
 import static com.fishekai.engine.Fishekai.moveCounter;
 
+/**
+ * This class is responsible for displaying the game status.
+ * It displays the player's status, the location's description, the inventory, the items available, the paths to other locations.
+ * It also displays the banner and the help menu.
+ * All static class!
+ */
 public class Display {
 
     private static final int LINE_WIDTH = 120;
@@ -40,7 +47,7 @@ public class Display {
         System.out.println();
         showInventory(player);
         System.out.println();
-        showItem(location);
+//        showItem(location);
         showNPC(location);
         showCharges(flask);
         System.out.println();
@@ -61,21 +68,21 @@ public class Display {
 
     private static void showInventory(Player player) {
         List<String> inventoryList = new ArrayList<>();
-        for (Map.Entry<String, Item> entry : player.getInventory().entrySet()) {
-            inventoryList.add(entry.getKey());
+        for (SuperObject item : player.getInventory()) {
+            inventoryList.add(item.name);
         }
         System.out.printf("Inventory: %s\n", inventoryList);
     }
 
-    public static void showItem(Location location) {
-        if (location.getItems() != null) {
-            List<String> itemAvailable = new ArrayList<>();
-            for (Map.Entry<String, Item> entry : location.getItems().entrySet()) {
-                itemAvailable.add(entry.getKey());
-            }
-            System.out.println("You see " + itemAvailable + ". It might be useful.\n");
-        }
-    }
+//    public static void showItem(Location location) {
+//        if (location.getItems() != null) {
+//            List<String> itemAvailable = new ArrayList<>();
+//            for (Map.Entry<String, Item> entry : location.getItems().entrySet()) {
+//                itemAvailable.add(entry.getKey());
+//            }
+//            System.out.println("You see " + itemAvailable + ". It might be useful.\n");
+//        }
+//    }
 
     public static void showFish(Location location) {
         if (location.getFishes() != null) {
