@@ -25,7 +25,6 @@ public class HelpPopup {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent windowEvent) {
                         helpDialog.dispose();
-
                     }
                 });
             }

@@ -1,5 +1,6 @@
 package com.fishekai.view;
 
+import com.fishekai.engine.Fishekai;
 import com.fishekai.engine.Introduction;
 import com.fishekai.view.entity.Player;
 import com.fishekai.view.object.AssetSetter;
@@ -32,11 +33,14 @@ public class GamePanel extends MainPanel{
     public CollisionChecker collisionChecker = new CollisionChecker(this);
     public AssetSetter assetSetter = new AssetSetter(this);
     public SuperObject obj[] = new SuperObject[10]; // 10 slots for objects but we can adjust
+    public Fishekai fishekai;
 
 
-    public GamePanel(KeyHandler kh) {
+    public GamePanel(KeyHandler kh, Fishekai fishekai) {
         this.kh = kh;
-        player = new Player(this, kh);
+        player = new Player(this, kh, fishekai);
+        this.fishekai = fishekai;
+        tileM.loadMap(fishekai.current_location.getTiles());
     }
     public void setupGame() {
         assetSetter.setObject();

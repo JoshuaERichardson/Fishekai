@@ -1,5 +1,6 @@
 package com.fishekai.view.entity;
 
+import com.fishekai.engine.Fishekai;
 import com.fishekai.view.GamePanel;
 import com.fishekai.view.KeyHandler;
 import com.fishekai.view.object.OBJ_Door;
@@ -17,10 +18,14 @@ public class Player extends Entity{
     public final int screenX;
     public final int screenY;
     public int hasApple = 0;
+    private final Fishekai fishekai;
+    private final LocationSwitcher locationSwitcher;
 
-    public Player(GamePanel gp, KeyHandler keyH){
+    public Player(GamePanel gp, KeyHandler keyH, Fishekai fishekai){
+
         this.gp = gp;
         this.keyH = keyH;
+        this.fishekai = fishekai;
 
         screenX = gp.screenWidth/2 - (gp.tileSize/2);
         screenY = gp.screenHeight/2 - (gp.tileSize/2);
@@ -37,6 +42,8 @@ public class Player extends Entity{
 
         setDefaultValues();
         getPlayerImage();
+
+        locationSwitcher = new LocationSwitcher();
     }
 
     public void setDefaultValues() {
@@ -118,8 +125,10 @@ public class Player extends Entity{
                     System.out.println("Apples: " + hasApple);
                     break;
                 case "Door":
-//                    LocationSwitcher.moveScenes(((OBJ_Door)gp.obj[i]).getLocation());
-                    gp.tileM.loadMap("/maps/beachTiles.txt");
+                    String destination = gp.obj[i].getLocation();
+
+                    locationSwitcher.moveScenes(fishekai,destination);
+//                    gp.tileM.loadMap();
             }
 
         }

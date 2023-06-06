@@ -1,6 +1,10 @@
 package com.fishekai.view.object;
 
+import com.fishekai.models.Location;
 import com.fishekai.view.GamePanel;
+
+import java.util.List;
+import java.util.Map;
 
 public class AssetSetter {
     GamePanel gp;
@@ -11,23 +15,68 @@ public class AssetSetter {
     public void setObject() {
         // Max X = 16(columns)
         // Max Y = 12(rows)
-        gp.obj[0] = new OBJ_Apple();
-        gp.obj[0].worldX = 8 * gp.tileSize; // Columns
-        gp.obj[0].worldY = 8 * gp.tileSize; // Row
+        System.out.println(gp.fishekai);
+        Location current_location = gp.fishekai.current_location;
 
-        gp.obj[1] = new OBJ_Apple();
-        gp.obj[1].worldX = 1 * gp.tileSize;
-        gp.obj[1].worldY = 1 * gp.tileSize;
+        List<Map<String, Map<String, Integer>>> itemList = current_location.getItems();
+        int i = 0;
 
-        gp.obj[2] = new OBJ_Door();
-        gp.obj[2].worldX = 15 * gp.tileSize;
-        gp.obj[2].worldY = 6 * gp.tileSize;
+        for (Map<String, Map<String, Integer>> item : itemList) {
+            if (item.containsKey("apple")) {
+                Map<String, Integer> apple = item.get("apple");
+                gp.obj[i] = new OBJ_Apple();
+                gp.obj[i].worldX = apple.get("column") * gp.tileSize;
+                gp.obj[i].worldY = apple.get("row") * gp.tileSize;
+                i++;
+            } else if (item.containsKey("door")) {
+                Map<String, Integer> door = item.get("door");
+                gp.obj[i] = new OBJ_Door();
+                gp.obj[i].worldX = door.get("column") * gp.tileSize;
+                gp.obj[i].worldY = door.get("row") * gp.tileSize;
+                // 0 is north, 1 east, 2 south, 3 west
+                String nextLocation = switchDirection(door.get("direction"));
+                String prevDirection = switchDirection((door.get("direction")+2) % 4);
+                // Now find out what location the door leads to
+                String doorGoesTo = current_location.getDirections().get(nextLocation);
+                String doorComesFrom = gp.fishekai.locations.get(doorGoesTo).getDirections().get(prevDirection);
+                ((OBJ_Door) gp.obj[i]).setLocation(doorGoesTo);
+                ((OBJ_Door) gp.obj[i]).setFromLocation(doorComesFrom);
+                i++;
 
-        gp.obj[3] = new OBJ_Door();
-        ((OBJ_Door) gp.obj[3]).setLocation("beach");
-        gp.obj[3].worldX = 8 * gp.tileSize;
-        gp.obj[3].worldY = 11 * gp.tileSize;
+            }
+        }
 
+//
+//        gp.obj[0] = new OBJ_Apple();
+//        gp.obj[0].worldX = 8 * gp.tileSize; // Columns
+//        gp.obj[0].worldY = 8 * gp.tileSize; // Row
+//
+//        gp.obj[1] = new OBJ_Apple();
+//        gp.obj[1].worldX = 1 * gp.tileSize;
+//        gp.obj[1].worldY = 1 * gp.tileSize;
+//
+//        gp.obj[2] = new OBJ_Door();
+//        gp.obj[2].worldX = 15 * gp.tileSize;
+//        gp.obj[2].worldY = 6 * gp.tileSize;
+//
+//        gp.obj[3] = new OBJ_Door();
+//        ((OBJ_Door) gp.obj[3]).setLocation("beach");
+//        gp.obj[3].worldX = 8 * gp.tileSize;
+//        gp.obj[3].worldY = 11 * gp.tileSize;
+
+    }
+
+    private String switchDirection(int direction) {
+        String location;
+        switch(direction) {
+            case 0: location = "north"; break;
+            case 1: location = "east";  break;
+            case 2: location = "south"; break;
+            case 3: location = "west";  break;
+            default:
+                location = "north";
+        }
+        return location;
     }
 
 

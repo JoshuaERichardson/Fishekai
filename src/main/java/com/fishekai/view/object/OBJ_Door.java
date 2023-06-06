@@ -4,6 +4,7 @@ import javax.imageio.ImageIO;
 
 public class OBJ_Door extends SuperObject{
     public String location;
+    public String fromLocation;
 
     public OBJ_Door(){
         name = "Door";
@@ -16,10 +17,17 @@ public class OBJ_Door extends SuperObject{
     }
 
     public void setLocation(String location) {
-        location = location;
+        this.location = location;
+
     }
     public String getLocation(){
         return location;
+    }
+    public String setFromLocation(String fromLocation){
+        return fromLocation;
+    }
+    public String getFromLocation(){
+        return fromLocation;
     }
 
 }

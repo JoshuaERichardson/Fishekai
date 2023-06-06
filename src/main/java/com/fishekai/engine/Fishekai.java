@@ -31,7 +31,7 @@ public class Fishekai extends JPanel implements SplashApp, Runnable {
     // fields
     private boolean isGameOver = false;
     public static int moveCounter;
-    private Map<String, Location> locations; // will contain the locations loaded from JSON file
+    public Map<String, Location> locations; // will contain the locations loaded from JSON file
     Player player = new Player("Ethan Rutherford", "Known for expertise in ancient artifacts.");
     Flask flask = new Flask("Hanley's flask");
     private final int drinkCharge = -2; // the value when you drink
@@ -46,14 +46,22 @@ public class Fishekai extends JPanel implements SplashApp, Runnable {
     private final FrameHandler frameHandler = new FrameHandler();
     KeyHandler keyHandler = new KeyHandler(this);
     public MainWindow window;
+    public Location current_location;
 
     // methods
     public void start() {
         // show title here
         Display.showTitle();
 
+        // Pre load the data
+        loadData();
+        // Set the current location to the beach
+        current_location = locations.get("Beach");
+        // Load the map:
+
+
         // New JFrame
-        window = new MainWindow(keyHandler);
+        window = new MainWindow(keyHandler, this);
 
 
 
@@ -65,7 +73,7 @@ public class Fishekai extends JPanel implements SplashApp, Runnable {
         // if New Game, go to begin()
         if (input.equalsIgnoreCase("yes") || input.equalsIgnoreCase("y")) {
             // initialize data
-            loadData();
+//            loadData();
             // begin the game
             begin();
         }
@@ -86,7 +94,7 @@ public class Fishekai extends JPanel implements SplashApp, Runnable {
         moveCounter = 0;
 
         // set starting point
-        Location current_location = locations.get("Beach");
+        current_location = locations.get("Beach");
 
         // starts the game
         while (!isGameOver) {
@@ -100,7 +108,7 @@ public class Fishekai extends JPanel implements SplashApp, Runnable {
             }
 
             // check for visited locations, used for showing on the map
-            locationCheck(current_location);
+            Mapa.locationCheck(current_location);
 
             // show display
             Display.showStatus(player, current_location, flask);
@@ -132,7 +140,7 @@ public class Fishekai extends JPanel implements SplashApp, Runnable {
                         break;
 
                     case "get":
-                        getItem(current_location, words[1]);
+//                        getItem(current_location, words[1]);
                         pause(PAUSE_VALUE);
                         break;
 
@@ -306,10 +314,10 @@ public class Fishekai extends JPanel implements SplashApp, Runnable {
             }
             if (itemToEat.equals("banana")) { // return banana to jungle after eating
                 System.out.println("You eat the banana.");
-                locations.get("Jungle").getItems().put(itemToEat, player.getInventory().get(itemToEat));
+//                locations.get("Jungle").getItems().put(itemToEat, player.getInventory().get(itemToEat));
             } else if (itemToEat.equals("apple")) { // return apple to jungle after eating
                 System.out.println("You eat the apple.");
-                locations.get("Mystical Grove").getItems().put(itemToEat, player.getInventory().get(itemToEat));
+//                locations.get("Mystical Grove").getItems().put(itemToEat, player.getInventory().get(itemToEat));
             }
             player.getInventory().remove(itemToEat);
         } else {
@@ -414,47 +422,47 @@ public class Fishekai extends JPanel implements SplashApp, Runnable {
         }
     }
 
-    private void getItem(Location current_location, String word) {
-        String itemToGet = word.toLowerCase();
-        if ((parser.getItemList().contains(itemToGet) || parser.getFoodList().contains(itemToGet))
-            && current_location.getItems().containsKey(itemToGet)) {
-            if (!player.getInventory().containsKey(itemToGet) && !itemToGet.equals("water")) {
-                player.getInventory().put(itemToGet, current_location.getItems().get(itemToGet));
-                audioManager.randomGet();
-                current_location.getItems().remove(itemToGet);
-                System.out.println("You got the " + itemToGet + ".");
-            } else if (player.getInventory().containsKey(itemToGet)) {
-                System.out.println("You have the " + itemToGet + ".");
-            } else if (itemToGet.equals("water")) {
-                if (player.getInventory().containsKey("flask")) {
-                    flask.setCharges(5);
-                    System.out.println("You filled up the flask");
-                } else {
-                    player.setThirst(drinkCharge);
-                    audioManager.randomDrink();
-                    System.out.println("You drink a long pull of water. It would be nice to be able to carry some with you.");
-                }
-            } else {
-                System.out.println("There is no " + itemToGet + " here.");
-            }
-        } else if (parser.getItemList().contains(itemToGet) || parser.getFoodList().contains(itemToGet)) {
-            System.out.println("There is no " + itemToGet + " here.");
-        } else {
-            invalidInput();
-        }
-    }
+//    private void getItem(Location current_location, String word) {
+//        String itemToGet = word.toLowerCase();
+//        if ((parser.getItemList().contains(itemToGet) || parser.getFoodList().contains(itemToGet))
+//            && current_location.getItems().containsKey(itemToGet)) {
+//            if (!player.getInventory().containsKey(itemToGet) && !itemToGet.equals("water")) {
+//                player.getInventory().put(itemToGet, current_location.getItems().get(itemToGet));
+//                audioManager.randomGet();
+//                current_location.getItems().remove(itemToGet);
+//                System.out.println("You got the " + itemToGet + ".");
+//            } else if (player.getInventory().containsKey(itemToGet)) {
+//                System.out.println("You have the " + itemToGet + ".");
+//            } else if (itemToGet.equals("water")) {
+//                if (player.getInventory().containsKey("flask")) {
+//                    flask.setCharges(5);
+//                    System.out.println("You filled up the flask");
+//                } else {
+//                    player.setThirst(drinkCharge);
+//                    audioManager.randomDrink();
+//                    System.out.println("You drink a long pull of water. It would be nice to be able to carry some with you.");
+//                }
+//            } else {
+//                System.out.println("There is no " + itemToGet + " here.");
+//            }
+//        } else if (parser.getItemList().contains(itemToGet) || parser.getFoodList().contains(itemToGet)) {
+//            System.out.println("There is no " + itemToGet + " here.");
+//        } else {
+//            invalidInput();
+//        }
+//    }
 
     private void dropItem(Location current_location, String word) {
         String itemToDrop = word.toLowerCase();
         if (parser.getItemList().contains(itemToDrop) || parser.getFoodList().contains(itemToDrop)) {
             if (player.getInventory().containsKey(itemToDrop)) {
-                if (current_location.getItems() == null) {
+//                if (current_location.getItems() == null) {
                     Map<String, Item> inventoryMap = new HashMap<>();
                     inventoryMap.put(itemToDrop, player.getInventory().get(itemToDrop));
                     player.getInventory().remove(itemToDrop);
-                    current_location.setItems(inventoryMap);
+//                    current_location.setItems(inventoryMap);
                 } else {
-                    current_location.getItems().put(itemToDrop, player.getInventory().get(itemToDrop));
+//                    current_location.getItems().put(itemToDrop, player.getInventory().get(itemToDrop));
                     player.getInventory().remove(itemToDrop);
                 }
                 audioManager.playSoundEffect("drop");
@@ -462,10 +470,10 @@ public class Fishekai extends JPanel implements SplashApp, Runnable {
             } else {
                 System.out.println("You don't have a " + itemToDrop + "in your inventory.");
             }
-        } else {
+//        } else {
             System.out.println("Please specify an item to drop.");
         }
-    }
+//    }
 
     private void lookAtItem(Location current_location, String word) {
         String itemToLook = word.toLowerCase();
@@ -473,9 +481,9 @@ public class Fishekai extends JPanel implements SplashApp, Runnable {
             if (player.getInventory().containsKey(itemToLook)) {
                 audioManager.playSoundEffect("look");
                 System.out.println("The " + player.getInventory().get(itemToLook).getName() + " looks like " + player.getInventory().get(itemToLook).getDescription());
-            } else if (current_location.getItems().containsKey(itemToLook)) {
+//            } else if (current_location.getItems().containsKey(itemToLook)) {
                 audioManager.playSoundEffect("look");
-                System.out.println("The " + current_location.getItems().get(itemToLook).getName() + " looks like " + current_location.getItems().get(itemToLook).getDescription());
+//                System.out.println("The " + current_location.getItems().get(itemToLook).getName() + " looks like " + current_location.getItems().get(itemToLook).getDescription());
             } else {
                 System.out.println("There is no " + itemToLook + " here.");
             }

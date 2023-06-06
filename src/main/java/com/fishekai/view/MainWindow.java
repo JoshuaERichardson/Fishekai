@@ -1,5 +1,6 @@
 package com.fishekai.view;
 
+import com.fishekai.engine.Fishekai;
 import com.fishekai.view.object.SuperObject;
 
 import javax.swing.*;
@@ -15,13 +16,16 @@ public class MainWindow extends JFrame {
         // The cards for the layout:
         private IntroPanel introPanel;
         private InstructionsPanel instructionsPanel;
-        private GamePanel gamePanel;
+        public GamePanel gamePanel;
         MainPanel mainPanels;
         private CardLayout cardLayout;
         private KeyHandler kh;
         private SidePanel sidePanel;
+        private Fishekai fishekai;
 
-public MainWindow(KeyHandler kh) {
+public MainWindow(KeyHandler kh, Fishekai fishekai) {
+        this.fishekai = fishekai;
+
         // Overall display info
         setTitle("Fishekai");
         setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
@@ -34,7 +38,7 @@ public MainWindow(KeyHandler kh) {
         // Create the list of panels for the main screen:
         introPanel = new IntroPanel();
         instructionsPanel = new InstructionsPanel();
-        gamePanel = new GamePanel(kh);
+        gamePanel = new GamePanel(kh, fishekai);
 
         cardLayout = new CardLayout();
         mainPanels = new MainPanel(cardLayout);

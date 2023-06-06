@@ -35,8 +35,10 @@ public class DataLoader {
         };
         List<Location> listLocations = gson.fromJson(fileReader, token.getType());
 
-        return listLocations.stream()
+        Map<String, Location> result = listLocations.stream()
                 .collect(Collectors.toMap(Location::getName, Function.identity()));
+
+        return result;
     }
 
     public static Map<String, String> processGameInfo() {
@@ -76,12 +78,12 @@ public class DataLoader {
                     String locationName = locations.get(item.getLocation()).getName();
 
                     // place the item in the specified location
-                    if (locations.get(locationName).getItems() == null) {
+                    if (locations.get(locationName).getItemsInText() == null) {
                         Map<String, Item> itemMap = new HashMap<>();
                         itemMap.put(item.getName(), item);
-                        locations.get(locationName).setItems(itemMap);
+                        locations.get(locationName).setItemsInText(itemMap);
                     } else {
-                        locations.get(locationName).getItems().put(item.getName(), item);
+                        locations.get(locationName).getItemsInText().put(item.getName(), item);
                     }
                 }
             }

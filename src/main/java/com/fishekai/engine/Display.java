@@ -40,7 +40,7 @@ public class Display {
         System.out.println();
         showInventory(player);
         System.out.println();
-        showItem(location);
+//        showItem(location);
         showNPC(location);
         showCharges(flask);
         System.out.println();
@@ -67,15 +67,15 @@ public class Display {
         System.out.printf("Inventory: %s\n", inventoryList);
     }
 
-    public static void showItem(Location location) {
-        if (location.getItems() != null) {
-            List<String> itemAvailable = new ArrayList<>();
-            for (Map.Entry<String, Item> entry : location.getItems().entrySet()) {
-                itemAvailable.add(entry.getKey());
-            }
-            System.out.println("You see " + itemAvailable + ". It might be useful.\n");
-        }
-    }
+//    public static void showItem(Location location) {
+//        if (location.getItems() != null) {
+//            List<String> itemAvailable = new ArrayList<>();
+//            for (Map.Entry<String, Item> entry : location.getItems().entrySet()) {
+//                itemAvailable.add(entry.getKey());
+//            }
+//            System.out.println("You see " + itemAvailable + ". It might be useful.\n");
+//        }
+//    }
 
     public static void showFish(Location location) {
         if (location.getFishes() != null) {
