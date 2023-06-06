@@ -10,6 +10,10 @@ import java.util.*;
 
 import static com.fishekai.utilities.Console.*;
 
+/**
+ * This class is responsible for the fishing mechanic.
+ * It displays the fishing mechanic and handles the logic.
+ */
 public class FishingMechanic {
     private static final int PAUSE_VALUE = 1_500;
 
@@ -85,7 +89,7 @@ public class FishingMechanic {
 
                         if (pullCount >= 3) {
                             System.out.println("After a few more strong pulls, you successfully catch the " + fish.getName() + "!");
-                            player.getInventory().put(fish.getName(), fish);
+//                            player.getInventory().put(fish.getName(), fish);
                             fishBattle = false;
                         }
                     } else {

@@ -23,8 +23,8 @@ public class AudioManager {
 
     public AudioManager() {
         soundEffects = new HashMap<>();
-        musicVolume = 1.0f; // Default volume is maximum (1.0)
-        soundEffectsVolume = 1.0f; // Default volume is maximum (1.0)
+        musicVolume = 0.3f; // Default volume is maximum (1.0)
+        soundEffectsVolume = 0.5f; // Default volume is maximum (1.0)
         soundEffectsEnabled = true; // Enable sound effects by default
     }
 
@@ -39,6 +39,7 @@ public class AudioManager {
             Clip clip = AudioSystem.getClip();
             clip.open(audioInputStream);
             soundEffects.put(soundEffectName, clip);
+            setSoundEffectsVolume(soundEffectsVolume);
         } catch (IOException | UnsupportedAudioFileException | LineUnavailableException e) {
             e.printStackTrace();
         }
@@ -49,6 +50,7 @@ public class AudioManager {
             AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(input);
             musicClip = AudioSystem.getClip();
             musicClip.open(audioInputStream);
+            setMusicVolume(musicVolume);
         } catch (IOException | UnsupportedAudioFileException | LineUnavailableException e) {
             e.printStackTrace();
         }
@@ -100,7 +102,7 @@ public class AudioManager {
             float dB = (float) (Math.log(volume) / Math.log(10.0) * 20.0);
             gainControl.setValue(dB);
             musicVolume = volume;
-            System.out.println("Music volume set to: " + musicVolume);
+            System.out.println("Music volume set to: " + String.format("%.0f", musicVolume * 100) + "%");
         }
     }
 
@@ -155,6 +157,32 @@ public class AudioManager {
 
     public float getSoundEffectsVolume() {
         return soundEffectsVolume;
+    }
+
+    public void increaseSoundEffectsVolume() {
+        if (soundEffectsVolume == EFFECT_MAX_VOLUME) {
+            System.out.println("Sound effects already at maximum volume.");
+        } else {
+            float newVolume = soundEffectsVolume + 0.1f;
+            if (newVolume > EFFECT_MAX_VOLUME) {
+                newVolume = EFFECT_MAX_VOLUME;
+            }
+            setSoundEffectsVolume(newVolume);
+            System.out.println("Sound effects volume set to: " + String.format("%.0f", soundEffectsVolume * 100) + "%");
+        }
+    }
+
+    public void decreaseSoundEffectsVolume() {
+        if (soundEffectsVolume == EFFECT_MIN_VOLUME) {
+            System.out.println("Sound effects already at minimum volume.");
+        } else {
+            float newVolume = soundEffectsVolume - 0.1f;
+            if (newVolume < EFFECT_MIN_VOLUME) {
+                newVolume = EFFECT_MIN_VOLUME;
+            }
+            setSoundEffectsVolume(newVolume);
+            System.out.println("Sound effects volume set to: " + String.format("%.0f", soundEffectsVolume * 100) + "%");
+        }
     }
     public void randomEat(){
         int randomIndex = random.nextInt(4) + 1;

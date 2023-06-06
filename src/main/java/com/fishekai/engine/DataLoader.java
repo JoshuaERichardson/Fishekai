@@ -16,6 +16,9 @@ import java.util.Objects;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
+/**
+ * Loads data from json files and stores them in the game
+ */
 public class DataLoader {
     // file paths
     private static final String LOCATIONS_PATH = "/json/locations.json";
@@ -35,10 +38,14 @@ public class DataLoader {
         };
         List<Location> listLocations = gson.fromJson(fileReader, token.getType());
 
-        return listLocations.stream()
+        Map<String, Location> result = listLocations.stream()
                 .collect(Collectors.toMap(Location::getName, Function.identity()));
+
+
+        return result;
     }
 
+    // Reads the game information json file and stores data (story, objective, player_info, winning_condition)
     public static Map<String, String> processGameInfo() {
         Gson gson = new Gson();
 
@@ -47,6 +54,7 @@ public class DataLoader {
         return gson.fromJson(fileReader, token.getType());
     }
 
+    // Reads the game condition json file and stores data (Mystic_Feast, Volcanic_Plunge, Starvation_Embrace, Thrirst_Toll, Fanged_Death)
     public static Map<String, String> processGameCondition() {
         Gson gson = new Gson();
 
@@ -70,18 +78,18 @@ public class DataLoader {
                 // checks where the item should be located
                 if (item.getLocation().equalsIgnoreCase("player")) {
                     // place the item in the player inventory
-                    player.getInventory().put(item.getName(), item);
+//                    player.getInventory().put(item.getName(), item);
                 } else if (locations.containsKey(item.getLocation())) {
                     // variable for accessing where the item will be located
                     String locationName = locations.get(item.getLocation()).getName();
 
                     // place the item in the specified location
-                    if (locations.get(locationName).getItems() == null) {
+                    if (locations.get(locationName).getItemsInText() == null) {
                         Map<String, Item> itemMap = new HashMap<>();
                         itemMap.put(item.getName(), item);
-                        locations.get(locationName).setItems(itemMap);
+                        locations.get(locationName).setItemsInText(itemMap);
                     } else {
-                        locations.get(locationName).getItems().put(item.getName(), item);
+                        locations.get(locationName).getItemsInText().put(item.getName(), item);
                     }
                 }
             }
@@ -117,6 +125,7 @@ public class DataLoader {
             e.printStackTrace();
         }
     }
+
 
     public static void processNpc(Map<String, Location> locations) {
         Gson gson = new Gson();

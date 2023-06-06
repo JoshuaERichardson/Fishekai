@@ -1,6 +1,7 @@
 package com.fishekai.models;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Location {
@@ -11,14 +12,22 @@ public class Location {
     private boolean hasBeenHere = false; // default value is false
     private Map<String, String> descriptions;
     private Map<String, Fish> fishes = new HashMap<>();
-    private Map<String, Item> items = new HashMap<>();
     private Map<String, NPC> npc = new HashMap<>();
+    private String tiles;
+    private List<Map<String, Map<String, Integer>>> items; // itemMap has items, locations, and directions(if door)
+    private Map<String, Item> itemsInText;
+
+
+
+
 
     // constructors
-    public Location(String name, Map<String, String> directions, Map<String, String> descriptions) {
+    public Location(String name, Map<String, String> directions, Map<String, String> descriptions, String tileMap, List<Map<String, Map<String, Integer>>> items) {
         this.name = name;
         this.directions = directions;
         this.descriptions = descriptions;
+        this.tiles = tileMap;
+        this.items = items;
     }
 
     // accessors
@@ -50,13 +59,7 @@ public class Location {
         this.fishes = fishes;
     }
 
-    public Map<String, Item> getItems() {
-        return items;
-    }
 
-    public void setItems(Map<String, Item> items) {
-        this.items = items;
-    }
 
     public Map<String, NPC> getNpc() {
         return npc;
@@ -75,6 +78,22 @@ public class Location {
                 ", items=" + items +
                 '}';
     }
+
+    public String getTiles() {
+        return tiles;
+    }
+
+    public List<Map<String, Map<String, Integer>>> getItems() {
+        return items;
+    }
+
+    public Map<String, Item> getItemsInText() {
+        return itemsInText;
+    }
+    public void setItemsInText(Map<String, Item> itemMap) {
+        itemsInText = itemMap;
+    }
+
 
     // for internal testing
 //    public static void main(String[] args) {
