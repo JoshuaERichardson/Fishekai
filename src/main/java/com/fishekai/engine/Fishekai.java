@@ -10,7 +10,6 @@ import com.fishekai.view.object.SuperObject;
 
 
 import javax.swing.*;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -67,6 +66,7 @@ public class Fishekai extends JPanel implements SplashApp, Runnable {
         String input = prompter.prompt("Would you like to play a new game? [Y]es or [N]o.\n><(((º> ",
                 "Yes|yes|Y|y|No|no|N|n",
                 "That is not a valid input\n");
+        //
 
         // if New Game, go to begin()
         if (input.equalsIgnoreCase("yes") || input.equalsIgnoreCase("y")) {
@@ -83,6 +83,7 @@ public class Fishekai extends JPanel implements SplashApp, Runnable {
     }
 
     private void begin(){
+        audioManager.addVolumeControl(volumeControl);
         audioManager.playSoundEffect("intro");
         audioManager.playMusic(true);
         // set starting point
@@ -541,5 +542,69 @@ public class Fishekai extends JPanel implements SplashApp, Runnable {
     @Override
     public void run() {
 
+    }
+
+    public boolean isGameOver() {
+        return isGameOver;
+    }
+
+    public static int getMoveCounter() {
+        return moveCounter;
+    }
+
+    public Map<String, Location> getLocations() {
+        return locations;
+    }
+
+    public Player getTextPlayer() {
+        return textPlayer;
+    }
+
+    public Flask getFlask() {
+        return flask;
+    }
+
+    public int getDrinkCharge() {
+        return drinkCharge;
+    }
+
+    public Introduction getIntro() {
+        return intro;
+    }
+
+    public Prompter getPrompter() {
+        return prompter;
+    }
+
+    public UserInputParser getParser() {
+        return parser;
+    }
+
+    public AudioManager getAudioManager() {
+        return audioManager;
+    }
+
+    public VolumeControl getVolumeControl() {
+        return volumeControl;
+    }
+
+    public FishingMechanic getFishingMechanic() {
+        return fishingMechanic;
+    }
+
+    public FrameHandler getFrameHandler() {
+        return frameHandler;
+    }
+
+    public KeyHandler getKeyHandler() {
+        return keyHandler;
+    }
+
+    public MainWindow getWindow() {
+        return window;
+    }
+
+    public Location getCurrent_location() {
+        return current_location;
     }
 }

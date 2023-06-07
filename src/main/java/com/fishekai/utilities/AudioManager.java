@@ -1,12 +1,13 @@
 package com.fishekai.utilities;
 
+import com.fishekai.engine.Fishekai;
+import com.fishekai.engine.VolumeControl;
+
 import javax.sound.sampled.*;
 import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 
 public class AudioManager {
     private static final float MUSIC_MIN_VOLUME = 0.0f;
@@ -20,12 +21,17 @@ public class AudioManager {
     private float musicVolume;
     private float soundEffectsVolume;
     private boolean soundEffectsEnabled;
+    private VolumeControl volumeControl;
 
-    public AudioManager() {
+    public AudioManager(){
         soundEffects = new HashMap<>();
         musicVolume = 0.3f; // Default volume is maximum (1.0)
         soundEffectsVolume = 0.5f; // Default volume is maximum (1.0)
         soundEffectsEnabled = true; // Enable sound effects by default
+    }
+
+    public void addVolumeControl(VolumeControl volumeControl) {
+        this.volumeControl = volumeControl;
     }
 
     private InputStream openAudioResource(String resourcePath) {
@@ -93,6 +99,20 @@ public class AudioManager {
         if (clip != null) {
             clip.setFramePosition(0);
             clip.start();
+            Timer timer = new Timer();
+            TimerTask task = new TimerTask() {
+                @Override
+                public void run() {
+                    volumeControl.changeImage();
+                }
+            };
+            timer.schedule(task, 300, 200);
+
+            while(clip.isRunning()) {
+
+            }
+            timer.cancel();
+
         }
     }
 

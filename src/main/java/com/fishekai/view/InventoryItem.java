@@ -11,8 +11,9 @@ class InventoryItem extends JPanel {
     private Image image;
     JPanel backCard, frontCard;
     boolean itemPickedUp;
+    DialogEngine dialogEngine;
 
-    public InventoryItem(String missingItemPath, String haveItemPath) {
+    public InventoryItem(String missingItemPath, String haveItemPath, DialogEngine dialogEngine) {
         this.missingItemPath = missingItemPath;
         this.haveItemPath = haveItemPath;
 
@@ -34,8 +35,7 @@ class InventoryItem extends JPanel {
         JButton useButton = new JButton("Use");
         JButton flipButton = new JButton("Cancel");
         lookButton.addActionListener(e -> {
-            // Pop up a window with the description of the item
-            HelpPopup helpPopup = new HelpPopup("This is a ");
+
         });
         useButton.addActionListener(e -> {
             // Use the item

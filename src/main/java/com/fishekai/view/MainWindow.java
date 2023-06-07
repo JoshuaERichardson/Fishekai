@@ -107,6 +107,7 @@ public MainWindow(KeyHandler kh, Fishekai fishekai) {
         return gamePanel;
     }
 
+
     public MainPanel getMainPanels() {
         return mainPanels;
     }
