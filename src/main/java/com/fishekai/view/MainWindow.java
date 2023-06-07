@@ -48,7 +48,7 @@ public MainWindow(KeyHandler kh, Fishekai fishekai) {
         mainPanels.add(gamePanel);
 
         // Create the side panel:
-        sidePanel = new SidePanel(mainPanels, fishekai.textPlayer);
+        sidePanel = new SidePanel(mainPanels, fishekai.textPlayer, fishekai);
 
         // Create the inventory panel:
         inventoryPanel = new InventoryPanel(fishekai.textPlayer, this);

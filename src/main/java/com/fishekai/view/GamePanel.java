@@ -1,8 +1,10 @@
 package com.fishekai.view;
 
 import com.fishekai.engine.Fishekai;
+import com.fishekai.utilities.AudioManager;
 import com.fishekai.view.entity.Player;
 import com.fishekai.view.object.AssetSetter;
+import com.fishekai.view.object.Sign;
 import com.fishekai.view.object.SuperObject;
 import com.fishekai.view.physics.CollisionChecker;
 import com.fishekai.view.tile.TileManager;
@@ -31,7 +33,8 @@ public class GamePanel extends MainPanel{
     KeyHandler kh;
     public CollisionChecker collisionChecker = new CollisionChecker(this);
     public AssetSetter assetSetter = new AssetSetter(this);
-    public SuperObject obj[] = new SuperObject[10]; // 10 slots for objects but we can adjust
+    public SuperObject obj[] = new SuperObject[20]; // 20 slots for objects but we can adjust
+    public Sign sign[] = new Sign[4];
     public Fishekai fishekai;
 
 
@@ -174,5 +177,9 @@ public class GamePanel extends MainPanel{
     }
     public DialogEngine getDialog() {
         return dialog;
+    }
+
+    public AudioManager getAudioManager() {
+        return fishekai.getAudioManager();
     }
 }

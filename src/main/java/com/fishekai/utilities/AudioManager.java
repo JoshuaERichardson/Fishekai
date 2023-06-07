@@ -100,19 +100,18 @@ public class AudioManager {
             clip.setFramePosition(0);
             clip.start();
             Timer timer = new Timer();
+            double clipLength = clip.getMicrosecondLength() / 1000;
             TimerTask task = new TimerTask() {
+                int numberOfTimes = (int) (clipLength / 200);
                 @Override
                 public void run() {
                     volumeControl.changeImage();
+                    if(--numberOfTimes<=0){
+                        timer.cancel();
+                    }
                 }
             };
             timer.schedule(task, 300, 200);
-
-            while(clip.isRunning()) {
-
-            }
-            timer.cancel();
-
         }
     }
 

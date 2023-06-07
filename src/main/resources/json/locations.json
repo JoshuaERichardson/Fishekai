@@ -31,9 +31,23 @@
             "direction" : 1
             }
         }
-      ]
+      ],
+    "signs":
+            [
+              {
+                "column": "8",
+                "row": "1",
+                "text": "This way to the North Beach."
+              },
+              {
+                "column": "11",
+                "row": "4",
+                "text": "This way to the Forest."
+              }
+            ]
 
   },
+
   {
     "name": "North Beach",
     "directions": {
@@ -65,6 +79,19 @@
             "direction" : 2
           }
         }
+    ],
+    "signs":
+    [
+      {
+        "column": "6",
+        "row": "9",
+        "text": "This way to the Beach."
+      },
+      {
+        "column": "11",
+        "row": "8",
+        "text": "This way to the Mountain."
+      }
     ]
   },
   {
@@ -108,7 +135,26 @@
                 "direction" :  1
             }
         }
+    ],
+    "signs":
+    [
+      {
+        "column": "1",
+        "row": "4",
+        "text": "This way to the Beach."
+      },
+      {
+        "column": "4",
+        "row": "1",
+        "text": "This way to the Mountain."
+      },
+      {
+        "column": "10",
+        "row": "4",
+        "text": "This way to the Mystical Grove"
+      }
     ]
+
   },
   {
     "name": "Mountain",
@@ -194,6 +240,14 @@
           "direction": 1
         }
       }
+    ],
+    "signs":
+    [
+      {
+        "column": "0",
+        "row": "8",
+        "text": "This way to the North Beach."
+      }
     ]
   },
   {
@@ -228,6 +282,14 @@
           "row": 2,
           "direction": 3
         }
+      }
+    ],
+    "signs":
+    [
+      {
+        "column": "0",
+        "row": "0",
+        "text": "This should be fake."
       }
     ]
   },
@@ -349,6 +411,14 @@
           "direction": 3
         }
       }
+    ],
+    "signs":
+    [
+      {
+        "column": "0",
+        "row": "4",
+        "text": "This way to the beach."
+      }
     ]
   },
   {
@@ -414,6 +484,14 @@
         }
       }
 
+    ],
+    "signs":
+    [
+      {
+        "column": "0",
+        "row": "0",
+        "text": "You should never see this"
+      }
     ]
   },
   {
@@ -448,6 +526,14 @@
           "row": 11,
           "direction": 2
         }
+      }
+    ],
+    "signs":
+    [
+      {
+        "column": "0",
+        "row": "0",
+        "text": "You should never see this"
       }
     ]
   }

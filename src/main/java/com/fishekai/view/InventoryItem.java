@@ -1,6 +1,9 @@
 package com.fishekai.view;
 
 import com.fishekai.engine.HelpPopup;
+import com.fishekai.utilities.AudioManager;
+import com.fishekai.view.entity.Player;
+import com.fishekai.view.object.SuperObject;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,11 +14,18 @@ class InventoryItem extends JPanel {
     private Image image;
     JPanel backCard, frontCard;
     boolean itemPickedUp;
-    DialogEngine dialogEngine;
+    private final DialogEngine dialogEngine;
+    SuperObject item;
+    private final AudioManager audioManager;
+    private final Player player;
 
-    public InventoryItem(String missingItemPath, String haveItemPath, DialogEngine dialogEngine) {
+    public InventoryItem(String missingItemPath, String haveItemPath, SuperObject item, InventoryPanel inventoryPanel) {
         this.missingItemPath = missingItemPath;
+        this.dialogEngine = inventoryPanel.getMainWindow().gamePanel.getDialog();
         this.haveItemPath = haveItemPath;
+        this.item = item;
+        this.audioManager = inventoryPanel.getMainWindow().gamePanel.getAudioManager();
+        this.player = inventoryPanel.getMainWindow().gamePanel.getPlayer();
 
 
 
@@ -35,11 +45,26 @@ class InventoryItem extends JPanel {
         JButton useButton = new JButton("Use");
         JButton flipButton = new JButton("Cancel");
         lookButton.addActionListener(e -> {
-            dialogEngine.update("You look at the ");
+            dialogEngine.update(item.description);
         });
         useButton.addActionListener(e -> {
             // Use the item
-            HelpPopup helpPopup = new HelpPopup("You used the ");
+            switch(item.getType()) {
+                case "food":
+                    dialogEngine.update("You ate the " + item.getName() + ".");
+                    audioManager.randomEat();
+                    itemPickedUp = false;
+                    // TODO: Remove from the inventory!
+                    // TODO: Link to removing hunger
+                    usedImage();
+                    flipCard();
+                    player.consumeObject(item.getName());
+                    break;
+                case "water":
+                    dialogEngine.update("You drank some water from the flask. YOU HAVE CHARGES?");
+                    audioManager.randomDrink();
+                    break;
+            }
         });
         flipButton.addActionListener(e -> {
             // Flip the card back over
@@ -70,6 +95,15 @@ class InventoryItem extends JPanel {
         frontCard.removeAll();
         frontCard.add(new JLabel(icon));
         itemPickedUp = true;
+        revalidate();
+        repaint();
+    }
+    void usedImage(){
+        ImageIcon icon = new ImageIcon(getClass().getResource(missingItemPath));
+        image = icon.getImage();
+        frontCard.removeAll();
+        frontCard.add(new JLabel(icon));
+        itemPickedUp = false;
         revalidate();
         repaint();
     }

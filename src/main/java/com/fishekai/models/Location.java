@@ -16,18 +16,20 @@ public class Location {
     private String tiles;
     private List<Map<String, Map<String, Integer>>> items; // itemMap has items, locations, and directions(if door)
     private Map<String, Item> itemsInText;
+    private List<Map<String, String>> signs;
 
 
 
 
 
     // constructors
-    public Location(String name, Map<String, String> directions, Map<String, String> descriptions, String tileMap, List<Map<String, Map<String, Integer>>> items) {
+    public Location(String name, Map<String, String> directions, Map<String, String> descriptions, String tileMap, List<Map<String, Map<String, Integer>>> items, List<Map<String, String>> signs) {
         this.name = name;
         this.directions = directions;
         this.descriptions = descriptions;
         this.tiles = tileMap;
         this.items = items;
+        this.signs = signs;
     }
 
     // accessors
@@ -92,6 +94,10 @@ public class Location {
     }
     public void setItemsInText(Map<String, Item> itemMap) {
         itemsInText = itemMap;
+    }
+
+    public List<Map<String, String>> getSigns() {
+        return signs;
     }
 
 

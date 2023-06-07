@@ -3,7 +3,7 @@ package com.fishekai.view.object;
 import javax.imageio.ImageIO;
 import java.io.IOException;
 
-class OBJ_Apple extends SuperObject {
+public class OBJ_Apple extends SuperObject {
     public OBJ_Apple() {
 
         name = "Apple";

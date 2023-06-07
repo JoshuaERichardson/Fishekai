@@ -3,11 +3,11 @@ package com.fishekai.view.object;
 import javax.imageio.ImageIO;
 import java.io.IOException;
 
-class OBJ_Flask extends SuperObject{
+public class OBJ_Flask extends SuperObject{
     public OBJ_Flask() {
         name = "Flask";
         description = "A weather worn, leather wrapped flask caked with sand. It smells of rancid rum, but there is not a drop left. Why is the rum always gone?";
-        type = "tool";
+        type = "water";
         modifier = 0;
 
         try {

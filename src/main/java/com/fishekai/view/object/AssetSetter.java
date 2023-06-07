@@ -87,8 +87,19 @@ public class AssetSetter {
                 ((OBJ_Door) gp.obj[i]).setLocation(doorGoesTo);
                 ((OBJ_Door) gp.obj[i]).setFromLocation(doorComesFrom);
                 i++;
+                }
+
             }
+        // Load the signs:
+        List<Map<String, String>> signs = current_location.getSigns();
+        for (Map<String, String> sign : signs){
+            int row = Integer.parseInt(sign.get("row"));
+            int col = Integer.parseInt(sign.get("column"));
+            String text = sign.get("text");
+            Sign s = new Sign(row, col, text);
         }
+
+
 
     }
 

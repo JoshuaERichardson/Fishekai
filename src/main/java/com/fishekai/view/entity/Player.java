@@ -89,7 +89,9 @@ public class Player extends Entity{
                 direction = "right";
             } else if (keyH.spacePressed ==  true) {
                 int objIndex = gp.collisionChecker.checkObject(this, true);
+                int signIndex = gp.collisionChecker.checkSign(this,true);
                 pickUpObject(objIndex);
+                readSign(signIndex);
             }
 
             // Check Tile Collision
@@ -109,6 +111,9 @@ public class Player extends Entity{
             int objIndex = gp.collisionChecker.checkObject(this, true);
             walkThroughDoor(objIndex);
 
+            int signIndex = gp.collisionChecker.checkSign(this,true);
+
+
 
 
 
@@ -125,6 +130,12 @@ public class Player extends Entity{
 
     }
 
+    private void readSign(int i){
+        if(i != 999){
+            String text = gp.sign[i].getText();
+            fishekai.window.getGamePanel().getDialog().update(text);
+        }
+    }
     private void pickUpObject(int i) {
         if(i != 999) {
             // TODO: Can only grab water if we already have a flask
@@ -136,6 +147,14 @@ public class Player extends Entity{
                 fishekai.window.getInventoryPanel().updateInventory(inventory);
 
                 gp.obj[i] = null;
+                return;
+            }
+        }
+    }
+    public void consumeObject(String name){
+        for (SuperObject obj : inventory) {
+            if (obj.getName().equals(name)) {
+                inventory.remove(obj);
                 return;
             }
         }

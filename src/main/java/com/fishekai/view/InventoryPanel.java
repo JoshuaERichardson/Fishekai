@@ -3,7 +3,8 @@ package com.fishekai.view;
 import com.fishekai.engine.Display;
 import com.fishekai.engine.HelpPopup;
 import com.fishekai.models.Player;
-import com.fishekai.view.object.SuperObject;
+import com.fishekai.utilities.AudioManager;
+import com.fishekai.view.object.*;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -17,9 +18,13 @@ public class InventoryPanel extends JPanel{
     public int height;
     InventoryItem appleItem, chordItem, stickItem, hookItem, waterItem, bananaItem, flaskItem;
     private final DialogEngine dialogEngine;
+    private final AudioManager audioManager;
+    private final MainWindow mainWindow;
 
     public InventoryPanel(Player textPlayer, MainWindow mainWindow) {
+        this.mainWindow = mainWindow;
         dialogEngine = mainWindow.getGamePanel().getDialog();
+        audioManager = mainWindow.getGamePanel().getAudioManager();
         // Overall display info
         int windowHeight = mainWindow.getHeight();
         int gpHeight = mainWindow.gamePanel.getScreenHeight();
@@ -33,13 +38,13 @@ public class InventoryPanel extends JPanel{
         setSize(new Dimension(width, height));
 
         // Add these to the panel:
-        appleItem = new InventoryItem("/sprites/items/bwapple.png", "/sprites/items/apple.png", dialogEngine);
-        chordItem = new InventoryItem("/sprites/items/bwparachute.png", "/sprites/items/parachute.png", dialogEngine);
-        stickItem = new InventoryItem("/sprites/items/bwstick.png", "/sprites/items/stick.png", dialogEngine);
-        hookItem = new InventoryItem("/sprites/items/bwhook.png", "/sprites/items/hook.png", dialogEngine);
-        waterItem = new InventoryItem("/sprites/items/bwwater.png", "/sprites/items/water.png", dialogEngine);
-        bananaItem = new InventoryItem("/sprites/items/bwbanana.png", "/sprites/items/banana.png", dialogEngine);
-        flaskItem = new InventoryItem("/sprites/items/bwflask.png", "/sprites/items/flask.png", dialogEngine);
+        appleItem = new InventoryItem("/sprites/items/bwapple.png", "/sprites/items/apple.png", new OBJ_Apple(), this);
+        chordItem = new InventoryItem("/sprites/items/bwparachute.png", "/sprites/items/parachute.png", new OBJ_Parachute(), this);
+        stickItem = new InventoryItem("/sprites/items/bwstick.png", "/sprites/items/stick.png", new OBJ_Stick(), this);
+        hookItem = new InventoryItem("/sprites/items/bwhook.png", "/sprites/items/hook.png", new OBJ_Hook(), this);
+        waterItem = new InventoryItem("/sprites/items/bwwater.png", "/sprites/items/water.png", new OBJ_Water(), this);
+        bananaItem = new InventoryItem("/sprites/items/bwbanana.png", "/sprites/items/banana.png", new OBJ_Banana(), this);
+        flaskItem = new InventoryItem("/sprites/items/bwflask.png", "/sprites/items/flask.png", new OBJ_Flask(), this);
 
         add(appleItem);
         add(chordItem);
@@ -71,6 +76,17 @@ public void updateInventory(List<SuperObject> inventory) {
         this.repaint();
     }
 
-
 }
+
+    public DialogEngine getDialogEngine() {
+        return dialogEngine;
+    }
+
+    public AudioManager getAudioManager() {
+        return audioManager;
+    }
+
+    public MainWindow getMainWindow() {
+        return mainWindow;
+    }
 }

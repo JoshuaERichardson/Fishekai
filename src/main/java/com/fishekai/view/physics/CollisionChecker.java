@@ -57,6 +57,59 @@ public class CollisionChecker {
                 break;
         }
     }
+    public int checkSign(Entity entity, boolean player){
+        int index = 999;
+        for(int i = 0; i < gp.sign.length; i++){
+            if(gp.sign[i] != null){
+                // Get entity's solid area position:
+                entity.solidArea.x = entity.worldX + entity.solidArea.x;
+                entity.solidArea.y = entity.worldY + entity.solidArea.y;
+                // Get the object's solid area position
+                gp.sign[i].solidArea.x = gp.sign[i].getRow() + gp.sign[i].solidArea.x;
+                gp.sign[i].solidArea.y = gp.sign[i].getCol() + gp.sign[i].solidArea.y;
+
+                switch(entity.direction) {
+                    case "up":
+                        entity.solidArea.y -= entity.speed;
+                        if(entity.solidArea.intersects(gp.sign[i].solidArea)){
+                            if(player == true) {
+                                index = i;
+                            }
+                        }
+                        break;
+                    case "down":
+                        entity.solidArea.y += entity.speed;
+                        if(entity.solidArea.intersects(gp.sign[i].solidArea)){
+                            if(player == true) {
+                                index = i;
+                            }
+                        }
+                        break;
+                    case "left":
+                        entity.solidArea.x -= entity.speed;
+                        if(entity.solidArea.intersects(gp.sign[i].solidArea)){
+                            if(player == true) {
+                                index = i;
+                            }
+                        }
+                        break;
+                    case "right":
+                        entity.solidArea.y += entity.speed;
+                        if(entity.solidArea.intersects(gp.sign[i].solidArea)){
+                            if(player == true) {
+                                index = i;
+                            }
+                        }
+                        break;
+                }
+                entity.solidArea.x = entity.solidAreaDefaultX;
+                entity.solidArea.y = entity.solidAreaDefaultY;
+                gp.sign[i].solidArea.x = gp.sign[i].solidAreaDefaultX;
+                gp.sign[i].solidArea.y = gp.sign[i].solidAreaDefaultY;
+            }
+        }
+        return index;
+    }
     public int checkObject(Entity entity, boolean player) {
         int index = 999;
 

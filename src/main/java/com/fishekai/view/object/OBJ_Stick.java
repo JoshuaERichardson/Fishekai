@@ -3,7 +3,7 @@ package com.fishekai.view.object;
 import javax.imageio.ImageIO;
 import java.io.IOException;
 
-class OBJ_Stick extends SuperObject{
+public class OBJ_Stick extends SuperObject{
     public OBJ_Stick(){
         name = "Stick";
         description = "Smooth and perfectly straight, they would make a great fishing pole";
