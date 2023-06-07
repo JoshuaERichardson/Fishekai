@@ -17,7 +17,7 @@ import java.awt.event.ActionListener;
 public class GamePanel extends MainPanel{
     // SCREEN SETTINGS
     final int originalTileSize = 16; // original tile size
-    final int scale = 3; // scale of the game
+    final int scale = 4; // scale of the game
     public final int tileSize = originalTileSize * scale; // tile size
     public final int maxScreenCol = 12; // max screen columns
     public final int maxScreenRow = 12; // max screen rows
@@ -48,6 +48,7 @@ public class GamePanel extends MainPanel{
         this.fishekai = fishekai;
         tileM = new TileManager(this);
         dialog = new DialogEngine(this);
+        setSize(MAIN_PANEL_SIZE);
     }
     public void setupGame() {
         assetSetter.setObject();

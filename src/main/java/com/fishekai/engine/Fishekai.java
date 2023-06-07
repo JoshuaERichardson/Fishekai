@@ -301,6 +301,9 @@ public class Fishekai extends JPanel implements SplashApp, Runnable {
     }
 
     // Eating food handler
+    public void timeToEat(int nourishment){
+        textPlayer.setHunger(textPlayer.getHunger() - nourishment);
+    }
     private void timeToEat(String word) {
         String itemToEat = word.toLowerCase();
         SuperObject superObject = new SuperObject(); // TODO: Change to passed object eventually

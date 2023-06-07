@@ -25,6 +25,7 @@ public class Player extends Entity{
     private final com.fishekai.models.Player textPlayer;
     private final List<SuperObject> inventory;
 
+
     public Player(GamePanel gp, KeyHandler keyH, Fishekai fishekai){
 
         this.gp = gp;
@@ -55,7 +56,7 @@ public class Player extends Entity{
     public void setDefaultValues() {
         worldX = 400;
         worldY = 400;
-        speed = 4;
+        speed = 7;
         direction = "down";
     }
 
@@ -202,5 +203,21 @@ public class Player extends Entity{
                 break;
         }
         g2.drawImage(image, worldX, worldY, gp.tileSize, gp.tileSize, null);
+    }
+
+    public Fishekai getFishekai() {
+        return fishekai;
+    }
+
+    public LocationSwitcher getLocationSwitcher() {
+        return locationSwitcher;
+    }
+
+    public com.fishekai.models.Player getTextPlayer() {
+        return textPlayer;
+    }
+
+    public List<SuperObject> getInventory() {
+        return inventory;
     }
 }

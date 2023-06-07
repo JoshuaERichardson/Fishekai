@@ -54,11 +54,11 @@ class InventoryItem extends JPanel {
                     dialogEngine.update("You ate the " + item.getName() + ".");
                     audioManager.randomEat();
                     itemPickedUp = false;
-                    // TODO: Remove from the inventory!
-                    // TODO: Link to removing hunger
+                    player.getFishekai().timeToEat(item.getModifier());
                     usedImage();
                     flipCard();
                     player.consumeObject(item.getName());
+
                     break;
                 case "water":
                     dialogEngine.update("You drank some water from the flask. YOU HAVE CHARGES?");

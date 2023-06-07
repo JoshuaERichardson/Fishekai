@@ -7,8 +7,13 @@ import com.fishekai.view.object.OBJ_Door;
 import com.fishekai.view.tile.TileManager;
 
 public class LocationSwitcher {
+    static int moves = 0;
 
     public static void moveScenes(Fishekai fishekai, String locationName){
+
+        moves++;
+        fishekai.getTextPlayer().moveDamage(moves);
+        System.out.println(fishekai.getTextPlayer().getThirst() + " " + fishekai.getTextPlayer().getHunger() + " " + fishekai.getTextPlayer().getHp());
 
 
         // Save the prevLocation direction:
