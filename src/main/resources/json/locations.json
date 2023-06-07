@@ -13,9 +13,9 @@
     "items":
       [
         {
-          "apple": {
+          "flask": {
             "column": 8,
-            "row": 8,
+            "row": 10,
             "direction": 0
           }
         },
@@ -81,9 +81,9 @@
     "tiles": "1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1\n1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1\n1 1 1 1 2 2 2 2 2 2 2 2 2 2 2 2\n1 1 1 1 2 2 0 0 0 0 0 0 0 0 0 0\n1 1 1 1 2 2 0 0 0 0 0 0 2 0 0 0\n1 1 1 1 1 2 0 0 0 0 0 0 0 0 0 0\n1 1 1 1 1 2 0 0 2 2 2 2 2 2 2 2\n1 3 3 3 3 3 2 0 2 0 0 0 0 0 0 0\n1 1 1 1 1 2 2 2 2 0 2 0 0 0 0 0\n1 1 1 1 1 1 2 2 2 0 0 0 0 0 0 0\n1 1 1 1 1 2 2 2 2 0 0 0 0 0 0 0\n1 1 1 1 1 1 2 2 2 2 2 0 0 0 0 0",
     "items":
     [
-      {"apple" : {
+      {"parachute" : {
         "column": 4,
-        "row" : 4,
+        "row" : 8,
         "direction" :  0
       }
       },
@@ -209,9 +209,9 @@
     "items":
     [
       {
-        "apple" : {
-        "column": 4,
-        "row" : 4,
+        "hook" : {
+        "column": 10,
+        "row" : 7,
         "direction" :  0
         }
       },
@@ -245,10 +245,59 @@
     "items":
     [
       {
-        "apple" : {
-        "column": 4,
+        "stick" : {
+        "column":8,
         "row" : 4,
         "direction" :  0
+        }
+      },
+      {
+        "water" : {
+        "column": 3,
+        "row": 4,
+        "direction": 0
+        }
+      },
+      {
+        "water" : {
+          "column": 3,
+          "row": 5,
+          "direction": 0
+        }
+      },
+      {
+        "water" : {
+          "column": 4,
+          "row": 5,
+          "direction": 0
+        }
+      },
+      {
+        "water" : {
+          "column": 5,
+          "row": 5,
+          "direction": 0
+        }
+      },
+      {
+        "water" : {
+          "column": 6,
+          "row": 5,
+          "direction": 0
+        }
+      },
+      {
+        "water" : {
+          "column": 7,
+          "row": 5,
+          "direction": 0
+        }
+      },
+      {
+        "water" : {
+          "column": 8,
+          "row": 5,
+          "direction": 0
         }
       },
       {
@@ -317,8 +366,8 @@
     [
       {
         "apple" : {
-        "column": 4,
-        "row" : 4,
+        "column": 10,
+        "row" : 6,
         "direction" :  0
         }
       },

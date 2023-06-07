@@ -32,12 +32,12 @@ public class InventoryPanel extends JPanel{
 
         // Add these to the panel:
         appleItem = new InventoryItem("/sprites/items/bwapple.png", "/sprites/items/apple.png");
-        chordItem = new InventoryItem("/sprites/items/bwapple.png", "/sprites/items/apple.png");
-        stickItem = new InventoryItem("/sprites/items/bwapple.png", "/sprites/items/apple.png");
-        hookItem = new InventoryItem("/sprites/items/bwapple.png", "/sprites/items/apple.png");
-        waterItem = new InventoryItem("/sprites/items/bwapple.png", "/sprites/items/apple.png");
-        bananaItem = new InventoryItem("/sprites/items/bwapple.png", "/sprites/items/apple.png");
-        flaskItem = new InventoryItem("/sprites/items/bwapple.png", "/sprites/items/apple.png");
+        chordItem = new InventoryItem("/sprites/items/bwparachute.png", "/sprites/items/parachute.png");
+        stickItem = new InventoryItem("/sprites/items/bwstick.png", "/sprites/items/stick.png");
+        hookItem = new InventoryItem("/sprites/items/bwhook.png", "/sprites/items/hook.png");
+        waterItem = new InventoryItem("/sprites/items/bwwater.png", "/sprites/items/water.png");
+        bananaItem = new InventoryItem("/sprites/items/bwbanana.png", "/sprites/items/banana.png");
+        flaskItem = new InventoryItem("/sprites/items/bwflask.png", "/sprites/items/flask.png");
 
         add(appleItem);
         add(chordItem);
@@ -55,10 +55,16 @@ public void updateInventory(List<SuperObject> inventory) {
     for (SuperObject item : inventory) {
         String itemName = item.getName();
         switch (itemName) {
-            case "Apple":
-                appleItem.loadImage();
-                break;
+            case "Apple": appleItem.loadImage(); break;
+            case "Banana":bananaItem.loadImage();break;
+            case "Flask" : flaskItem.loadImage(); break;
+            case "Hook" : hookItem.loadImage(); break;
+            case "Parachute" : chordItem.loadImage(); break;
+            case "Stick" : stickItem.loadImage(); break;
+            case "Water" : waterItem.loadImage(); break;
+
         }
+
         this.revalidate();
         this.repaint();
     }
