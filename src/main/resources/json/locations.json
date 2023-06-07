@@ -20,14 +20,14 @@
           }
         },
         {"door" :  {
-          "column": 8,
+          "column": 7,
           "row": 0,
           "direction": 0
             }
         },
         {"door" :  {
-          "column" : 15,
-            "row" : 6,
+          "column" : 11,
+            "row" : 5,
             "direction" : 1
             }
         }
@@ -54,13 +54,13 @@
       }
       },
         {"door" : {
-            "column" : 15,
-            "row" : 6,
+            "column" : 11,
+            "row" : 9,
             "direction" : 1
         }
         },
         {"door" : {
-            "column" : 8,
+            "column" : 7,
             "row" : 11,
             "direction" : 2
           }
@@ -86,7 +86,28 @@
         "row" : 4,
         "direction" :  0
       }
-      }
+      },
+      {
+        "door" : {
+          "column": 0,
+            "row" : 5,
+            "direction" :  3
+        }
+      },
+      {
+        "door" : {
+          "column": 5,
+            "row" : 0,
+            "direction" :  0
+        }
+      },
+        {
+            "door" : {
+            "column": 11,
+                "row" : 5,
+                "direction" :  1
+            }
+        }
     ]
   },
   {
@@ -103,11 +124,75 @@
     "tiles": "1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1\n1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1\n1 1 1 1 2 2 2 2 2 2 2 2 2 2 2 2\n1 1 1 1 2 2 0 0 0 0 0 0 0 0 0 0\n1 1 1 1 2 2 0 0 0 0 0 0 2 0 0 0\n1 1 1 1 1 2 0 0 0 0 0 0 0 0 0 0\n1 1 1 1 1 2 0 0 2 2 2 2 2 2 2 2\n1 3 3 3 3 3 2 0 2 0 0 0 0 0 0 0\n1 1 1 1 1 2 2 2 2 0 2 0 0 0 0 0\n1 1 1 1 1 1 2 2 2 0 0 0 0 0 0 0\n1 1 1 1 1 2 2 2 2 0 0 0 0 0 0 0\n1 1 1 1 1 1 2 2 2 2 2 0 0 0 0 0",
     "items":
     [
-      {"apple" : {
+      {
+        "apple" : {
         "column": 4,
         "row" : 4,
         "direction" :  0
-      }
+        }
+      },
+      {
+        "door" : {
+          "column": 0,
+          "row": 9,
+          "direction": 3
+        }
+      },
+      {
+        "door" : {
+          "column": 0,
+          "row": 10,
+          "direction": 3
+        }
+      },
+      {
+        "door" : {
+          "column": 0,
+          "row": 9,
+          "direction": 3
+        }
+      },
+      {
+        "door" : {
+          "column": 2,
+          "row": 11,
+          "direction": 2
+        }
+      },
+      {
+        "door" : {
+          "column": 2,
+          "row": 11,
+          "direction": 2
+        }
+      },
+      {
+        "door" : {
+          "column": 3,
+          "row": 11,
+          "direction": 2
+        }
+      },
+      {
+        "door" : {
+          "column": 4,
+          "row": 11,
+          "direction": 2
+        }
+      },
+      {
+        "door" : {
+          "column": 5,
+          "row": 11,
+          "direction": 2
+        }
+      },
+      {
+        "door" : {
+          "column": 8,
+          "row": 3,
+          "direction": 1
+        }
       }
     ]
   },
@@ -123,11 +208,26 @@
     "tiles": "1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1\n1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1\n1 1 1 1 2 2 2 2 2 2 2 2 2 2 2 2\n1 1 1 1 2 2 0 0 0 0 0 0 0 0 0 0\n1 1 1 1 2 2 0 0 0 0 0 0 2 0 0 0\n1 1 1 1 1 2 0 0 0 0 0 0 0 0 0 0\n1 1 1 1 1 2 0 0 2 2 2 2 2 2 2 2\n1 3 3 3 3 3 2 0 2 0 0 0 0 0 0 0\n1 1 1 1 1 2 2 2 2 0 2 0 0 0 0 0\n1 1 1 1 1 1 2 2 2 0 0 0 0 0 0 0\n1 1 1 1 1 2 2 2 2 0 0 0 0 0 0 0\n1 1 1 1 1 1 2 2 2 2 2 0 0 0 0 0",
     "items":
     [
-      {"apple" : {
+      {
+        "apple" : {
         "column": 4,
         "row" : 4,
         "direction" :  0
-      }
+        }
+      },
+      {
+        "door" : {
+          "column": 5,
+          "row": 2,
+          "direction": 3
+        }
+      },
+      {
+        "door" : {
+          "column": 6,
+          "row": 2,
+          "direction": 3
+        }
       }
     ]
   },
@@ -144,11 +244,61 @@
     "tiles": "1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1\n1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1\n1 1 1 1 2 2 2 2 2 2 2 2 2 2 2 2\n1 1 1 1 2 2 0 0 0 0 0 0 0 0 0 0\n1 1 1 1 2 2 0 0 0 0 0 0 2 0 0 0\n1 1 1 1 1 2 0 0 0 0 0 0 0 0 0 0\n1 1 1 1 1 2 0 0 2 2 2 2 2 2 2 2\n1 3 3 3 3 3 2 0 2 0 0 0 0 0 0 0\n1 1 1 1 1 2 2 2 2 0 2 0 0 0 0 0\n1 1 1 1 1 1 2 2 2 0 0 0 0 0 0 0\n1 1 1 1 1 2 2 2 2 0 0 0 0 0 0 0\n1 1 1 1 1 1 2 2 2 2 2 0 0 0 0 0",
     "items":
     [
-      {"apple" : {
+      {
+        "apple" : {
         "column": 4,
         "row" : 4,
         "direction" :  0
-      }
+        }
+      },
+      {
+        "door" : {
+          "column": 11,
+          "row": 4,
+          "direction": 1
+        }
+      },
+      {
+        "door" : {
+          "column": 11,
+          "row": 5,
+          "direction": 1
+        }
+      },
+      {
+        "door" : {
+          "column": 11,
+          "row": 6,
+          "direction": 1
+        }
+      },
+      {
+        "door" : {
+          "column": 11,
+          "row": 7,
+          "direction": 1
+        }
+      },
+      {
+        "door" : {
+          "column": 0,
+          "row": 5,
+          "direction": 3
+        }
+      },
+      {
+        "door" : {
+          "column": 0,
+          "row": 6,
+          "direction": 3
+        }
+      },
+      {
+        "door" : {
+          "column": 0,
+          "row": 7,
+          "direction": 3
+        }
       }
     ]
   },
@@ -156,7 +306,7 @@
     "name": "Mystical Grove",
     "directions": {
       "west": "Waterfall",
-      "south": "Volcano"
+      "north": "Volcano"
     },
     "descriptions": {
       "before": "As you step into the hallowed ground of the Mystical Grove, a sense of enchantment washes over you. Sunlight filters through the dense foliage, casting ethereal beams that illuminate the vibrant flora below. Trees with gnarled branches twist and intertwine, forming natural archways that lead deeper into the grove. The air is infused with a delicate fragrance, a scent that evokes both tranquility and a hint of ancient magic. Soft whispers seem to echo through the grove, carried by a gentle breeze that stirs the leaves. You find yourself in a realm where reality and mysticism blend, beckoning you to explore its hidden wonders.",
@@ -165,18 +315,62 @@
     "tiles": "1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1\n1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1\n1 1 1 1 2 2 2 2 2 2 2 2 2 2 2 2\n1 1 1 1 2 2 0 0 0 0 0 0 0 0 0 0\n1 1 1 1 2 2 0 0 0 0 0 0 2 0 0 0\n1 1 1 1 1 2 0 0 0 0 0 0 0 0 0 0\n1 1 1 1 1 2 0 0 2 2 2 2 2 2 2 2\n1 3 3 3 3 3 2 0 2 0 0 0 0 0 0 0\n1 1 1 1 1 2 2 2 2 0 2 0 0 0 0 0\n1 1 1 1 1 1 2 2 2 0 0 0 0 0 0 0\n1 1 1 1 1 2 2 2 2 0 0 0 0 0 0 0\n1 1 1 1 1 1 2 2 2 2 2 0 0 0 0 0",
     "items":
     [
-      {"apple" : {
+      {
+        "apple" : {
         "column": 4,
         "row" : 4,
         "direction" :  0
+        }
+      },
+      {
+        "door" : {
+          "column": 0,
+          "row": 6,
+          "direction": 3
+        }
+      },
+      {
+        "door" : {
+          "column": 0,
+          "row": 7,
+          "direction": 3
+        }
+      },
+      {
+        "door" : {
+          "column": 0,
+          "row": 8,
+          "direction": 3
+        }
+      },
+      {
+        "door" : {
+          "column": 0,
+          "row": 9,
+          "direction": 3
+        }
+      },
+      {
+        "door" : {
+          "column": 5,
+          "row": 0,
+          "direction": 0
+        }
+      },
+      {
+        "door" : {
+          "column": 6,
+          "row": 0,
+          "direction": 0
+        }
       }
-      }
+
     ]
   },
   {
     "name": "Volcano",
     "directions": {
-      "north": "Mystical Grove"
+      "south": "Mystical Grove"
     },
     "descriptions": {
       "before": "You cautiously step into the realm of fire and fury, the air heavy with the scent of sulfur. The ground trembles beneath your feet as the colossal volcano looms before you, its mighty presence casting an ominous shadow. Streams of molten lava snake down its rugged slopes, creating a mesmerizing display of raw power. The heat intensifies with each step, the temperature rising to an almost unbearable level. Glowing embers float through the air like ethereal fireflies, while ash drifts lazily, carried by the hot breeze. The rumble from the depths serves as a constant reminder of the volcano's untamed nature. As you venture deeper into this fiery abyss, a sense of both danger and wonder engulfs you.",
@@ -185,11 +379,26 @@
     "tiles": "1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1\n1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1\n1 1 1 1 2 2 2 2 2 2 2 2 2 2 2 2\n1 1 1 1 2 2 0 0 0 0 0 0 0 0 0 0\n1 1 1 1 2 2 0 0 0 0 0 0 2 0 0 0\n1 1 1 1 1 2 0 0 0 0 0 0 0 0 0 0\n1 1 1 1 1 2 0 0 2 2 2 2 2 2 2 2\n1 3 3 3 3 3 2 0 2 0 0 0 0 0 0 0\n1 1 1 1 1 2 2 2 2 0 2 0 0 0 0 0\n1 1 1 1 1 1 2 2 2 0 0 0 0 0 0 0\n1 1 1 1 1 2 2 2 2 0 0 0 0 0 0 0\n1 1 1 1 1 1 2 2 2 2 2 0 0 0 0 0",
     "items":
     [
-      {"apple" : {
+      {
+        "apple" : {
         "column": 4,
         "row" : 4,
         "direction" :  0
-      }
+        }
+      },
+      {
+        "door" : {
+            "column": 5,
+            "row": 11,
+            "direction": 2
+        }
+      },
+      {
+        "door" : {
+          "column": 6,
+          "row": 11,
+          "direction": 2
+        }
       }
     ]
   }
