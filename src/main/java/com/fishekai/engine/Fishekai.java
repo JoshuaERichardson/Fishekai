@@ -66,6 +66,7 @@ public class Fishekai extends JPanel implements SplashApp, Runnable {
         String input = prompter.prompt("Would you like to play a new game? [Y]es or [N]o.\n><(((º> ",
                 "Yes|yes|Y|y|No|no|N|n",
                 "That is not a valid input\n");
+        //
 
         // if New Game, go to begin()
         if (input.equalsIgnoreCase("yes") || input.equalsIgnoreCase("y")) {
