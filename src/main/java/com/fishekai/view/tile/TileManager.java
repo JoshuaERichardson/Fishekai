@@ -24,7 +24,13 @@ public class TileManager {
     public void getMapImage(){
         try{
             // Fetching the image based on the location
-            String filePath = "/sprites/locations/" + gp.fishekai.current_location.getName() + ".png";
+            String locationName = gp.fishekai.current_location.getName();
+//            if (gp.fishekai.current_location.getName().equals("North Beach")) locationName = "northbeach";
+//            if (locationName.equals("Jungle")) locationName = "forest";
+//            if (locationName.equals("Mystical Grove")){
+//                locationName = "mysticalgrove";
+//            }
+            String filePath = "/sprites/locations/" + locationName + ".png";
 
             InputStream in = getClass().getResourceAsStream(filePath);
             if (in == null) {
@@ -70,6 +76,6 @@ public class TileManager {
 public void draw(Graphics2D g2) {
     if (mapImage != null) {
         g2.drawImage(mapImage, 0, 0, gp.screenWidth, gp.screenHeight, null);
+        }
     }
-}
 }

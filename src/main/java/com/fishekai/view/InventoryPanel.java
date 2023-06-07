@@ -47,6 +47,8 @@ public class InventoryPanel extends JPanel{
         add(bananaItem);
         add(flaskItem);
 
+        setFocusable(false);
+
     }
 
 public void updateInventory(List<SuperObject> inventory) {

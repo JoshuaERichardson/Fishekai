@@ -29,7 +29,7 @@ public class LocationSwitcher {
         // Then redraw the player::: TODO: Need to simplify this!
         // If NorthBeach from Beach:
         if (locationName.equals("North Beach") && prevLocation.equals("Beach")) {
-            fishekai.window.gamePanel.player.worldX = 8 * fishekai.window.gamePanel.tileSize;
+            fishekai.window.gamePanel.player.worldX = 7 * fishekai.window.gamePanel.tileSize;
             fishekai.window.gamePanel.player.worldY = 10 * fishekai.window.gamePanel.tileSize;
         }
         // If Beach from NorthBeach:
@@ -37,6 +37,77 @@ public class LocationSwitcher {
             fishekai.window.gamePanel.player.worldX = 7 * fishekai.window.gamePanel.tileSize;
             fishekai.window.gamePanel.player.worldY = 1 * fishekai.window.gamePanel.tileSize;
         }
+        // If Beach to Jungle:
+        else if (locationName.equals("Jungle") && prevLocation.equals("Beach")) {
+            fishekai.window.gamePanel.player.worldX = 1 * fishekai.window.gamePanel.tileSize;
+            fishekai.window.gamePanel.player.worldY = 5 * fishekai.window.gamePanel.tileSize;
+        }
+        // If Jungle to Beach:
+        else if (locationName.equals("Beach") && prevLocation.equals("Jungle")) {
+            fishekai.window.gamePanel.player.worldX = 10 * fishekai.window.gamePanel.tileSize;
+            fishekai.window.gamePanel.player.worldY = 5 * fishekai.window.gamePanel.tileSize;
+        }
+        // If Jungle to Waterfall:
+        else if (locationName.equals("Waterfall") && prevLocation.equals("Jungle")) {
+            fishekai.window.gamePanel.player.worldX = 1 * fishekai.window.gamePanel.tileSize;
+            fishekai.window.gamePanel.player.worldY = 5 * fishekai.window.gamePanel.tileSize;
+        }
+        // If Waterfall to Jungle:
+        else if (locationName.equals("Jungle") && prevLocation.equals("Waterfall")) {
+            fishekai.window.gamePanel.player.worldX = 10 * fishekai.window.gamePanel.tileSize;
+            fishekai.window.gamePanel.player.worldY = 5 * fishekai.window.gamePanel.tileSize;
+        }
+        // If Waterfall to Mystical Grove:
+        else if (locationName.equals("Mystical Grove") && prevLocation.equals("Waterfall")) {
+            fishekai.window.gamePanel.player.worldX = 1 * fishekai.window.gamePanel.tileSize;
+            fishekai.window.gamePanel.player.worldY = 5 * fishekai.window.gamePanel.tileSize;
+        }
+        // If Mystical Grove to Waterfall:
+        else if (locationName.equals("Waterfall") && prevLocation.equals("Mystical Grove")) {
+            fishekai.window.gamePanel.player.worldX = 10 * fishekai.window.gamePanel.tileSize;
+            fishekai.window.gamePanel.player.worldY = 5 * fishekai.window.gamePanel.tileSize;
+        }
+        // If Mystical Grove to Volcano:
+        else if (locationName.equals("Volcano") && prevLocation.equals("Mystical Grove")) {
+            fishekai.window.gamePanel.player.worldX = 5 * fishekai.window.gamePanel.tileSize;
+            fishekai.window.gamePanel.player.worldY = 10 * fishekai.window.gamePanel.tileSize;
+        }
+        // If Volcano to Mystical Grove:
+        else if (locationName.equals("Mystical Grove") && prevLocation.equals("Volcano")) {
+            fishekai.window.gamePanel.player.worldX = 5 * fishekai.window.gamePanel.tileSize;
+            fishekai.window.gamePanel.player.worldY = 1 * fishekai.window.gamePanel.tileSize;
+        }
+        // If North Beach to Mountain:
+        else if (locationName.equals("Mountain") && prevLocation.equals("North Beach")) {
+            fishekai.window.gamePanel.player.worldX = 1 * fishekai.window.gamePanel.tileSize;
+            fishekai.window.gamePanel.player.worldY = 9 * fishekai.window.gamePanel.tileSize;
+        }
+        // If Mountain to North Beach:
+        else if (locationName.equals("North Beach") && prevLocation.equals("Mountain")) {
+            fishekai.window.gamePanel.player.worldX = 10 * fishekai.window.gamePanel.tileSize;
+            fishekai.window.gamePanel.player.worldY = 9 * fishekai.window.gamePanel.tileSize;
+        }
+        // If mountain to Cave:
+        else if (locationName.equals("Cave") && prevLocation.equals("Mountain")) {
+            fishekai.window.gamePanel.player.worldX = 5 * fishekai.window.gamePanel.tileSize;
+            fishekai.window.gamePanel.player.worldY = 3 * fishekai.window.gamePanel.tileSize;
+        }
+        // If cave to mountain:
+        else if (locationName.equals("Mountain") && prevLocation.equals("Cave")) {
+            fishekai.window.gamePanel.player.worldX = 8 * fishekai.window.gamePanel.tileSize;
+            fishekai.window.gamePanel.player.worldY = 4 * fishekai.window.gamePanel.tileSize;
+        }
+        // If mountain to Forest:
+        else if (locationName.equals("Jungle") && prevLocation.equals("Mountain")) {
+            fishekai.window.gamePanel.player.worldX = 5 * fishekai.window.gamePanel.tileSize;
+            fishekai.window.gamePanel.player.worldY = 1 * fishekai.window.gamePanel.tileSize;
+        }
+        // If Forest to Mountain:
+        else if (locationName.equals("Mountain") && prevLocation.equals("Jungle")) {
+            fishekai.window.gamePanel.player.worldX = 4 * fishekai.window.gamePanel.tileSize;
+            fishekai.window.gamePanel.player.worldY = 10 * fishekai.window.gamePanel.tileSize;
+        }
+
 
 
 

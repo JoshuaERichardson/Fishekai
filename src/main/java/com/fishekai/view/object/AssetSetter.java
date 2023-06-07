@@ -20,7 +20,10 @@ public class AssetSetter {
 
         List<Map<String, Map<String, Integer>>> itemList = current_location.getItems();
         int i = 0;
-
+        // Wipe the map of all items first:
+        for (int j = 0; j < gp.obj.length; j++) {
+            gp.obj[j] = null;
+        }
         for (Map<String, Map<String, Integer>> item : itemList) {
             if (item.containsKey("apple")) {
                 Map<String, Integer> apple = item.get("apple");
