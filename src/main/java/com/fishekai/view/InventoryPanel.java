@@ -16,8 +16,10 @@ public class InventoryPanel extends JPanel{
     public int width;
     public int height;
     InventoryItem appleItem, chordItem, stickItem, hookItem, waterItem, bananaItem, flaskItem;
+    private final DialogEngine dialogEngine;
 
     public InventoryPanel(Player textPlayer, MainWindow mainWindow) {
+        dialogEngine = mainWindow.getGamePanel().getDialog();
         // Overall display info
         int windowHeight = mainWindow.getHeight();
         int gpHeight = mainWindow.gamePanel.getScreenHeight();
@@ -31,13 +33,13 @@ public class InventoryPanel extends JPanel{
         setSize(new Dimension(width, height));
 
         // Add these to the panel:
-        appleItem = new InventoryItem("/sprites/items/bwapple.png", "/sprites/items/apple.png");
-        chordItem = new InventoryItem("/sprites/items/bwparachute.png", "/sprites/items/parachute.png");
-        stickItem = new InventoryItem("/sprites/items/bwstick.png", "/sprites/items/stick.png");
-        hookItem = new InventoryItem("/sprites/items/bwhook.png", "/sprites/items/hook.png");
-        waterItem = new InventoryItem("/sprites/items/bwwater.png", "/sprites/items/water.png");
-        bananaItem = new InventoryItem("/sprites/items/bwbanana.png", "/sprites/items/banana.png");
-        flaskItem = new InventoryItem("/sprites/items/bwflask.png", "/sprites/items/flask.png");
+        appleItem = new InventoryItem("/sprites/items/bwapple.png", "/sprites/items/apple.png", dialogEngine);
+        chordItem = new InventoryItem("/sprites/items/bwparachute.png", "/sprites/items/parachute.png", dialogEngine);
+        stickItem = new InventoryItem("/sprites/items/bwstick.png", "/sprites/items/stick.png", dialogEngine);
+        hookItem = new InventoryItem("/sprites/items/bwhook.png", "/sprites/items/hook.png", dialogEngine);
+        waterItem = new InventoryItem("/sprites/items/bwwater.png", "/sprites/items/water.png", dialogEngine);
+        bananaItem = new InventoryItem("/sprites/items/bwbanana.png", "/sprites/items/banana.png", dialogEngine);
+        flaskItem = new InventoryItem("/sprites/items/bwflask.png", "/sprites/items/flask.png", dialogEngine);
 
         add(appleItem);
         add(chordItem);

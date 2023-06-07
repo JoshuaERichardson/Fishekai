@@ -1,7 +1,6 @@
 package com.fishekai.view;
 
 import com.fishekai.engine.Fishekai;
-import com.fishekai.engine.Introduction;
 import com.fishekai.view.entity.Player;
 import com.fishekai.view.object.AssetSetter;
 import com.fishekai.view.object.SuperObject;
@@ -36,11 +35,16 @@ public class GamePanel extends MainPanel{
     public Fishekai fishekai;
 
 
+
+    private DialogEngine dialog;
+
+
     public GamePanel(KeyHandler kh, Fishekai fishekai) {
         this.kh = kh;
         player = new Player(this, kh, fishekai);
         this.fishekai = fishekai;
         tileM = new TileManager(this);
+        dialog = new DialogEngine(this);
     }
     public void setupGame() {
         assetSetter.setObject();
@@ -73,6 +77,7 @@ public class GamePanel extends MainPanel{
      */
     public void update() {
                 player.update();
+                dialog.update();
     }
 
     public void paintComponent(Graphics g) {
@@ -91,6 +96,9 @@ public class GamePanel extends MainPanel{
 
         // Player
         player.draw(g2);
+
+        // Dialog
+        dialog.draw(g2);
 
 
         g2.dispose();
@@ -163,5 +171,8 @@ public class GamePanel extends MainPanel{
 
     public Fishekai getFishekai() {
         return fishekai;
+    }
+    public DialogEngine getDialog() {
+        return dialog;
     }
 }
