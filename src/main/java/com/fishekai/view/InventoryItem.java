@@ -35,7 +35,7 @@ class InventoryItem extends JPanel {
         JButton useButton = new JButton("Use");
         JButton flipButton = new JButton("Cancel");
         lookButton.addActionListener(e -> {
-
+            dialogEngine.update("You look at the ");
         });
         useButton.addActionListener(e -> {
             // Use the item
@@ -46,6 +46,9 @@ class InventoryItem extends JPanel {
             flipCard();
         });
 
+        lookButton.setFocusable(false);
+        useButton.setFocusable(false);
+        flipButton.setFocusable(false);
         backCard.add(lookButton);
         backCard.add(useButton);
         backCard.add(flipButton);

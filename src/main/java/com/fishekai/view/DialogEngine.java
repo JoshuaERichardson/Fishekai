@@ -31,6 +31,7 @@ public class DialogEngine {
         if(kh.enterPressed){
             // Remove the dialogue bubble
             dialogBubble = null;
+            input = null;
             display = false;
         }
 
@@ -43,6 +44,8 @@ public class DialogEngine {
             g2.setColor(Color.BLACK);
             g2.setFont(new Font("Arial", Font.BOLD, 20));
             g2.drawString(input, 250, 250);
+
+
         }
     }
 }
