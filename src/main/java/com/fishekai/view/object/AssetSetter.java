@@ -13,7 +13,7 @@ public class AssetSetter {
     }
 
     public void setObject() {
-        // Max X = 16(columns)
+        // Max X = 12(columns)
         // Max Y = 12(rows)
         System.out.println(gp.fishekai);
         Location current_location = gp.fishekai.current_location;
