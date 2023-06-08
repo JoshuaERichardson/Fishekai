@@ -3,6 +3,8 @@ package com.fishekai.view;
 import com.fishekai.engine.Display;
 import com.fishekai.engine.Fishekai;
 import com.fishekai.engine.HelpPopup;
+import com.fishekai.engine.VolumeControl;
+import com.fishekai.models.Location;
 import com.fishekai.models.Player;
 import com.fishekai.utilities.AudioManager;
 
@@ -16,14 +18,15 @@ public class SidePanel extends JPanel {
     private final JPanel mainPanel;
     private HelpPopup helpPopup;
     private final AudioManager audioManager;
+    private Fishekai fishekai;
 
     public SidePanel(MainPanel mainPanel, Player textPlayer, Fishekai fishekai) {
         this.mainPanel = mainPanel;
-//        setSize(new Dimension(HEIGHT, WIDTH));
+        // setSize(new Dimension(HEIGHT, WIDTH));
         setVisible(true);
         setBackground(java.awt.Color.GREEN);
         audioManager = fishekai.getAudioManager();
-
+        this.fishekai = fishekai;
 
         // Make the Help Button:
         JButton helpButton = new JButton("Help");
@@ -31,13 +34,33 @@ public class SidePanel extends JPanel {
 
         // Add the listener to the Help:
         helpButton.addActionListener(e -> {
-                    new HelpPopup(Display.showHelp()).createHelpDialog().setVisible(true);
-                    audioManager.playSoundEffect("help");
-                });
+            new HelpPopup(Display.showHelp()).createHelpDialog().setVisible(true);
+            audioManager.playSoundEffect("help");
+        });
 
-        // Add the button to the panel:
+
         this.add(helpButton);
 
+
+        JButton startFishingButton = new JButton("Start Fishing");
+        startFishingButton.setRequestFocusEnabled(false);
+
+
+        startFishingButton.addActionListener(e -> {
+
+            Player player = fishekai.getTextPlayer();
+            Location location = fishekai.getCurrent_location();
+            fishekai.getFishingMechanic().startFishing(player, location, audioManager);
+
+            FishingFrame fishingFrame = new FishingFrame(fishekai.getFishingMechanic());
+            fishingFrame.setSize(400, 400);
+            fishingFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            fishingFrame.setVisible(true);
+            audioManager.playSoundEffect("fishing");
+        });
+
+
+        this.add(startFishingButton);
     }
 
     public JPanel getMainPanel() {
