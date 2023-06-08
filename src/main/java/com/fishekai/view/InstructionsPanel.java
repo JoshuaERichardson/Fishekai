@@ -8,7 +8,7 @@ import java.awt.*;
 import java.util.Map;
 
 public class InstructionsPanel extends MainPanel{
-    public final String PATH = "/images/instructions.jpg";
+    public final String PATH = "/images/waves.png";
     private Image image;
     private JLabel label;
     private Map<String, String> instructions;
