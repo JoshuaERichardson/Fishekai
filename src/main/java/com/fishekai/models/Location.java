@@ -61,6 +61,14 @@ public class Location {
         this.fishes = fishes;
     }
 
+    public void addFish() {
+        Map<String, Map<String, Integer>> fishMap = new HashMap<>();
+        fishMap.put("fish", null);
+        items.add(fishMap);
+
+
+    }
+
 
 
     public Map<String, NPC> getNpc() {

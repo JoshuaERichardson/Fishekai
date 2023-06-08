@@ -144,7 +144,7 @@ public class Player extends Entity{
             if (objectName.equals("Apple") || objectName.equals("Banana") || objectName.equals("Flask") || objectName.equals("Hook") ||
                 objectName.equals("Parachute") || objectName.equals("Stick") ||objectName.equals("Water")) {
                 inventory.add(gp.obj[i]);
-                // Reload the side panel:
+
                 fishekai.window.getInventoryPanel().updateInventory(inventory);
 
                 gp.obj[i] = null;

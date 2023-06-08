@@ -65,7 +65,7 @@ public MainWindow(KeyHandler kh, Fishekai fishekai) {
 
         // Add all the panels to the main window:
         this.add(mainPanels, customGridBag(0, 0, 3, 2, 1, true, true));
-        this.add(statusPanel, customGridBag(3, 0, 2, 3, 0, false, false));
+        this.add(statusPanel, customGridBag(3, 0, 2, 3, 0, true, true));
         this.add(sidePanel, customGridBag(5, 0, 2, 3, 0, true, true));
         this.add(inventoryPanel, customGridBag(0, 2, 3, 1, 0, true, true));
         this.revalidate();

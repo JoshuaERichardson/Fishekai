@@ -19,6 +19,27 @@
             "direction": 0
           }
         },
+        {
+          "stick": {
+            "column": 7,
+            "row": 10,
+            "direction": 0
+          }
+        },
+        {
+          "parachute": {
+            "column": 6,
+            "row": 10,
+            "direction": 0
+          }
+        },
+        {
+          "hook" : {
+            "column": 5,
+            "row": 10,
+            "direction": 0
+          }
+        },
         {"door" :  {
           "column": 7,
           "row": 0,

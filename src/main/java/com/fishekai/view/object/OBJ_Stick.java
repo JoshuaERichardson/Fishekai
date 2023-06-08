@@ -11,7 +11,7 @@ public class OBJ_Stick extends SuperObject{
         modifier = 0;
 
         try {
-            image = ImageIO.read(getClass().getResourceAsStream("/sprites/items/apple.png"));
+            image = ImageIO.read(getClass().getResourceAsStream("/sprites/items/stick.png"));
         } catch(IOException e){
             System.out.println("Failed to make the image for apple");
             e.printStackTrace();

@@ -72,6 +72,16 @@ class InventoryItem extends JComponent {
                         dialogEngine.update("You used the stick... That should help out making a fishing pole.");
                         player.consumeObject(item.getName());
                     }
+                    if (item.getName().equals("Parachute")){
+                        statusPanel.setHaveRope(true);
+                        dialogEngine.update("Hmmm... I guess I'll try to use this to make the line for a fishing pole.");
+                        player.consumeObject(item.getName());
+                    }
+                    if (item.getName().equals("Hook")){
+                        statusPanel.setHaveHook(true);
+                        dialogEngine.update("This hook should be perfect for fishing.  Let's try it out");
+                        player.consumeObject(item.getName());
+                    }
             }
         });
         flipButton.addActionListener(e -> {

@@ -72,6 +72,10 @@ public class AssetSetter {
                 gp.obj[i].worldX = water.get("column") * gp.tileSize;
                 gp.obj[i].worldY = water.get("row") * gp.tileSize;
                 i++;
+            } else if (item.containsKey("fish")){
+                gp.obj[i] = new OBJ_Fish();
+                gp.obj[i].worldY = gp.obj[i].worldY * gp.tileSize;
+                gp.obj[i].worldX = gp.obj[i].worldX * gp.tileSize;
             } else if (item.containsKey("door")) {
                 Map<String, Integer> door = item.get("door");
                 gp.obj[i] = new OBJ_Door();
