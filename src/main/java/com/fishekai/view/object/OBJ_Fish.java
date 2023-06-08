@@ -12,20 +12,11 @@ public class OBJ_Fish extends SuperObject{
         modifier =0;
         worldX = 0;
         worldY = 4;
-
-
-
-
-
         try{
             image = ImageIO.read(getClass().getResourceAsStream("/sprites/items/fish1.png"));
         } catch (IOException e){
             System.out.println("Failed to make the image for fish");
             e.printStackTrace();
         }
-
     }
-
-
-
 }

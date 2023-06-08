@@ -112,8 +112,6 @@ public class Player extends Entity{
             int objIndex = gp.collisionChecker.checkObject(this, true);
             walkThroughDoor(objIndex);
 
-            int signIndex = gp.collisionChecker.checkSign(this,true);
-
 
 
 
