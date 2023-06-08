@@ -24,7 +24,7 @@ class MainPanel extends JPanel {
         setSize(MAIN_PANEL_SIZE);
         System.out.println("MainPanel: " + getWidth() + " " + getHeight());
         setVisible(true);
-        setBackground(Color.BLUE);
+        setBackground(Color.GRAY);
 
     }
 
