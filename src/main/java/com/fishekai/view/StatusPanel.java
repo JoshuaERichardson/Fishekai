@@ -16,6 +16,7 @@ public class StatusPanel extends JPanel {
     private JLabel hungerLabel;
     private JLabel thirstLabel;
     private JLabel healthLabel;
+    private boolean haveStick = false;
 
 
     public StatusPanel(Fishekai fishekai, MainPanel mainPanel) {
@@ -73,6 +74,10 @@ public class StatusPanel extends JPanel {
     public int updateHealth(){
         health = fishekai.textPlayer.getHp();
         return health;
+    }
+
+    public void setHaveStick(boolean haveStick) {
+        this.haveStick = haveStick;
     }
 
     public void update() {

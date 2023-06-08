@@ -18,6 +18,7 @@ class InventoryItem extends JComponent {
     SuperObject item;
     private final AudioManager audioManager;
     private final Player player;
+    private final StatusPanel statusPanel;
 
     public InventoryItem(String missingItemPath, String haveItemPath, SuperObject item, InventoryPanel inventoryPanel) {
         this.missingItemPath = missingItemPath;
@@ -26,6 +27,7 @@ class InventoryItem extends JComponent {
         this.item = item;
         this.audioManager = inventoryPanel.getMainWindow().gamePanel.getAudioManager();
         this.player = inventoryPanel.getMainWindow().gamePanel.getPlayer();
+        this.statusPanel = inventoryPanel.getMainWindow().getStatusPanel();
 
 
 
@@ -64,6 +66,12 @@ class InventoryItem extends JComponent {
                     dialogEngine.update("You drank some water from the flask. YOU HAVE CHARGES?");
                     audioManager.randomDrink();
                     break;
+                case "tool":
+                    if (item.getName().equals("Stick")){
+                        statusPanel.setHaveStick(true);
+                        dialogEngine.update("You used the stick... That should help out making a fishing pole.");
+                        player.consumeObject(item.getName());
+                    }
             }
         });
         flipButton.addActionListener(e -> {
