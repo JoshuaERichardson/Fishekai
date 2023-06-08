@@ -58,9 +58,6 @@ public MainWindow(KeyHandler kh, Fishekai fishekai) {
         this.kh = kh;
         this.addKeyListener(kh);
 
-
-
-
         GridBagConstraints c = new GridBagConstraints();
         // Add all the panels to the main window:
         c = GridBagConstraints(c, 0, 0, 4, 5, 1);

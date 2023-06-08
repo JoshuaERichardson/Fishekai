@@ -1,26 +1,18 @@
-**********><(((º>**************
+***********><(((º>*************
 *                             *
 *         Help Menu           *
 *                             *
+*         Commands            *
+* To Move:                    *
+* W = UP                      *
+* S = DOWN                    *
+* A = LEFT                    *
+* D = RIGHT                   *
 *                             *
-*Commands                     *
+* SPACE = INTERACT/PICK UP    *
 *                             *
-*go (North, South, East, West)*
-*look (item)                  *
-*drop (item)                  *
-*get (item from location)     *
-*talk (self or NPC)           *
-*map (shows map)              *
-*music (on or off)            *
-*volume (up or down)          *
-*effect (on or off)           *
-*show (gui)                   *
-*jump (into the void)         *
-*quit (the game)              *
-*drink (water)                *
-*eat (food item)              *
-*build (fishing pole)         *
-*fish (start fishing)         *
+*                             *
+*                             *
 *                             *
 **********><(((º>**************			
 		
