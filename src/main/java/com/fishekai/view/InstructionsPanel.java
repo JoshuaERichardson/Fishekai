@@ -37,11 +37,14 @@ public class InstructionsPanel extends MainPanel {
         textPane.setForeground(Color.WHITE);
         textPane.setEditable(false);
         textPane.setOpaque(false);
+        textPane.setFocusable(false);
+        textPane.setCaretColor(Color.WHITE);
         JScrollPane scrollPane = new JScrollPane(textPane);
         scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
         scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         scrollPane.setOpaque(false);
         scrollPane.getViewport().setOpaque(false);
+
         add(scrollPane, BorderLayout.CENTER);
     }
 
