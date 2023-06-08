@@ -62,14 +62,23 @@ public class StatusPanel extends JPanel {
 
     }
 
+    public int updateThirst(){
+        thirst = fishekai.textPlayer.getThirst();
+        return thirst;
+    }
+    public int updateHunger(){
+        hunger = fishekai.textPlayer.getHunger();
+        return hunger;
+    }
+    public int updateHealth(){
+        health = fishekai.textPlayer.getHp();
+        return health;
+    }
 
     public void update() {
-        thirst = fishekai.textPlayer.getThirst();
-        thirstLabel.setText("Thirst: " + thirst);
-        hunger = fishekai.textPlayer.getHunger();
-        hungerLabel.setText("Hunger: " + hunger);
-        health = fishekai.textPlayer.getHp();
-        healthLabel.setText("Health: " + health);
+        thirstLabel.setText("Thirst: " + updateThirst());
+        hungerLabel.setText("Hunger: " + updateHunger());
+        healthLabel.setText("Health: " + updateHealth());
         this.repaint();
     }
 }
