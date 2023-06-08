@@ -14,8 +14,8 @@ class MainPanel extends JPanel {
     public final int tileSize = originalTileSize * scale; // tile size
     public final int maxScreenCol = 12; // max screen columns
     public final int maxScreenRow = 12; // max screen rows
-    public final int screenWidth = tileSize * maxScreenCol; // screen width (768 pixels)
-    public final int screenHeight = tileSize * maxScreenRow; // screen height (576 pixels)
+    public final int screenWidth = tileSize * maxScreenCol;
+    public final int screenHeight = tileSize * maxScreenRow;
     final int FPS = 60; // screen frames per second
     final Dimension MAIN_PANEL_SIZE = new Dimension(screenWidth, screenHeight);
 

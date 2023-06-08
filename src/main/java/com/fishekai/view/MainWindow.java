@@ -19,6 +19,7 @@ public class MainWindow extends JFrame {
         private KeyHandler kh;
         private SidePanel sidePanel;
         private Fishekai fishekai;
+        private StatusPanel statusPanel;
 
 
 
@@ -47,6 +48,9 @@ public MainWindow(KeyHandler kh, Fishekai fishekai) {
         mainPanels.add(instructionsPanel);
         mainPanels.add(gamePanel);
 
+        // Create the status panel:
+        statusPanel = new StatusPanel(fishekai, mainPanels);
+
         // Create the side panel:
         sidePanel = new SidePanel(mainPanels, fishekai.textPlayer, fishekai);
 
@@ -62,9 +66,11 @@ public MainWindow(KeyHandler kh, Fishekai fishekai) {
         // Add all the panels to the main window:
         c = GridBagConstraints(c, 0, 0, 4, 5, 1);
         this.add(mainPanels, c);
-        c = GridBagConstraints(c, 4,0,3,6, 0.5);
+        c = GridBagConstraints(c, 4, 0, 2, 6, .8);
+        this.add(statusPanel, c);
+        c = GridBagConstraints(c, 6,0,1,6, 0.5);
         this.add(sidePanel, c);
-        c = GridBagConstraints(c, 0, 5, 3, 1, 0.5);
+        c = GridBagConstraints(c, 0, 5, 4, 1, 0.5);
         this.add(inventoryPanel, c);
         this.revalidate();
         this.repaint();
