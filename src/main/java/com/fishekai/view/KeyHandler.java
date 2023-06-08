@@ -52,7 +52,6 @@ public class KeyHandler implements KeyListener {
         int code = e.getKeyCode();
 
         if (code == KeyEvent.VK_W) {
-            System.out.println("W pressed");
             upPressed = true;
         }
         if (code == KeyEvent.VK_A) {
@@ -65,17 +64,14 @@ public class KeyHandler implements KeyListener {
             rightPressed = true;
         }
         if (code == KeyEvent.VK_SPACE) {
-            System.out.println("Space pressed");
             spacePressed = true;
         }
         if (code == KeyEvent.VK_ENTER) {
-            System.out.println("Enter pressed");
             enterPressed = true;
             notifyEnterKeyListeners();
             // If we are not on the last card:
             if (splashScreenCounter == 0) {
                 splashScreenCounter++;
-                System.out.println(splashScreenCounter);
                 game.window.nextCard();
             } else if (splashScreenCounter == 1) {
                 splashScreenCounter++;

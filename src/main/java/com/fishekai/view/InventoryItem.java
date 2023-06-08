@@ -8,7 +8,7 @@ import com.fishekai.view.object.SuperObject;
 import javax.swing.*;
 import java.awt.*;
 
-class InventoryItem extends JPanel {
+class InventoryItem extends JComponent {
     private String missingItemPath;
     private String haveItemPath;
     private Image image;
@@ -122,9 +122,8 @@ class InventoryItem extends JPanel {
         super.paintComponent(g);
 
         // Draw the image on the panel
-        if(image != null){
-            g.drawImage(image, 0, 0, getParent().getWidth() / 7, getParent().getHeight(), null);
-            System.out.println("height: " + getParent().getHeight());
-        }
+//        if(image != null){
+//            g.drawImage(image, 0, 0, getParent().getWidth() / 7, getParent().getHeight(), null);
+//        }
     }
 }

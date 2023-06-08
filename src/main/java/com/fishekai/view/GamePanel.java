@@ -19,10 +19,10 @@ public class GamePanel extends MainPanel{
     final int originalTileSize = 16; // original tile size
     final int scale = 4; // scale of the game
     public final int tileSize = originalTileSize * scale; // tile size
-    public final int maxScreenCol = 12; // max screen columns
-    public final int maxScreenRow = 12; // max screen rows
-    public final int screenWidth = tileSize * maxScreenCol; // screen width (768 pixels)
-    public final int screenHeight = tileSize * maxScreenRow; // screen height (576 pixels)
+    public static final int MAX_SCREEN_COL = 12; // max screen columns
+    public static final int MAX_SCREEN_ROW = 12; // max screen rows
+    public final int screenWidth = tileSize * MAX_SCREEN_COL;
+    public final int screenHeight = tileSize * MAX_SCREEN_ROW;
     final int FPS = 60; // screen frames per second
     private int order = 0;
     private Timer gameTimer;
@@ -36,6 +36,7 @@ public class GamePanel extends MainPanel{
     public SuperObject obj[] = new SuperObject[20]; // 20 slots for objects but we can adjust
     public Sign sign[] = new Sign[4];
     public Fishekai fishekai;
+//    private final SidePanel sidePanel;
 
 
 
@@ -48,7 +49,8 @@ public class GamePanel extends MainPanel{
         this.fishekai = fishekai;
         tileM = new TileManager(this);
         dialog = new DialogEngine(this);
-        setSize(MAIN_PANEL_SIZE);
+        setPreferredSize(MainPanel.MAIN_PANEL_SIZE);
+
     }
     public void setupGame() {
         assetSetter.setObject();
@@ -82,6 +84,8 @@ public class GamePanel extends MainPanel{
     public void update() {
                 player.update();
                 dialog.update();
+                fishekai.window.getStatusPanel().update();
+
     }
 
     public void paintComponent(Graphics g) {
@@ -122,11 +126,11 @@ public class GamePanel extends MainPanel{
     }
 
     public int getMaxScreenCol() {
-        return maxScreenCol;
+        return MAX_SCREEN_COL;
     }
 
     public int getMaxScreenRow() {
-        return maxScreenRow;
+        return MAX_SCREEN_ROW;
     }
 
     public int getScreenWidth() {

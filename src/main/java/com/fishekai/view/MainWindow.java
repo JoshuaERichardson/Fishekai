@@ -7,8 +7,8 @@ import java.awt.*;
 
 public class MainWindow extends JFrame {
     // Screen Size:
-    public static final int SCREEN_WIDTH = 1800;
-    public static final int SCREEN_HEIGHT = 1200;
+    public static final int SCREEN_WIDTH = 1075;
+    public static final int SCREEN_HEIGHT = 1150;
 
         // The cards for the layout:
         private IntroPanel introPanel;
@@ -30,7 +30,7 @@ public MainWindow(KeyHandler kh, Fishekai fishekai) {
 
         // Overall display info
         setTitle("Fishekai");
-        setSize(new Dimension(SCREEN_WIDTH, SCREEN_HEIGHT));
+        setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new GridBagLayout());
@@ -47,6 +47,7 @@ public MainWindow(KeyHandler kh, Fishekai fishekai) {
         mainPanels.add(introPanel);
         mainPanels.add(instructionsPanel);
         mainPanels.add(gamePanel);
+        mainPanels.setPreferredSize(MainPanel.MAIN_PANEL_SIZE);
 
         // Create the status panel:
         statusPanel = new StatusPanel(fishekai, mainPanels);
@@ -62,28 +63,32 @@ public MainWindow(KeyHandler kh, Fishekai fishekai) {
         this.kh = kh;
         this.addKeyListener(kh);
 
-        GridBagConstraints c = new GridBagConstraints();
         // Add all the panels to the main window:
-        c = GridBagConstraints(c, 0, 0, 4, 5, 1);
-        this.add(mainPanels, c);
-        c = GridBagConstraints(c, 4, 0, 2, 6, .8);
-        this.add(statusPanel, c);
-        c = GridBagConstraints(c, 6,0,1,6, 0.5);
-        this.add(sidePanel, c);
-        c = GridBagConstraints(c, 0, 5, 4, 1, 0.5);
-        this.add(inventoryPanel, c);
+        this.add(mainPanels, customGridBag(0, 0, 3, 2, 1, true, true));
+        this.add(statusPanel, customGridBag(3, 0, 2, 3, 0, false, false));
+        this.add(sidePanel, customGridBag(5, 0, 2, 3, 0, true, true));
+        this.add(inventoryPanel, customGridBag(0, 2, 3, 1, 0, true, true));
         this.revalidate();
         this.repaint();
-    }
+        System.out.println("Main Window: " + getWidth() + " " + getHeight());
 
-    private GridBagConstraints GridBagConstraints(GridBagConstraints c, int startX, int startY, int width, int height, double weight) {
+
+
+}
+
+
+
+    private GridBagConstraints customGridBag(int startX, int startY, int width, int height, double weight, boolean fillVert, boolean fillHoriz) {
+        GridBagConstraints c = new GridBagConstraints();
         c.gridx = startX;
         c.gridy = startY;
         c.gridwidth = width;
         c.gridheight = height;
-        c.fill = GridBagConstraints.BOTH;
         c.weightx = weight;
         c.weighty = weight;
+        if (fillHoriz && fillVert) c.fill = GridBagConstraints.BOTH;
+        else if (fillHoriz) c.fill = GridBagConstraints.HORIZONTAL;
+        else if (fillVert) c.fill = GridBagConstraints.VERTICAL;
         return c;
     }
     public void nextCard() {
@@ -132,5 +137,9 @@ public MainWindow(KeyHandler kh, Fishekai fishekai) {
     }
     public InventoryPanel getInventoryPanel() {
         return inventoryPanel;
+    }
+
+    public StatusPanel getStatusPanel() {
+        return statusPanel;
     }
 }

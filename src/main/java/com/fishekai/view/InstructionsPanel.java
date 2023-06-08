@@ -46,6 +46,8 @@ public class InstructionsPanel extends MainPanel {
         scrollPane.getViewport().setOpaque(false);
 
         add(scrollPane, BorderLayout.CENTER);
+
+        setPreferredSize(MainPanel.MAIN_PANEL_SIZE);
     }
 
     // void loadImage(String path){
@@ -58,8 +60,8 @@ public class InstructionsPanel extends MainPanel {
         super.paintComponent(g);
 
         // Draw the background color
-        g.setColor(Color.decode("#728F9D"));
-        g.fillRect(0, 0, this.getWidth(), this.getHeight());
+//        g.setColor(Color.decode("#728F9D"));
+//        g.fillRect(0, 0, this.getWidth(), this.getHeight());
 
         // Draw the image on the panel
         // if(image != null){

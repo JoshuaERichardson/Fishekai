@@ -14,6 +14,8 @@ public class LocationSwitcher {
         moves++;
         fishekai.getTextPlayer().moveDamage(moves);
         System.out.println(fishekai.getTextPlayer().getThirst() + " " + fishekai.getTextPlayer().getHunger() + " " + fishekai.getTextPlayer().getHp());
+        // Repaint the statusPanel with updated thirst and hunger:
+        fishekai.window.getStatusPanel().update();
 
 
         // Save the prevLocation direction:

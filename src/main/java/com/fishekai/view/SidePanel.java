@@ -19,7 +19,7 @@ public class SidePanel extends JPanel {
 
     public SidePanel(MainPanel mainPanel, Player textPlayer, Fishekai fishekai) {
         this.mainPanel = mainPanel;
-        setSize(new Dimension(HEIGHT, WIDTH));
+//        setSize(new Dimension(HEIGHT, WIDTH));
         setVisible(true);
         setBackground(java.awt.Color.GREEN);
         audioManager = fishekai.getAudioManager();

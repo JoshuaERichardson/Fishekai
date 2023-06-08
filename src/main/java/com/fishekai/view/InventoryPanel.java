@@ -25,17 +25,8 @@ public class InventoryPanel extends JPanel{
         this.mainWindow = mainWindow;
         dialogEngine = mainWindow.getGamePanel().getDialog();
         audioManager = mainWindow.getGamePanel().getAudioManager();
-        // Overall display info
-        int windowHeight = mainWindow.getHeight();
-        int gpHeight = mainWindow.gamePanel.getScreenHeight();
-        int gpWidth = mainWindow.gamePanel.getScreenWidth();
-        width = gpWidth;
-        height = windowHeight - gpHeight;
-        System.out.println(height + " " + windowHeight + " " + gpHeight);
-        //Layout:
-        setLayout(new GridLayout(0, 7));
+
         // Resize the panel:
-        setSize(new Dimension(width, height));
 
         // Add these to the panel:
         appleItem = new InventoryItem("/sprites/items/bwapple.png", "/sprites/items/apple.png", new OBJ_Apple(), this);
@@ -46,13 +37,16 @@ public class InventoryPanel extends JPanel{
         bananaItem = new InventoryItem("/sprites/items/bwbanana.png", "/sprites/items/banana.png", new OBJ_Banana(), this);
         flaskItem = new InventoryItem("/sprites/items/bwflask.png", "/sprites/items/flask.png", new OBJ_Flask(), this);
 
+        // Layout manager:
+        setLayout(new GridLayout(3, 2));
+
         add(appleItem);
         add(chordItem);
         add(stickItem);
         add(hookItem);
         add(waterItem);
         add(bananaItem);
-        add(flaskItem);
+//        add(flaskItem);
 
         setFocusable(false);
 

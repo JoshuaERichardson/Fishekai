@@ -4,16 +4,72 @@ import com.fishekai.engine.Fishekai;
 
 import javax.swing.*;
 
-class StatusPanel extends JPanel {
+public class StatusPanel extends JPanel {
     private final Fishekai fishekai;
+    private int hunger;
+    private int thirst;
+    private int health;
+    private JPanel healthPanel;
+    private JPanel hungerPanel;
+    private JPanel thirstPanel;
+
+    private JLabel hungerLabel;
+    private JLabel thirstLabel;
+    private JLabel healthLabel;
+
 
     public StatusPanel(Fishekai fishekai, MainPanel mainPanel) {
         this.fishekai = fishekai;
         setBackground(java.awt.Color.BLACK);
         int width = mainPanel.getWidth()/2;
         int height = mainPanel.getHeight();
-        setSize(width, height);
+        setVisible(true);
+
+        // We need space for Health, Hunger, Thirst
+        // We need space for the build-a-pole
+        // Split the panel into 2 Rows:
+        // Row 1 is a JPanel with 3 columns
+        // Row 2 is a JPanel with 1 column
+        setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        JPanel row1 = new JPanel();
+        row1.setLayout(new BoxLayout(row1, BoxLayout.X_AXIS));
+        // Print the health to the health panel:
+        healthPanel = new JPanel();
+        healthLabel = new JLabel("Health: " + fishekai.textPlayer.getHp());
+        healthPanel.add(healthLabel);
+        row1.add(healthPanel);
+        // Print the hunger to the hunger panel:
+        hungerPanel = new JPanel();
+        hungerLabel = new JLabel("Hunger: " + fishekai.textPlayer.getHunger());
+        hungerPanel.add(hungerLabel);
+        row1.add(hungerPanel);
+        // Print the thirst to the thirst panel:
+        thirstPanel = new JPanel();
+        thirstLabel = new JLabel("Thirst: " + fishekai.textPlayer.getThirst());
+        thirstPanel.add(thirstLabel);
+        row1.add(thirstPanel);
+        add(row1);
+
+        // Row 2 is a JPanel with 1 column
+        JPanel row2 = new JPanel();
+        JLabel buildLabel = new JLabel("Build a pole");
+        row2.add(buildLabel);
+        add(row2);
+
+
+
+
+
     }
 
 
+    public void update() {
+        thirst = fishekai.textPlayer.getThirst();
+        thirstLabel.setText("Thirst: " + thirst);
+        hunger = fishekai.textPlayer.getHunger();
+        hungerLabel.setText("Hunger: " + hunger);
+        health = fishekai.textPlayer.getHp();
+        healthLabel.setText("Health: " + health);
+        this.repaint();
+    }
 }
