@@ -61,7 +61,7 @@
                 "text": "This way to the North Beach."
               },
               {
-                "column": "11",
+                "column": "10",
                 "row": "4",
                 "text": "This way to the Forest."
               }
@@ -172,7 +172,7 @@
       {
         "column": "10",
         "row": "4",
-        "text": "This way to the Mystical Grove"
+        "text": "This way to the Waterfall"
       }
     ]
 

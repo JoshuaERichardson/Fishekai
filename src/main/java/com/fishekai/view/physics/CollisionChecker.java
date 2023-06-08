@@ -65,8 +65,8 @@ public class CollisionChecker {
                 entity.solidArea.x = entity.worldX + entity.solidArea.x;
                 entity.solidArea.y = entity.worldY + entity.solidArea.y;
                 // Get the object's solid area position
-                gp.sign[i].solidArea.x = gp.sign[i].getRow() + gp.sign[i].solidArea.x;
-                gp.sign[i].solidArea.y = gp.sign[i].getCol() + gp.sign[i].solidArea.y;
+                gp.sign[i].solidArea.x = gp.sign[i].getCol() + gp.sign[i].solidArea.x;
+                gp.sign[i].solidArea.y = gp.sign[i].getRow() + gp.sign[i].solidArea.y;
 
                 switch(entity.direction) {
                     case "up":

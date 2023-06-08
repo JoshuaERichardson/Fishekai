@@ -95,10 +95,14 @@ public class AssetSetter {
             }
         // Load the signs:
         List<Map<String, String>> signs = current_location.getSigns();
+        // Wipe the map of all signs first:
+        for (int j = 0; j < gp.sign.length; j++) {
+            gp.sign[j] = null;
+        }
         i = 0;
         for (Map<String, String> sign : signs){
-            int row = Integer.parseInt(sign.get("row"));
-            int col = Integer.parseInt(sign.get("column"));
+            int row = Integer.parseInt(sign.get("row")) * gp.tileSize;
+            int col = Integer.parseInt(sign.get("column")) * gp.tileSize;
             String text = sign.get("text");
             Sign s = new Sign(col, row, text);
             gp.sign[i] = s;

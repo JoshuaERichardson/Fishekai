@@ -102,6 +102,13 @@ public class GamePanel extends MainPanel{
             }
         }
 
+        // Sign
+        for(int i = 0; i < sign.length; i++) {
+            if(sign[i] != null) {
+                sign[i].draw(g2, this);
+            }
+        }
+
         // Player
         player.draw(g2);
 
