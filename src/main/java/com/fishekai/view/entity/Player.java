@@ -146,6 +146,8 @@ public class Player extends Entity{
                 fishekai.window.getInventoryPanel().updateInventory(inventory);
 
                 gp.obj[i] = null;
+                // Play sound effect:
+                fishekai.getAudioManager().randomGet();
                 return;
             }
         }

@@ -2,6 +2,7 @@ package com.fishekai.view.physics;
 
 import com.fishekai.engine.Fishekai;
 import com.fishekai.models.Location;
+import com.fishekai.utilities.AudioManager;
 import com.fishekai.view.GamePanel;
 import com.fishekai.view.object.OBJ_Door;
 import com.fishekai.view.tile.TileManager;
@@ -114,6 +115,10 @@ public class LocationSwitcher {
             fishekai.window.gamePanel.player.worldX = 4 * fishekai.window.gamePanel.tileSize;
             fishekai.window.gamePanel.player.worldY = 10 * fishekai.window.gamePanel.tileSize;
         }
+
+        // Play sound effect
+        fishekai.getAudioManager().randomGo();
+
 
 
 

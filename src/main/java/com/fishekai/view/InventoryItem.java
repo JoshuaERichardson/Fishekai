@@ -47,6 +47,7 @@ class InventoryItem extends JComponent {
         JButton useButton = new JButton("Use");
         JButton flipButton = new JButton("Cancel");
         lookButton.addActionListener(e -> {
+            audioManager.playSoundEffect("look");
             dialogEngine.update(item.description);
         });
         useButton.addActionListener(e -> {

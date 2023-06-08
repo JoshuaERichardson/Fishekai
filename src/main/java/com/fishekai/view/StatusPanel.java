@@ -109,6 +109,7 @@ public class StatusPanel extends JPanel {
             buildAPole.add(poleLabel);
             buildAPole.repaint();
 
+            fishekai.getAudioManager().playSoundEffect("build");
             populateNorthBeachFish();
 
 
