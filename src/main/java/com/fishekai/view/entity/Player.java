@@ -142,7 +142,7 @@ public class Player extends Entity{
             // TODO: Can only grab water if we already have a flask
             String objectName = gp.obj[i].name;
             if (objectName.equals("Apple") || objectName.equals("Banana") || objectName.equals("Flask") || objectName.equals("Hook") ||
-                objectName.equals("Parchute") || objectName.equals("Stick") ||objectName.equals("Water")) {
+                objectName.equals("Parachute") || objectName.equals("Stick") ||objectName.equals("Water")) {
                 inventory.add(gp.obj[i]);
                 // Reload the side panel:
                 fishekai.window.getInventoryPanel().updateInventory(inventory);
