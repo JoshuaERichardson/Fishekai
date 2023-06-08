@@ -109,8 +109,8 @@
     "items":
     [
       {"parachute" : {
-        "column": 4,
-        "row" : 8,
+        "column": 5,
+        "row" : 7,
         "direction" :  0
       }
       },
@@ -265,7 +265,7 @@
       {
         "hook" : {
         "column": 10,
-        "row" : 7,
+        "row" : 6,
         "direction" :  0
         }
       },
