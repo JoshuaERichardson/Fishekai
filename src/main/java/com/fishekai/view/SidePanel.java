@@ -49,7 +49,7 @@ public class SidePanel extends JPanel {
 
             Player player = fishekai.getTextPlayer();
             Location location = fishekai.getCurrent_location();
-            fishekai.getFishingMechanic().startFishing(player, location, audioManager);
+            fishekai.getFishingMechanic().startFishing(player, location);
 
             FishingFrame fishingFrame = new FishingFrame(fishekai.getFishingMechanic(), fishekai.getWindow().getGamePanel());
             fishingFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

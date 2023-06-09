@@ -41,7 +41,7 @@ public class Fishekai extends JPanel implements SplashApp, Runnable {
     private final UserInputParser parser = new UserInputParser();
     private final AudioManager audioManager = new AudioManager();
     VolumeControl volumeControl = new VolumeControl(audioManager);
-    FishingMechanic fishingMechanic = new FishingMechanic();
+    FishingMechanic fishingMechanic = new FishingMechanic(audioManager);
     private final FrameHandler frameHandler = new FrameHandler();
     KeyHandler keyHandler = new KeyHandler(this);
     public MainWindow window;
