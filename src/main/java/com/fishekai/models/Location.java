@@ -61,10 +61,18 @@ public class Location {
         this.fishes = fishes;
     }
 
-    public void addFish() {
+    public void addFishable() {
         Map<String, Map<String, Integer>> fishMap = new HashMap<>();
         fishMap.put("fish", null);
         items.add(fishMap);
+
+        Map<String, Map<String, Integer>> doorMap = new HashMap<>();
+        Map<String, Integer> info = new HashMap<>();
+        info.put("column", 1);
+        info.put("row", 4);
+        info.put("direction", 3);
+        doorMap.put("door", info);
+        items.add(doorMap);
 
 
 

@@ -197,4 +197,12 @@ public class GamePanel extends MainPanel{
     public AudioManager getAudioManager() {
         return fishekai.getAudioManager();
     }
+
+    public void setPaused(boolean b) {
+        if (b) {
+            stopGameTimer();
+        } else {
+            startGameTimer();
+        }
+    }
 }

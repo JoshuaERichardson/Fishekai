@@ -1,15 +1,10 @@
 package com.fishekai.view;
 
 import com.fishekai.engine.Fishekai;
-import com.fishekai.models.Fish;
-import com.fishekai.models.Item;
 import com.fishekai.models.Location;
-import com.fishekai.view.object.OBJ_Fish;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.List;
-import java.util.Map;
 
 public class StatusPanel extends JPanel {
     private final Fishekai fishekai;
@@ -114,12 +109,13 @@ public class StatusPanel extends JPanel {
             populateNorthBeachFish();
 
 
+
         }
     }
 
     private void populateNorthBeachFish() {
         Location northBeach = fishekai.getLocations().get("North Beach");
-        northBeach.addFish();
+        northBeach.addFishable();
 
         // If player is in North Beach, add fish to the screen
         if(fishekai.getCurrent_location().getName().equals("North Beach")){

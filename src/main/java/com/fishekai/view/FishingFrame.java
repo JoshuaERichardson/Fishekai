@@ -6,6 +6,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
 
 public class FishingFrame extends JFrame {
     private JLabel messageLabel;
@@ -16,9 +17,11 @@ public class FishingFrame extends JFrame {
     private JButton pullButton;
     private JButton releaseButton;
     private FishingMechanic fishingMechanic;
+    private GamePanel gp;
 
-    public FishingFrame(FishingMechanic fishingMechanic) {
+    public FishingFrame(FishingMechanic fishingMechanic, GamePanel gp) {
         this.fishingMechanic = fishingMechanic;
+        this.gp = gp;
 
         ImageIcon fishIcon = new ImageIcon("sprites/items/fish1.png");
         Image originalImage = fishIcon.getImage();
@@ -115,5 +118,14 @@ public class FishingFrame extends JFrame {
         getContentPane().add(fishImageLabel, BorderLayout.NORTH);
         pack();
         revalidate();
+    }
+
+    protected void processWindowEvent(WindowEvent e) {
+        super.processWindowEvent(e);
+        if(e.getID() == WindowEvent.WINDOW_CLOSING) {
+            // Move the character off the dock:
+
+            gp.setPaused(false);
+        }
     }
 }
