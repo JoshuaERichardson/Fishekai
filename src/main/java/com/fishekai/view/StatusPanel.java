@@ -2,9 +2,12 @@ package com.fishekai.view;
 
 import com.fishekai.engine.Fishekai;
 import com.fishekai.models.Location;
+import com.fishekai.view.object.OBJ_Caught_Fish;
+import com.fishekai.view.object.SuperObject;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.List;
 
 public class StatusPanel extends JPanel {
     private final Fishekai fishekai;
@@ -15,7 +18,9 @@ public class StatusPanel extends JPanel {
     private JLabel hungerLabel, thirstLabel, healthLabel;
     private boolean haveStick, haveRope, haveHook, havePole;
     private Image stickImage, ropeImage, hookImage, poleImage;
+    private InventoryItem tunaFish, sunFish, fangFish;
     private JPanel healthStatus, buildAPole;
+    private boolean isFishing;
 
     public StatusPanel(Fishekai fishekai, MainPanel mainPanel) {
         this.fishekai = fishekai;
@@ -71,6 +76,36 @@ public class StatusPanel extends JPanel {
 
     }
 
+    public void startedFishing(){
+        // Wipe the build-a-pole panel and add the pole image:
+        buildAPole.removeAll();
+        JLabel buildLabel = new JLabel("Build a pole");
+        buildAPole.add(buildLabel);
+
+        // 5 buttons for the 5 fish:
+        OBJ_Caught_Fish tuna = new OBJ_Caught_Fish("Tuna");
+        OBJ_Caught_Fish fang = new OBJ_Caught_Fish("Fangfish");
+        OBJ_Caught_Fish sun = new OBJ_Caught_Fish("Sunfish");
+
+
+        tunaFish = new InventoryItem(tuna, this);
+        fangFish = new InventoryItem(fang, this);
+        sunFish = new InventoryItem(sun, this);
+
+        buildAPole.add(tunaFish);
+        buildAPole.add(fangFish);
+        buildAPole.add(sunFish);
+
+        buildLabel.setBackground(Color.BLACK);
+        isFishing = true;
+        validate();
+        repaint();
+
+
+    }
+
+
+
     public int updateThirst(){
         thirst = fishekai.textPlayer.getThirst();
         return thirst;
@@ -108,8 +143,6 @@ public class StatusPanel extends JPanel {
             fishekai.getAudioManager().playSoundEffect("build");
             populateNorthBeachFish();
 
-
-
         }
     }
 
@@ -131,12 +164,35 @@ public class StatusPanel extends JPanel {
         thirstLabel.setText("Thirst: " + updateThirst());
         hungerLabel.setText("Hunger: " + updateHunger());
         healthLabel.setText("Health: " + updateHealth());
-        healthStatus.repaint();
     }
     public void draw(Graphics2D g2){
+        if(isFishing) {
+            startedFishing();
+            return;
+        };
         if (havePole) buildAPole.getGraphics().drawImage(poleImage, 0, 20, buildAPole.getWidth(), (int)(buildAPole.getHeight()*.75), null);
         else if(haveStick) buildAPole.getGraphics().drawImage(stickImage, 0, 20, buildAPole.getWidth(), (int)(buildAPole.getHeight()*.75), null);
         else if(haveHook) buildAPole.getGraphics().drawImage(hookImage, 0, 20, buildAPole.getWidth(), (int)(buildAPole.getHeight()*.75), null);
         else if(haveRope) buildAPole.getGraphics().drawImage(ropeImage, 0, 20, buildAPole.getWidth(), (int)(buildAPole.getHeight()*.75), null);
+    }
+
+    public void setFishing(boolean b) {
+        isFishing = b;
+    }
+
+    public Fishekai getFishekai() {
+        return fishekai;
+    }
+
+    public void updateStatusPanelFish() {
+        List<SuperObject> inventory = getFishekai().window.getGamePanel().getPlayer().getInventory();
+        for (SuperObject item : inventory) {
+            String itemName = item.getName();
+            switch(itemName){
+                case "sunfish"  : sunFish.caughtFish(); break;
+                case "fangFish" : fangFish.caughtFish(); break;
+                case "tuna"     : tunaFish.caughtFish(); break;
+            }
+        }
     }
 }

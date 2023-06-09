@@ -23,7 +23,7 @@ public class Sign{
         this.text = text;
 
         try {
-            image = ImageIO.read(getClass().getResourceAsStream("/sprites/items/fish2.png"));
+            image = ImageIO.read(getClass().getResourceAsStream("/sprites/items/clear.png"));
         } catch (IOException e){
             System.out.println("Failed to make the image for sign");
             e.printStackTrace();

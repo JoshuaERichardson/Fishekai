@@ -174,7 +174,8 @@ public class AudioManager {
                     if (gainControl.getMinimum() <= dB && dB <= gainControl.getMaximum()) {
                         gainControl.setValue(dB);
                     } else {
-                        System.out.println("The sound effects can go no lower");
+                        gainControl.setValue(0);
+
                     }
                 }
             }
@@ -201,6 +202,7 @@ public class AudioManager {
 
     public void decreaseSoundEffectsVolume() {
         if (soundEffectsVolume == EFFECT_MIN_VOLUME) {
+            setSoundEffectsVolume(0);
             System.out.println("Sound effects already at minimum volume.");
         } else {
             float newVolume = soundEffectsVolume - 0.1f;

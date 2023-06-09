@@ -18,17 +18,17 @@ public class LocationSwitcher {
 
 
         if (locationName == null){ // Fishing starts!
-            // TODO:
-
             Player player = fishekai.getTextPlayer();
             Location location = fishekai.getCurrent_location();
             AudioManager audioManager = fishekai.getAudioManager();
-            fishekai.getFishingMechanic().startFishing(player, location);
+            fishekai.getFishingMechanic().startFishing(player, location, audioManager);
 
             FishingFrame fishingFrame = new FishingFrame(fishekai.getFishingMechanic(), fishekai.getWindow().getGamePanel());
             // Pause the game while fishing:
             GamePanel gamePanel = fishekai.getWindow().getGamePanel();
             gamePanel.setPaused(true);
+            // Change the status panel from the build-a-pole to the caught fish:
+            fishekai.getWindow().getStatusPanel().setFishing(true);
             audioManager.playSoundEffect("fishing");
             fishingFrame.setVisible(true);
             fishingFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

@@ -85,7 +85,7 @@ public class GamePanel extends MainPanel{
     public void update() {
                 player.update();
                 dialog.update();
-                fishekai.window.getStatusPanel().update(); // Update the status panel
+//                fishekai.window.getStatusPanel().update(); // Update the status panel
 
     }
 

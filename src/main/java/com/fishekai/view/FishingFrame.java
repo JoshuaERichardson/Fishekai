@@ -2,6 +2,7 @@ package com.fishekai.view;
 
 import com.fishekai.engine.FishingMechanic;
 import com.fishekai.models.Fish;
+import com.fishekai.view.object.OBJ_Caught_Fish;
 
 import javax.swing.*;
 import java.awt.*;
@@ -17,10 +18,12 @@ public class FishingFrame extends JFrame {
     private JButton releaseButton;
     private FishingMechanic fishingMechanic;
     private GamePanel gp;
+    private StatusPanel statusPanel;
 
     public FishingFrame(FishingMechanic fishingMechanic, GamePanel gp) {
         this.fishingMechanic = fishingMechanic;
         this.gp = gp;
+        this.statusPanel = gp.getFishekai().window.getStatusPanel();
 
        
 
@@ -93,19 +96,25 @@ public class FishingFrame extends JFrame {
         setVisible(true);
     }
     private void handleFishCaught() {
-        // TODO: Implement the logic for when the player successfully catches the fish
-        Fish fish = fishingMechanic.getCaughtFish();
+        // TODO: Implement the logic for when the player successfully catches the fish JOSHO
+        String fishType = fishingMechanic.getCaughtFish().getName();
+        OBJ_Caught_Fish fish = new OBJ_Caught_Fish(fishType);
+        gp.getPlayer().getInventory().add(fish);
+        statusPanel.updateStatusPanelFish();
+
         if (fish != null) {
             JOptionPane.showMessageDialog(this, "Congratulations! You caught the " + fish.getName() + "!", "Fish Caught", JOptionPane.INFORMATION_MESSAGE);
         } else {
             JOptionPane.showMessageDialog(this, "Congratulations! You caught a fish!", "Fish Caught", JOptionPane.INFORMATION_MESSAGE);
         }
+        gp.setPaused(false);
         dispose();
     }
 
     private void handleFishEscaped() {
 
         JOptionPane.showMessageDialog(this, "The fish escaped. Better luck next time!", "Fish Escaped", JOptionPane.INFORMATION_MESSAGE);
+        gp.setPaused(false);
         dispose();
     }
 
@@ -113,7 +122,6 @@ public class FishingFrame extends JFrame {
         super.processWindowEvent(e);
         if(e.getID() == WindowEvent.WINDOW_CLOSING) {
             // Move the character off the dock:
-
             gp.setPaused(false);
         }
     }

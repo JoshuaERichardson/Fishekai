@@ -3,6 +3,7 @@ package com.fishekai.view;
 import com.fishekai.engine.HelpPopup;
 import com.fishekai.utilities.AudioManager;
 import com.fishekai.view.entity.Player;
+import com.fishekai.view.object.OBJ_Caught_Fish;
 import com.fishekai.view.object.SuperObject;
 
 import javax.swing.*;
@@ -18,8 +19,71 @@ class InventoryItem extends JComponent {
     SuperObject item;
     private final AudioManager audioManager;
     private final Player player;
-    private final StatusPanel statusPanel;
+    private StatusPanel statusPanel;
 
+
+
+
+    public InventoryItem(OBJ_Caught_Fish item, StatusPanel statusPanel){
+        this.statusPanel = statusPanel;
+        this.dialogEngine = statusPanel.getFishekai().window.getGamePanel().getDialog();
+        this.audioManager = statusPanel.getFishekai().window.getGamePanel().getAudioManager();
+        this.player = statusPanel.getFishekai().window.getGamePanel().getPlayer();
+        this.item = item;
+
+        setLayout(new CardLayout());
+        backCard = new JPanel();
+        frontCard = new JPanel();
+
+
+        JLabel label = new JLabel();
+        label.setText("Go Fish!");
+        frontCard.add(label);
+        // Grow the size of the label:
+        label.setPreferredSize(new Dimension(100, 100));
+        label.setFont(new Font("Arial", Font.BOLD, 20));
+        label.setForeground(Color.WHITE);
+        label.setHorizontalAlignment(JLabel.CENTER);
+        label.setVerticalAlignment(JLabel.CENTER);
+        label.setOpaque(true);
+        label.setBackground(Color.BLACK);
+
+
+
+        JButton useButton = new JButton("Eat");
+        JButton flipButton = new JButton("Cancel");
+
+        useButton.addActionListener(e -> {
+            // Use the item
+                dialogEngine.update("You ate the " + item.getName() + ".");
+                audioManager.randomEat();
+                itemPickedUp = false;
+                player.getFishekai().timeToEat(item.getModifier());
+                usedImage();
+                flipCard();
+                player.consumeObject(item.getName());
+        });
+        flipButton.addActionListener(e -> {
+            // Flip the card back over
+            flipCard();
+        });
+        useButton.setFocusable(false);
+        flipButton.setFocusable(false);
+        backCard.add(useButton);
+        backCard.add(flipButton);
+
+        // Add an action listener for a mouse click:
+        addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                if (itemPickedUp) flipCard();
+            }
+        });
+
+        add(frontCard, "front");
+        add(backCard, "back");
+
+
+    }
     public InventoryItem(String missingItemPath, String haveItemPath, SuperObject item, InventoryPanel inventoryPanel) {
         this.missingItemPath = missingItemPath;
         this.dialogEngine = inventoryPanel.getMainWindow().gamePanel.getDialog();
@@ -114,12 +178,40 @@ class InventoryItem extends JComponent {
         add(backCard, "back");
     }
 
+
     void loadImage(){
         ImageIcon icon = new ImageIcon(getClass().getResource(haveItemPath));
         icon = new ImageIcon(icon.getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH));
         image = icon.getImage();
         frontCard.removeAll();
         frontCard.add(new JLabel(icon));
+        itemPickedUp = true;
+        revalidate();
+        repaint();
+    }
+    void loadFish(){
+        frontCard.removeAll();
+        JLabel label = new JLabel();
+        label.setText(item.getName());
+        label.setFont(new Font("Arial", Font.BOLD, 20));
+        frontCard.add(label);
+        itemPickedUp = true;
+        revalidate();
+        repaint();
+    }
+
+    void caughtFish(){
+        frontCard.removeAll();
+        JLabel label = new JLabel();
+        label.setText(item.getName());
+        label.setPreferredSize(new Dimension(100, 100));
+        label.setFont(new Font("Arial", Font.BOLD, 20));
+        label.setForeground(Color.WHITE);
+        label.setHorizontalAlignment(JLabel.CENTER);
+        label.setVerticalAlignment(JLabel.CENTER);
+        label.setOpaque(true);
+        label.setBackground(Color.BLACK);
+        frontCard.add(label);
         itemPickedUp = true;
         revalidate();
         repaint();

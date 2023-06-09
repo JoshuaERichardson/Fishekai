@@ -1,3 +1,7 @@
-package com.fishekai.view.object;class OBJ_Caught_Fish {
+package com.fishekai.view.object;
 
+public class OBJ_Caught_Fish extends SuperObject{
+    public OBJ_Caught_Fish(String fishType){
+        name = fishType;
+    }
 }

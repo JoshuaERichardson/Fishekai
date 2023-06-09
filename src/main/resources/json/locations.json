@@ -3,7 +3,8 @@
     "name": "Beach",
     "directions": {
       "north": "North Beach",
-      "east": "Jungle"
+      "east": "Jungle",
+      "west": null
     },
     "descriptions": {
       "before": "As you awaken from a disorienting haze, your surroundings slowly come into focus. You find yourself standing upon a pristine beach, the rhythmic melody of lapping waves punctuating the air. The shimmering sand beneath your feet tells tales of countless tides, their whispers blending with the distant calls of seagulls. Surrounded by a picturesque landscape, you instinctively clutch the amulet that brought you here, its mysterious power revealing a path you never anticipated. The beach, now your newfound sanctuary, holds the promise of survival and the key to unlocking the island's enigmatic secrets. With resolve in your heart, you take your first step into the untamed wilderness, eager to confront the challenges that lie ahead.",
@@ -73,7 +74,8 @@
     "name": "North Beach",
     "directions": {
       "east": "Mountain",
-      "south": "Beach"
+      "south": "Beach",
+      "west": null
     },
     "descriptions": {
       "before": "You step onto the pristine sands of the North Beach, greeted by the rhythmic melody of crashing waves and the salty tang of the sea. The expansive shoreline stretches as far as the eye can see, adorned with delicate seashells and occasional pieces of driftwood. Crystal-clear waters gently lap at the shore, inviting you to dip your toes into their refreshing embrace. Seagulls glide overhead, their calls carried by the ocean breeze. The North Beach holds the promise of respite and the allure of untold treasures washed ashore. It's a sanctuary where land meets sea, offering a temporary escape from the challenges that lie ahead.",
@@ -99,7 +101,12 @@
             "row" : 11,
             "direction" : 2
           }
-        }
+        },
+      {"door" :  {
+        "column": 0,
+        "row": 10,
+        "direction": 3
+      }}
     ],
     "signs":
     [

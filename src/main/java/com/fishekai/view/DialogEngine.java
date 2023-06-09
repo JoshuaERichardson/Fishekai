@@ -51,11 +51,15 @@ public class DialogEngine {
             g2.setFont(new Font("Arial", Font.BOLD, 18));
 //            g2.drawString(input, 250, 250);
             drawWrappedText(g2, input, 100, 250, 500,300);
-
-
-
         }
     }
+
+    static void write(Graphics2D g2, String input) {
+        g2.setFont(new Font("Arial", Font.BOLD, 18));
+        //            g2.drawString(input, 250, 250);
+        drawWrappedText(g2, input, 10, 10, 90, 90);
+    }
+
     static void drawWrappedText(Graphics g, String text, int x, int y, int w, int h) {
         JTextArea ta = new JTextArea(text);
         ta.setLineWrap(true);

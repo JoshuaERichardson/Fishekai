@@ -63,7 +63,6 @@ public void updateInventory(List<SuperObject> inventory) {
             case "Parachute" : chordItem.loadImage(); break;
             case "Stick" : stickItem.loadImage(); break;
             case "Water" : waterItem.loadImage(); break;
-
         }
 
         this.revalidate();

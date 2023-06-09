@@ -25,7 +25,7 @@ public class FishingMechanic {
         this.fishCaught = false;
     }
 
-    public void startFishing(Player player, Location current_location) {
+    public void startFishing(Player player, Location current_location, AudioManager audioManager) {
         // Reset display
         resetFishDistance();
 
@@ -51,11 +51,18 @@ public class FishingMechanic {
         Random random = new Random();
 
         if (islineTight) {
-            message = "The line is tight! You pull anyway and lose some progress.";
-            pullCount--;
-            audioManager.randomPull();
+            boolean badLuckProtection = random.nextBoolean();
+            if (badLuckProtection) {
+                message = "The fish dipped when it should have dived.  You gained some progress!";
+                pullCount++;
+                audioManager.randomPull();
+            } else {
+                message = "The line is tight! You pull anyway and lose some progress.";
+                pullCount--;
+                audioManager.randomPull();
+            }
         } else {
-            int success = random.nextInt(5); // Random number will handle success rate of pulling a fish
+            int success = random.nextInt(10); // Random number will handle success rate of pulling a fish
             audioManager.randomPull();
 
             if (success >= 1 && pullCount <3) {
@@ -81,6 +88,15 @@ public class FishingMechanic {
     }
 
     public String releaseLine() {
+        Random random = new Random();
+        boolean badLuckProtection = random.nextBoolean();
+        if (badLuckProtection) {
+            String message = "The fish dipped when it should have dived.  You gained some progress!";
+            pullCount++;
+            audioManager.randomReel();
+            islineTight = false;
+            return message;
+        }
         String message = "You release the line, giving the fish some slack.";
         islineTight = false;
         pullCount--;
