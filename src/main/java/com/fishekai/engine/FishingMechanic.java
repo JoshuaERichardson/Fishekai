@@ -58,7 +58,7 @@ public class FishingMechanic {
             int success = random.nextInt(5); // Random number will handle success rate of pulling a fish
             audioManager.randomPull();
 
-            if (success >= 1) {
+            if (success >= 1 && pullCount <3) {
                 message = "You pull the line and feel a strong resistance. You're making progress!";
                 pullCount++;
 
@@ -111,15 +111,11 @@ public class FishingMechanic {
 
     private void resetFishDistance() {
         fishDistance.clear();
-
-        int fishPosition = Math.max(-3, Math.min(3, pullCount));
         StringBuilder fishLineBuilder = new StringBuilder();
 
         for (int i = -3; i <= 3; i++) {
-            if (i == fishPosition) {
+            if (i == 0) {
                 fishLineBuilder.append("<º(((><");
-            } else if (i < fishPosition) {
-                fishLineBuilder.append("===");
             } else {
                 fishLineBuilder.append("===");
             }
@@ -133,15 +129,9 @@ public class FishingMechanic {
 
         int fishPosition = Math.max(-3, Math.min(3, pullCount));
 
-        if (fishPosition >= 0) {
-            distanceBuilder.append("===".repeat(Math.max(0, 3 - fishPosition)));
-            distanceBuilder.append("<º(((><");
-            distanceBuilder.append("===".repeat(Math.max(0, fishPosition)));
-        } else {
-            distanceBuilder.append("===".repeat(Math.max(0, 3 + fishPosition)));
-            distanceBuilder.append("<º(((><");
-            distanceBuilder.append("===".repeat(Math.max(0, -fishPosition)));
-        }
+        distanceBuilder.append("===".repeat(Math.max(0, 3 - fishPosition)));
+        distanceBuilder.append("<º(((><");
+        distanceBuilder.append("===".repeat(Math.max(0, fishPosition + 3)));
 
         return distanceBuilder.toString();
     }

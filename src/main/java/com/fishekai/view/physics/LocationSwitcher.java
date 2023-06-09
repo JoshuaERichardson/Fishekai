@@ -23,7 +23,7 @@ public class LocationSwitcher {
             Player player = fishekai.getTextPlayer();
             Location location = fishekai.getCurrent_location();
             AudioManager audioManager = fishekai.getAudioManager();
-            fishekai.getFishingMechanic().startFishing(player, location, audioManager);
+            fishekai.getFishingMechanic().startFishing(player, location);
 
             FishingFrame fishingFrame = new FishingFrame(fishekai.getFishingMechanic(), fishekai.getWindow().getGamePanel());
             // Pause the game while fishing:
