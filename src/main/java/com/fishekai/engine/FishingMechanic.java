@@ -1,259 +1,148 @@
 package com.fishekai.engine;
 
-import com.fishekai.models.Fish;
-import com.fishekai.models.Location;
-import com.fishekai.models.Player;
-import com.fishekai.utilities.AudioManager;
-import com.fishekai.utilities.Prompter;
-
-import java.util.*;
-
-import static com.fishekai.utilities.Console.*;
-
+        import com.fishekai.models.Fish;
+        import com.fishekai.models.Location;
+        import com.fishekai.models.Player;
+        import com.fishekai.utilities.AudioManager;
+        import java.util.*;
 /**
  * This class is responsible for the fishing mechanic.
- * It handles the logic of the fishing game.
+ * It displays the fishing mechanic and handles the logic.
  */
+
 public class FishingMechanic {
-    private static final int PAUSE_VALUE = 1_500;
-    private boolean isLineTight = false;
-    private int pullCount = 0;
+    private List<String> fishDistance = new ArrayList<>();
+    private boolean islineTight;
+    private int pullCount;
     private AudioManager audioManager;
     private Fish fish;
-    private List<String> fishDistance = new ArrayList<>();
-    private String message = "";
-    private boolean fishCaught = false;
+    private boolean fishCaught;
 
-    public void startFishing(Player player, Location currentLocation, AudioManager audioManager) {
+    public FishingMechanic(AudioManager audioManager) {
         this.audioManager = audioManager;
+        this.islineTight = false;
+        this.pullCount = 0;
+        this.fishCaught = false;
+    }
 
+    public void startFishing(Player player, Location current_location) {
         // Reset display
         resetFishDistance();
-        isLineTight = false;
-        pullCount = 0;
-        fishCaught = false;
 
         // Randomly select a fish
-        Map<String, Fish> fishMap = currentLocation.getFishes();
+        Map<String, Fish> fishMap = current_location.getFishes();
         Random random = new Random();
         String randomFishName = fishMap.keySet().stream()
                 .skip(random.nextInt(fishMap.size()))
                 .findFirst()
                 .orElse(null);
-        this.fish = currentLocation.getFishes().get(randomFishName);
+        fish = current_location.getFishes().get(randomFishName);
 
-        this.message = "You cast your line into the water at " + currentLocation.getName() + " and wait patiently... A " + fish.getName() + " has bitten your bait! It's time to reel it in.";
+        System.out.println("You cast your line into the water at " + current_location.getName() + " and wait patiently...");
+        System.out.println("A " + fish.getName() + " has bitten your bait! It's time to reel it in.");
+
+        islineTight = false;
+        pullCount = 0;
+        fishCaught = false;
     }
 
-    public boolean pullLine() {
-        if (isLineTight) {
-            this.message = "The line is tight! You pull anyway and lose some progress.";
-            pullCount -= 3;
-            fishDistance.remove(fishDistance.size() - 1);
-            fishDistance.remove(fishDistance.size() - 1);
-            fishDistance.remove(fishDistance.size() - 1);
-            fishDistance.add(1, " ");
-            fishDistance.add(1, " ");
-            fishDistance.add(1, " ");
+    public String pullLine() {
+        String message = "";
+        Random random = new Random();
+
+        if (islineTight) {
+            message = "The line is tight! You pull anyway and lose some progress.";
+            pullCount--;
             audioManager.randomPull();
         } else {
-            Random random = new Random();
-            int success = random.nextInt(5);
+            int success = random.nextInt(5); // Random number will handle success rate of pulling a fish
             audioManager.randomPull();
+
             if (success >= 1) {
-                this.message = "You pull the line and feel a strong resistance. You're making progress!";
+                message = "You pull the line and feel a strong resistance. You're making progress!";
                 pullCount++;
-                fishDistance.remove(1);
-                fishDistance.add(" ");
+
                 if (pullCount >= 3) {
-                    this.message = "After a few more strong pulls, you successfully catch the " + fish.getName() + "!";
+                    message = "After a few more strong pulls, you successfully catch the " + fish.getName() + "!";
                     fishCaught = true;
                 }
             } else {
-                this.message = "You pull the line, but the fish slips away. Keep trying!";
+                message = "You pull the line, but the fish slips away. Keep trying!";
                 pullCount--;
-                fishDistance.remove(fishDistance.size() - 1);
-                fishDistance.add(1, " ");
+                audioManager.randomPull();
+
+                if (pullCount <= -3) {
+                    message = "The fish escapes. Better luck next time!";
+                }
             }
-            // Randomly determine if the line becomes tight
-            isLineTight = random.nextBoolean();
+            islineTight = random.nextBoolean();
         }
-        return fishCaught;
-    }
-
-    public void releaseLine() {
-        if (isLineTight) {
-            this.message = "You release the line, giving the fish some slack.";
-            isLineTight = false;
-            audioManager.randomReel();
-        } else {
-            audioManager.randomReel();
-            this.message = "You release the line, giving the fish some slack.";
-            isLineTight = true;
-        }
-    }
-
-    private void resetFishDistance() {
-        fishDistance.clear();
-        fishDistance.add("o/");
-        fishDistance.add(" ");
-        fishDistance.add(" ");
-        fishDistance.add(" ");
-        fishDistance.add("><(((º>");
-        fishDistance.add(" ");
-        fishDistance.add(" ");
-        fishDistance.add(" ");
-        fishDistance.add(" ");
-    }
-
-    public String getMessage() {
         return message;
     }
 
-    public List<String> getFishDistance() {
-        return fishDistance;
+    public String releaseLine() {
+        String message = "You release the line, giving the fish some slack.";
+        islineTight = false;
+        pullCount--;
+        audioManager.randomReel();
+
+        if (pullCount <= -3) {
+            message = "The fish escapes. Better luck next time!";
+            fishCaught = false;
+        }
+        return message;
     }
 
     public boolean isLineTight() {
-        return isLineTight;
+        return islineTight;
+    }
+
+    public int getPullCount() {
+        return pullCount;
     }
 
     public boolean isFishCaught() {
         return fishCaught;
     }
-}
 
-//package com.fishekai.engine;
-//
-//        import com.fishekai.models.Fish;
-//        import com.fishekai.models.Location;
-//        import com.fishekai.models.Player;
-//        import com.fishekai.utilities.AudioManager;
-//        import com.fishekai.utilities.Prompter;
-//
-//        import java.util.*;
-//
-//        import static com.fishekai.utilities.Console.*;
-//
-///**
-// * This class is responsible for the fishing mechanic.
-// * It displays the fishing mechanic and handles the logic.
-// */
-//public class FishingMechanic {
-//    private static final int PAUSE_VALUE = 1_500;
-//
-//    private List<String> fishDistance = new ArrayList<>();
-//
-//    private final Prompter prompter = new Prompter(new Scanner(System.in));
-//
-//    public void startFishing(Player player, Location current_location, AudioManager audioManager, VolumeControl volumeControl) {
-//        // clear the screen
-//        clear();
-//
-//        // reset display
-//        resetFishDistance();
-//
-//        // randomly select a fish
-//        Map<String, Fish> fishMap = current_location.getFishes();
-//        Random random = new Random();
-//        String randomFishName = fishMap.keySet().stream()
-//                .skip(random.nextInt(fishMap.size()))
-//                .findFirst()
-//                .orElse(null);
-//        Fish fish = current_location.getFishes().get(randomFishName);
-//
-//        System.out.println("You cast your line into the water at " + current_location.getName() + " and wait patiently...");
-//        pause(PAUSE_VALUE);
-//        blankLines(1);
-//        System.out.println("A " + fish.getName() + " has bitten your bait! It's time to reel it in.");
-//
-//        boolean fishBattle = true;
-//        boolean islineTight = false;
-//        int pullCount = 0;
-//
-//        // start the BATTLE!!!
-//        while (fishBattle) {
-//            blankLines(2);
-//            System.out.println(fishDistance);
-//            System.out.printf("Is the line tight? %s\n", islineTight);
-//            System.out.printf("Fish distance: %s\n", pullCount);
-//
-//            String move = prompter.prompt("[Pull] or [Release] the line?\n><(((º> ").trim().strip();
-//
-//            if (islineTight) {
-//                if (pullCount <= -3) {
-//                    System.out.println("The fish escapes. Better luck next time!");
-//                    fishBattle = false;
-//                }
-//                else if (move.equalsIgnoreCase("pull")) {
-//                    System.out.println("The line is tight! You pull anyway and lose some progress.");
-//                    pullCount -= 3;
-//                    fishDistance.remove(fishDistance.size()-1);
-//                    fishDistance.remove(fishDistance.size()-1);
-//                    fishDistance.remove(fishDistance.size()-1);
-//                    fishDistance.add(1," ");
-//                    fishDistance.add(1," ");
-//                    fishDistance.add(1," ");
-//                    audioManager.randomPull();
-//                } else if (move.equalsIgnoreCase("release")) {
-//                    System.out.println("You release the line, giving the fish some slack.");
-//                    islineTight = false;
-//                    audioManager.randomReel();
-//                } else {
-//                    System.out.println("Invalid move. Choose either [Pull] or [Release].");
-//                }
-//            } else {
-//                if (move.equalsIgnoreCase("pull")) {
-//                    int success = random.nextInt(5); // Random number will handle success rate of pulling a fish
-//                    audioManager.randomPull();
-//                    if (success >= 1) {
-//                        System.out.println("You pull the line and feel a strong resistance. You're making progress!");
-//                        pullCount++;
-//                        fishDistance.remove(1);
-//                        fishDistance.add(" ");
-//
-//                        if (pullCount >= 3) {
-//                            System.out.println("After a few more strong pulls, you successfully catch the " + fish.getName() + "!");
-////                            player.getInventory().put(fish.getName(), fish);
-//                            fishBattle = false;
-//                        }
-//                    } else {
-//                        System.out.println("You pull the line, but the fish slips away. Keep trying!");
-//                        pullCount--;
-//                        fishDistance.remove(fishDistance.size()-1);
-//                        fishDistance.add(1," ");
-//
-//                        if (pullCount <= -3) {
-//                            System.out.println("The fish escapes. Better luck next time!");
-//                            fishBattle = false;
-//                        }
-//                    }
-//
-//                    // Randomly determine if the line becomes tight
-//                    islineTight = random.nextBoolean();
-//
-//                } else if (move.equalsIgnoreCase("release")) {
-//                    audioManager.randomReel();
-//                    System.out.println("You release the line, giving the fish some slack.");
-//                    islineTight = true;
-//                } else {
-//                    System.out.println("Invalid move. Choose either [Pull] or [Release].");
-//                }
-//            }
-//            pause(PAUSE_VALUE);
-//        }
-//
-//    }
-//
-//    private void resetFishDistance(){
-//        fishDistance.clear();
-//
-//        fishDistance.add("o/");
-//        fishDistance.add(" ");
-//        fishDistance.add(" ");
-//        fishDistance.add(" ");
-//        fishDistance.add("><(((º>");
-//        fishDistance.add(" ");
-//        fishDistance.add(" ");
-//        fishDistance.add(" ");
-//    }
+    public Fish getCaughtFish() {
+        return fishCaught ? fish : null;
+    }
+
+    private void resetFishDistance() {
+        fishDistance.clear();
+
+        int fishPosition = Math.max(-3, Math.min(3, pullCount));
+        StringBuilder fishLineBuilder = new StringBuilder();
+
+        for (int i = -3; i <= 3; i++) {
+            if (i == fishPosition) {
+                fishLineBuilder.append("<º(((><");
+            } else if (i < fishPosition) {
+                fishLineBuilder.append("===");
+            } else {
+                fishLineBuilder.append("===");
+            }
+        }
+
+        fishDistance.add(fishLineBuilder.toString());
+    }
+
+    public String updateFishDistance() {
+        StringBuilder distanceBuilder = new StringBuilder();
+
+        int fishPosition = Math.max(-3, Math.min(3, pullCount));
+
+        if (fishPosition >= 0) {
+            distanceBuilder.append("===".repeat(Math.max(0, 3 - fishPosition)));
+            distanceBuilder.append("<º(((><");
+            distanceBuilder.append("===".repeat(Math.max(0, fishPosition)));
+        } else {
+            distanceBuilder.append("===".repeat(Math.max(0, 3 + fishPosition)));
+            distanceBuilder.append("<º(((><");
+            distanceBuilder.append("===".repeat(Math.max(0, -fishPosition)));
+        }
+
+        return distanceBuilder.toString();
+    }
+}
