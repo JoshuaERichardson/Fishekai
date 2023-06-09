@@ -1,18 +1,19 @@
 ***********><(((º>*************
-*                             *
-*         Help Menu           *
-*                             *
-*         Commands            *
-* To Move:                    *
-* W = UP                      *
-* S = DOWN                    *
-* A = LEFT                    *
-* D = RIGHT                   *
-*                             *
-* SPACE = INTERACT/PICK UP    *
-*                             *
-*                             *
-*                             *
-*                             *
-**********><(((º>**************			
+
+          Help Menu
+
+           Commands
+To Move:
+W = UP
+S = DOWN
+A = LEFT
+D = RIGHT
+
+To interact:
+SPACE = INTERACT/PICK UP
+
+
+
+
+***********><(((º>**************
 		
