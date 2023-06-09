@@ -137,18 +137,27 @@ public class Player extends Entity{
     }
     private void pickUpObject(int i) {
         if(i != 999) {
-            // TODO: Can only grab water if we already have a flask
             String objectName = gp.obj[i].name;
             if (objectName.equals("Apple") || objectName.equals("Banana") || objectName.equals("Flask") || objectName.equals("Hook") ||
-                objectName.equals("Parachute") || objectName.equals("Stick") ||objectName.equals("Water")) {
+                objectName.equals("Parachute") || objectName.equals("Stick")) {
                 inventory.add(gp.obj[i]);
-
                 fishekai.window.getInventoryPanel().updateInventory(inventory);
-
                 gp.obj[i] = null;
                 // Play sound effect:
                 fishekai.getAudioManager().randomGet();
                 return;
+            } else if (objectName.equals("Water")){
+                // Step 1: Do we have the flask? If yes then fill it up.
+                if (fishekai.getFlask() == null){
+                    fishekai.window.getGamePanel().getDialog().update("You need a flask to get water.");
+                    return;
+                } else {
+                    fishekai.getFlask().fill();
+                    String text = "You filled the flask with some water.  You have " + fishekai.getFlask().getCharges() + " charges left.";
+                    fishekai.window.getGamePanel().getDialog().update(text);
+                    gp.obj[i] = null;
+                    return;
+                }
             }
         }
     }

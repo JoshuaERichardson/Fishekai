@@ -9,7 +9,7 @@ public class OBJ_Apple extends SuperObject {
         name = "Apple";
         description = "an apple a day keeps the doctor away";
         type =  "food";
-        modifier = 2;
+        modifier = 5;
 
         try {
             image = ImageIO.read(getClass().getResourceAsStream("/sprites/items/apple.png"));

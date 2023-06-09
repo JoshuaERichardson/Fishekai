@@ -6,6 +6,7 @@ import com.fishekai.utilities.FrameHandler;
 import com.fishekai.utilities.Prompter;
 import com.fishekai.utilities.SplashApp;
 import com.fishekai.view.*;
+import com.fishekai.view.object.OBJ_Flask;
 import com.fishekai.view.object.SuperObject;
 
 
@@ -33,6 +34,7 @@ public class Fishekai extends JPanel implements SplashApp, Runnable {
     public Map<String, Location> locations; // will contain the locations loaded from JSON file
     public Player textPlayer = new Player("Ethan Rutherford", "Known for expertise in ancient artifacts.");
     Flask flask = new Flask("Hanley's flask");
+    OBJ_Flask obj_flask = null;
     private final int drinkCharge = -2; // the value when you drink
 
     // instances
@@ -339,21 +341,27 @@ public class Fishekai extends JPanel implements SplashApp, Runnable {
         }
     }
 
-    // Drinking water handler TODO: Commented out for now
-//    private void rememberToHydrate() {
-//        if (textPlayer.getInventory().containsKey("flask") && parser.getItemList().contains("flask")) {
-//            if (textPlayer.getInventory().containsKey("flask") && flask.getCharges() > 0) {
-//                textPlayer.setThirst(textPlayer.getThirst() + drinkCharge);
-//                flask.setCharges(flask.getCharges() - 1);
-//                audioManager.randomDrink();
-//                System.out.println("You take a drink from the flask.");
-//            } else {
-//                System.out.println("Your flask is empty");
-//            }
-//        } else {
-//            System.out.println("You don't have any items to drink from.");
-//        }
-//    }
+    private void populateFlask(){
+        for (SuperObject i : window.getGamePanel().getPlayer().getInventory()){
+            if (i.getName().equals("Flask")){
+                obj_flask = (OBJ_Flask) i;
+            }
+        }
+    }
+    public void rememberToHydrate() {
+        if (obj_flask == null) populateFlask();
+        if (obj_flask != null){
+            if (obj_flask.getCharges() <= 0){
+                window.getGamePanel().getDialog().update("You are out of water.");
+            } else {
+                obj_flask.drink();
+                window.getGamePanel().getDialog().update("You take a drink from your flask.  You have " + obj_flask.getCharges() + " drinks left.");
+                textPlayer.setThirst(textPlayer.getThirst() - 3);
+            }
+        } else {
+            window.getGamePanel().getDialog().update("You do not have anything to drink from.");
+        }
+    }
 
 //    private void createFishingPole() {
 //        if (textPlayer.getInventory().containsKey("parachute")
@@ -563,8 +571,16 @@ public class Fishekai extends JPanel implements SplashApp, Runnable {
         return textPlayer;
     }
 
-    public Flask getFlask() {
-        return flask;
+    public OBJ_Flask getFlask() {
+        if (obj_flask == null) {
+            for (SuperObject obj : window.getGamePanel().getPlayer().getInventory()){
+                if (obj instanceof OBJ_Flask){
+                    obj_flask = (OBJ_Flask) obj;
+                }
+            }
+
+        }
+        return obj_flask;
     }
 
     public int getDrinkCharge() {
