@@ -119,9 +119,13 @@ public class AudioManager {
         if (volume >= MUSIC_MIN_VOLUME && volume <= MUSIC_MAX_VOLUME && musicClip != null) {
             FloatControl gainControl = (FloatControl) musicClip.getControl(FloatControl.Type.MASTER_GAIN);
             float dB = (float) (Math.log(volume) / Math.log(10.0) * 20.0);
-            gainControl.setValue(dB);
-            musicVolume = volume;
-            System.out.println("Music volume set to: " + String.format("%.0f", musicVolume * 100) + "%");
+            if (gainControl.getMinimum() <= dB && dB <= gainControl.getMaximum()) {
+                gainControl.setValue(dB);
+                musicVolume = volume;
+                System.out.println("Music volume set to: " + String.format("%.0f", musicVolume * 100) + "%");
+            } else {
+                System.out.println("The music can go no lower");
+            }
         }
     }
 
@@ -167,7 +171,11 @@ public class AudioManager {
                 if (clip != null) {
                     FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
                     float dB = (float) (Math.log(volume) / Math.log(10.0) * 20.0);
-                    gainControl.setValue(dB);
+                    if (gainControl.getMinimum() <= dB && dB <= gainControl.getMaximum()) {
+                        gainControl.setValue(dB);
+                    } else {
+                        System.out.println("The sound effects can go no lower");
+                    }
                 }
             }
             soundEffectsVolume = volume;
