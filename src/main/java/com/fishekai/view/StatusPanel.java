@@ -1,6 +1,7 @@
 package com.fishekai.view;
 
 import com.fishekai.engine.Fishekai;
+import com.fishekai.models.Fish;
 import com.fishekai.models.Item;
 import com.fishekai.models.Location;
 import com.fishekai.view.object.OBJ_Fish;
@@ -119,6 +120,13 @@ public class StatusPanel extends JPanel {
     private void populateNorthBeachFish() {
         Location northBeach = fishekai.getLocations().get("North Beach");
         northBeach.addFish();
+
+        // If player is in North Beach, add fish to the screen
+        if(fishekai.getCurrent_location().getName().equals("North Beach")){
+            // Need to add fish to the screen
+            fishekai.window.gamePanel.assetSetter.setObject();
+
+        }
 
 
     }
