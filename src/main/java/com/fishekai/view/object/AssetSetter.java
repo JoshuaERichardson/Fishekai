@@ -76,6 +76,7 @@ public class AssetSetter {
                 gp.obj[i] = new OBJ_Fish();
                 gp.obj[i].worldY = gp.obj[i].worldY * gp.tileSize;
                 gp.obj[i].worldX = gp.obj[i].worldX * gp.tileSize;
+                i++;
             } else if (item.containsKey("door")) {
                 Map<String, Integer> door = item.get("door");
                 gp.obj[i] = new OBJ_Door();
@@ -86,9 +87,9 @@ public class AssetSetter {
                 String prevDirection = switchDirection((door.get("direction")+2) % 4);
                 // Now find out what location the door leads to
                 String doorGoesTo = current_location.getDirections().get(nextLocation);
-                String doorComesFrom = gp.fishekai.locations.get(doorGoesTo).getDirections().get(prevDirection);
+//                String doorComesFrom = gp.fishekai.locations.get(doorGoesTo).getDirections().get(prevDirection);
                 ((OBJ_Door) gp.obj[i]).setLocation(doorGoesTo);
-                ((OBJ_Door) gp.obj[i]).setFromLocation(doorComesFrom);
+//                ((OBJ_Door) gp.obj[i]).setFromLocation(doorComesFrom);
                 i++;
                 }
 

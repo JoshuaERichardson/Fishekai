@@ -38,6 +38,11 @@ class InventoryItem extends JComponent {
 
         ImageIcon icon = new ImageIcon(getClass().getResource(missingItemPath));
         image = icon.getImage();
+        // Stretch the image to fit the panel
+        icon = new ImageIcon(image.getScaledInstance(50, 50, Image.SCALE_SMOOTH));
+
+
+
 
         // Front card is the image of the item
         frontCard.add(new JLabel(icon));
@@ -110,6 +115,7 @@ class InventoryItem extends JComponent {
 
     void loadImage(){
         ImageIcon icon = new ImageIcon(getClass().getResource(haveItemPath));
+        icon = new ImageIcon(icon.getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH));
         image = icon.getImage();
         frontCard.removeAll();
         frontCard.add(new JLabel(icon));
@@ -119,6 +125,7 @@ class InventoryItem extends JComponent {
     }
     void usedImage(){
         ImageIcon icon = new ImageIcon(getClass().getResource(missingItemPath));
+        icon = new ImageIcon(icon.getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH));
         image = icon.getImage();
         frontCard.removeAll();
         frontCard.add(new JLabel(icon));

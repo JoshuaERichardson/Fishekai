@@ -2,16 +2,41 @@ package com.fishekai.view.physics;
 
 import com.fishekai.engine.Fishekai;
 import com.fishekai.models.Location;
+import com.fishekai.models.Player;
 import com.fishekai.utilities.AudioManager;
+import com.fishekai.view.FishingFrame;
 import com.fishekai.view.GamePanel;
 import com.fishekai.view.object.OBJ_Door;
 import com.fishekai.view.tile.TileManager;
+
+import javax.swing.*;
 
 public class LocationSwitcher {
     static int moves = 0;
 
     public static void moveScenes(Fishekai fishekai, String locationName){
 
+
+        if (locationName == null){ // Fishing starts!
+            // TODO:
+
+            Player player = fishekai.getTextPlayer();
+            Location location = fishekai.getCurrent_location();
+            AudioManager audioManager = fishekai.getAudioManager();
+            fishekai.getFishingMechanic().startFishing(player, location, audioManager);
+
+            FishingFrame fishingFrame = new FishingFrame(fishekai.getFishingMechanic(), fishekai.getWindow().getGamePanel());
+            // Pause the game while fishing:
+            GamePanel gamePanel = fishekai.getWindow().getGamePanel();
+            gamePanel.setPaused(true);
+            audioManager.playSoundEffect("fishing");
+            fishingFrame.setVisible(true);
+            fishingFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            fishekai.getKeyHandler().leftPressed = false;
+            fishekai.window.gamePanel.player.worldX = 2 * fishekai.window.gamePanel.tileSize;
+            fishekai.window.gamePanel.player.worldY = 4 * fishekai.window.gamePanel.tileSize;
+            return;
+        }
         moves++;
         fishekai.getTextPlayer().moveDamage(moves);
         System.out.println(fishekai.getTextPlayer().getThirst() + " " + fishekai.getTextPlayer().getHunger() + " " + fishekai.getTextPlayer().getHp());

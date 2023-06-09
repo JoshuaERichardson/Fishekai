@@ -7,6 +7,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
 
 public class FishingFrame extends JFrame {
     private JLabel fishUpdateLabel;
@@ -15,9 +16,15 @@ public class FishingFrame extends JFrame {
     private JButton pullButton;
     private JButton releaseButton;
     private FishingMechanic fishingMechanic;
+    private GamePanel gp;
 
-    public FishingFrame(FishingMechanic fishingMechanic) {
+    public FishingFrame(FishingMechanic fishingMechanic, GamePanel gp) {
         this.fishingMechanic = fishingMechanic;
+        this.gp = gp;
+
+       
+
+
         setTitle("Fishing Game");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
@@ -101,4 +108,14 @@ public class FishingFrame extends JFrame {
         JOptionPane.showMessageDialog(this, "The fish escaped. Better luck next time!", "Fish Escaped", JOptionPane.INFORMATION_MESSAGE);
         dispose();
     }
+
+    protected void processWindowEvent(WindowEvent e) {
+        super.processWindowEvent(e);
+        if(e.getID() == WindowEvent.WINDOW_CLOSING) {
+            // Move the character off the dock:
+
+            gp.setPaused(false);
+        }
+    }
 }
+

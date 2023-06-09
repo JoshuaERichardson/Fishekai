@@ -109,7 +109,7 @@
         "text": "This way to the Beach."
       },
       {
-        "column": "11",
+        "column": "10",
         "row": "8",
         "text": "This way to the Mountain."
       }
@@ -509,9 +509,9 @@
     "signs":
     [
       {
-        "column": "0",
-        "row": "0",
-        "text": "You should never see this"
+        "column": "8",
+        "row": "6",
+        "text": "Hi, I'm Cat, the lost teammate.  Something bad happened when I ate a fangfish.  I wouldn't suggest it.  It's ok though cause I'm going to find them a job in the after!"
       }
     ]
   },

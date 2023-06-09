@@ -5,7 +5,7 @@ import javax.imageio.ImageIO;
 public class OBJ_Door extends SuperObject{
     public String location;
     public String fromLocation;
-
+    public boolean doorToFishingMiniGame;
     public OBJ_Door(){
         name = "Door";
 
@@ -28,6 +28,9 @@ public class OBJ_Door extends SuperObject{
     }
     public String getFromLocation(){
         return fromLocation;
+    }
+    public void setDoorToFishingMiniGame(){
+        this.doorToFishingMiniGame = true;
     }
 
 }

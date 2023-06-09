@@ -7,8 +7,8 @@ import java.awt.*;
 
 public class MainWindow extends JFrame {
     // Screen Size:
-    public static final int SCREEN_WIDTH = 1075;
-    public static final int SCREEN_HEIGHT = 1150;
+    public static final int SCREEN_WIDTH = 1159;
+    public static final int SCREEN_HEIGHT = 1002;
 
         // The cards for the layout:
         private IntroPanel introPanel;
