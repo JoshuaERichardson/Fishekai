@@ -38,13 +38,12 @@ public class SidePanel extends JPanel {
             audioManager.playSoundEffect("help");
         });
 
-
         this.add(helpButton);
 
+// Fishing scene start in North Beach
 
         JButton startFishingButton = new JButton("Start Fishing");
         startFishingButton.setRequestFocusEnabled(false);
-
 
         startFishingButton.addActionListener(e -> {
 
@@ -53,12 +52,10 @@ public class SidePanel extends JPanel {
             fishekai.getFishingMechanic().startFishing(player, location, audioManager);
 
             FishingFrame fishingFrame = new FishingFrame(fishekai.getFishingMechanic());
-            fishingFrame.setSize(400, 400);
             fishingFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
             fishingFrame.setVisible(true);
             audioManager.playSoundEffect("fishing");
         });
-
 
         this.add(startFishingButton);
     }
