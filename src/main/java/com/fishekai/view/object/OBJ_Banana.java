@@ -8,7 +8,7 @@ public class OBJ_Banana extends SuperObject{
         name = "Banana";
         description = "it's bananas, B.A.N.A.N.A.S";
         type =  "food";
-        modifier = 2;
+        modifier = 5;
         try {
             image = ImageIO.read(getClass().getResourceAsStream("/sprites/items/banana.png"));
         } catch(

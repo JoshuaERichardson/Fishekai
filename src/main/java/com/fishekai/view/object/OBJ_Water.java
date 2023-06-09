@@ -10,6 +10,7 @@ public class OBJ_Water extends SuperObject{
         type = "water";
         modifier = 2;
 
+
         try {
             image = ImageIO.read(getClass().getResourceAsStream("/sprites/items/water.png"));
         } catch (IOException e) {

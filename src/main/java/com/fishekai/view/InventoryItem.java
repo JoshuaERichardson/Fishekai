@@ -66,11 +66,12 @@ class InventoryItem extends JComponent {
                     usedImage();
                     flipCard();
                     player.consumeObject(item.getName());
-
                     break;
                 case "water":
-                    dialogEngine.update("You drank some water from the flask. YOU HAVE CHARGES?");
+                    int charges = player.getFishekai().getFlask().getCharges();
+                    player.getFishekai().rememberToHydrate();
                     audioManager.randomDrink();
+                    if (charges <= 0) player.consumeObject(item.getName());
                     break;
                 case "tool":
                     if (item.getName().equals("Stick")){
