@@ -46,11 +46,11 @@ public class DialogEngine {
     public void draw(Graphics2D g2){
         if(display){
             // Display the dialogue bubble
-            g2.drawImage(dialogBubble, 200, 200, 600, 300, null);
+            g2.drawImage(dialogBubble, 50, 200, 600, 300, null);
 
             g2.setFont(new Font("Arial", Font.BOLD, 18));
 //            g2.drawString(input, 250, 250);
-            drawWrappedText(g2, input, 250, 250, 500,300);
+            drawWrappedText(g2, input, 100, 250, 500,300);
 
 
 

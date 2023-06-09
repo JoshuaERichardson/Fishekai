@@ -62,6 +62,7 @@ public class GamePanel extends MainPanel{
             @Override
             public void actionPerformed(ActionEvent e) {
                 // Update game state
+//                System.out.println("Main Window Height: " + fishekai.window.getHeight() + "\nMain Window Width: " + fishekai.window.getWidth());
                 update();
                 // Draw game state to screen
                 repaint();
