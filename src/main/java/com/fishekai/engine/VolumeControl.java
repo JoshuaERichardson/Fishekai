@@ -13,7 +13,7 @@ public class VolumeControl {
 
     public VolumeControl(AudioManager audioManager) {
         window = new JFrame();
-        window.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        window.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 
         // Set GridLayout with 2 columns to organize buttons
         GridBagLayout layout = new GridBagLayout();
