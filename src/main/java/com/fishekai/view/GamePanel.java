@@ -13,6 +13,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.net.URL;
 
 public class GamePanel extends MainPanel{
     // SCREEN SETTINGS
@@ -205,5 +206,45 @@ public class GamePanel extends MainPanel{
         } else {
             startGameTimer();
         }
+    }
+
+    public void gameOver(int reasonCode) {
+        // reasonCode: 0 = player died from hp, 1 player died from eating fangfish, 2 player died from volcano, 3 player won.
+        String message;
+        switch (reasonCode) {
+            case 0:
+                message = "You fall to the ground from hunger and thirst.";
+                break;
+            case 1:
+                message = "You died from eating fangfish.";
+                break;
+            case 2:
+                message = "You died from volcano.";
+                break;
+            case 3:
+                message = "You won!";
+                break;
+            default:
+                message = "You died from unknown reason.";
+                break;
+        }
+        getDialog().update(message);
+        // Make a pop up displaying the message:
+        JOptionPane.showMessageDialog(null, message, "Game Over", JOptionPane.INFORMATION_MESSAGE);
+
+        // sleep for 3 seconds
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        stopGameTimer();
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        System.exit(0);
+
     }
 }

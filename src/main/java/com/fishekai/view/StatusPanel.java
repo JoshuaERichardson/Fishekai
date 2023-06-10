@@ -20,7 +20,7 @@ public class StatusPanel extends JPanel {
     private Image stickImage, ropeImage, hookImage, poleImage;
     private InventoryItem tunaFish, sunFish, fangFish;
     private JPanel healthStatus, buildAPole;
-    private boolean isFishing;
+    private boolean isFishing, fishDrawn;
 
     public StatusPanel(Fishekai fishekai, MainPanel mainPanel) {
         this.fishekai = fishekai;
@@ -78,7 +78,9 @@ public class StatusPanel extends JPanel {
 
     public void startedFishing(){
         // Wipe the build-a-pole panel and add the pole image:
+        fishDrawn = true;
         buildAPole.removeAll();
+        buildAPole.setLayout(new BoxLayout(buildAPole, BoxLayout.Y_AXIS));
         JLabel buildLabel = new JLabel("Build a pole");
         buildAPole.add(buildLabel);
 
@@ -88,15 +90,14 @@ public class StatusPanel extends JPanel {
         OBJ_Caught_Fish sun = new OBJ_Caught_Fish("Sunfish");
 
 
-        tunaFish = new InventoryItem(tuna, this);
-        fangFish = new InventoryItem(fang, this);
-        sunFish = new InventoryItem(sun, this);
+        tunaFish = new InventoryItem(tuna, "/sprites/items/fishorange.png", this);
+        fangFish = new InventoryItem(fang, "/sprites/items/fishred.png", this);
+        sunFish = new InventoryItem(sun, "/sprites/items/fishyellow.png", this);
 
         buildAPole.add(tunaFish);
         buildAPole.add(fangFish);
         buildAPole.add(sunFish);
 
-        buildLabel.setBackground(Color.BLACK);
         isFishing = true;
         validate();
         repaint();
@@ -116,6 +117,7 @@ public class StatusPanel extends JPanel {
     }
     public int updateHealth(){
         health = fishekai.textPlayer.getHp();
+        if (health <= 0) fishekai.window.getGamePanel().gameOver(0);
         return health;
     }
 
@@ -167,8 +169,10 @@ public class StatusPanel extends JPanel {
     }
     public void draw(Graphics2D g2){
         if(isFishing) {
-            startedFishing();
-            return;
+            if(!fishDrawn) {
+                startedFishing();
+                return;
+            }
         };
         if (havePole) buildAPole.getGraphics().drawImage(poleImage, 0, 20, buildAPole.getWidth(), (int)(buildAPole.getHeight()*.75), null);
         else if(haveStick) buildAPole.getGraphics().drawImage(stickImage, 0, 20, buildAPole.getWidth(), (int)(buildAPole.getHeight()*.75), null);
@@ -190,7 +194,7 @@ public class StatusPanel extends JPanel {
             String itemName = item.getName();
             switch(itemName){
                 case "sunfish"  : sunFish.caughtFish(); break;
-                case "fangFish" : fangFish.caughtFish(); break;
+                case "fangfish" : fangFish.caughtFish(); break;
                 case "tuna"     : tunaFish.caughtFish(); break;
             }
         }

@@ -24,12 +24,13 @@ class InventoryItem extends JComponent {
 
 
 
-    public InventoryItem(OBJ_Caught_Fish item, StatusPanel statusPanel){
+    public InventoryItem(OBJ_Caught_Fish item, String haveItemPath, StatusPanel statusPanel){
         this.statusPanel = statusPanel;
         this.dialogEngine = statusPanel.getFishekai().window.getGamePanel().getDialog();
         this.audioManager = statusPanel.getFishekai().window.getGamePanel().getAudioManager();
         this.player = statusPanel.getFishekai().window.getGamePanel().getPlayer();
         this.item = item;
+        this.haveItemPath = haveItemPath;
 
         setLayout(new CardLayout());
         backCard = new JPanel();
@@ -40,13 +41,14 @@ class InventoryItem extends JComponent {
         label.setText("Go Fish!");
         frontCard.add(label);
         // Grow the size of the label:
-        label.setPreferredSize(new Dimension(100, 100));
-        label.setFont(new Font("Arial", Font.BOLD, 20));
-        label.setForeground(Color.WHITE);
-        label.setHorizontalAlignment(JLabel.CENTER);
-        label.setVerticalAlignment(JLabel.CENTER);
-        label.setOpaque(true);
-        label.setBackground(Color.BLACK);
+//        label.setPreferredSize(new Dimension(100, 100));
+//        label.setFont(new Font("Arial", Font.BOLD, 20));
+//        label.setForeground(Color.WHITE);
+//        label.setHorizontalAlignment(JLabel.CENTER);
+//        label.setVerticalAlignment(JLabel.CENTER);
+//        label.setOpaque(true);
+//        label.setBackground(Color.BLACK);
+        missingItemPath = "/sprites/items/fishblue.png";
 
 
 
@@ -55,13 +57,20 @@ class InventoryItem extends JComponent {
 
         useButton.addActionListener(e -> {
             // Use the item
-                dialogEngine.update("You ate the " + item.getName() + ".");
-                audioManager.randomEat();
-                itemPickedUp = false;
-                player.getFishekai().timeToEat(item.getModifier());
-                usedImage();
-                flipCard();
-                player.consumeObject(item.getName());
+                if (item.getName().equals("Fangfish")) {
+                    statusPanel.getFishekai().window.getGamePanel().gameOver(1);
+                }
+                if (item.getName().equals("Sunfish")) {
+                    statusPanel.getFishekai().window.getGamePanel().gameOver(3);
+                } else {
+                    dialogEngine.update("You ate the " + item.getName() + ".");
+                    audioManager.randomEat();
+                    itemPickedUp = false;
+                    player.getFishekai().timeToEat(item.getModifier());
+                    usedImage();
+                    flipCard();
+                    player.consumeObject(item.getName());
+                }
         });
         flipButton.addActionListener(e -> {
             // Flip the card back over
@@ -75,12 +84,27 @@ class InventoryItem extends JComponent {
         // Add an action listener for a mouse click:
         addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                if (itemPickedUp) flipCard();
+                if (itemPickedUp) {
+                    flipCard();
+                }
             }
         });
+        setBackground(Color.blue);
 
         add(frontCard, "front");
         add(backCard, "back");
+
+        ImageIcon icon = new ImageIcon(getClass().getResource("/sprites/items/fishblue.png"));
+        image = icon.getImage();
+        // Stretch the image to fit the panel
+        icon = new ImageIcon(image.getScaledInstance(50, 50, Image.SCALE_SMOOTH));
+
+
+
+
+        // Front card is the image of the item
+        frontCard.add(new JLabel(icon));
+
 
 
     }
@@ -201,20 +225,7 @@ class InventoryItem extends JComponent {
     }
 
     void caughtFish(){
-        frontCard.removeAll();
-        JLabel label = new JLabel();
-        label.setText(item.getName());
-        label.setPreferredSize(new Dimension(100, 100));
-        label.setFont(new Font("Arial", Font.BOLD, 20));
-        label.setForeground(Color.WHITE);
-        label.setHorizontalAlignment(JLabel.CENTER);
-        label.setVerticalAlignment(JLabel.CENTER);
-        label.setOpaque(true);
-        label.setBackground(Color.BLACK);
-        frontCard.add(label);
-        itemPickedUp = true;
-        revalidate();
-        repaint();
+        loadImage();
     }
     void usedImage(){
         ImageIcon icon = new ImageIcon(getClass().getResource(missingItemPath));

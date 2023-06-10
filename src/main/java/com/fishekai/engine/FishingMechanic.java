@@ -51,16 +51,10 @@ public class FishingMechanic {
         Random random = new Random();
 
         if (islineTight) {
-            boolean badLuckProtection = random.nextBoolean();
-            if (badLuckProtection) {
-                message = "The fish dipped when it should have dived.  You gained some progress!";
-                pullCount++;
-                audioManager.randomPull();
-            } else {
-                message = "The line is tight! You pull anyway and lose some progress.";
-                pullCount--;
-                audioManager.randomPull();
-            }
+            message = "The line is tight! You pull anyway and lose some progress.";
+            pullCount--;
+            audioManager.randomPull();
+
         } else {
             int success = random.nextInt(10); // Random number will handle success rate of pulling a fish
             audioManager.randomPull();

@@ -21,7 +21,6 @@ import static com.fishekai.utilities.Console.*;
 /**
  * This class is responsible for the game engine.
  * It contains the main method and the game loop.
- * TODO: Handling too many methods and fields. Refactor!
  */
 public class Fishekai extends JPanel implements SplashApp, Runnable {
     // constants
