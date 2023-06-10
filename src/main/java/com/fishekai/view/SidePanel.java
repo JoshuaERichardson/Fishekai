@@ -18,38 +18,37 @@ public class SidePanel extends JPanel {
     private final JPanel mainPanel;
     private HelpPopup helpPopup;
     private final AudioManager audioManager;
-    private VolumeControl volumeControl;
+//    private VolumeControl volumeControl; // Instance variable declaration
 
     private Fishekai fishekai;
 
     public SidePanel(MainPanel mainPanel, Player textPlayer, Fishekai fishekai) {
         this.mainPanel = mainPanel;
         setVisible(true);
-//        setBackground(Color.WHITE);
         audioManager = fishekai.getAudioManager();
         this.fishekai = fishekai;
-        VolumeControl volumeControl = new VolumeControl(audioManager);
+
+        // Initializing the instance variable instead of declaring a new one
+//        this.volumeControl = new VolumeControl(audioManager);
 
         // Set the layout of the JPanel to BoxLayout (Y_AXIS)
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
         Color buttonColor = Color.decode("#00827f");
 
-//      Volume button:
-        JButton volumeButton = new JButton("Volume");
-        volumeButton.setRequestFocusEnabled(false);
-        volumeButton.setBackground(buttonColor);
-        volumeButton.setForeground(Color.WHITE);
-
-        volumeButton.addActionListener(e -> {
-            volumeControl.showWindow();
-            audioManager.playSoundEffect("volume");
-        });
-
-        this.add(volumeButton);
-        this.add(Box.createVerticalStrut(20));
-
-
+//        // Volume button:
+//        JButton volumeButton = new JButton("Volume");
+//        volumeButton.setRequestFocusEnabled(false);
+//        volumeButton.setBackground(buttonColor);
+//        volumeButton.setForeground(Color.WHITE);
+//
+//        volumeButton.addActionListener(e -> {
+//            volumeControl.showWindow();
+//            audioManager.playSoundEffect("volume");
+//        });
+//
+//        this.add(volumeButton);
+//        this.add(Box.createVerticalStrut(20));
 
         // Make the Help Button:
         JButton helpButton = new JButton("   Help   ");
@@ -82,7 +81,6 @@ public class SidePanel extends JPanel {
         });
 
         this.add(mapButton);
-
     }
 
     public JPanel getMainPanel() {

@@ -23,6 +23,7 @@ public class MainWindow extends JFrame {
 
 
 
+
     private final InventoryPanel inventoryPanel;
 
 public MainWindow(KeyHandler kh, Fishekai fishekai) {

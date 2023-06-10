@@ -423,6 +423,13 @@
     "items":
     [
       {
+        "apple": {
+          "column": 7,
+          "row": 9,
+          "direction" : 0
+        }
+      },
+      {
         "door" : {
           "column": 0,
           "row": 6,
