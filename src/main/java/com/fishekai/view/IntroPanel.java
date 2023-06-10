@@ -25,6 +25,10 @@ public class IntroPanel extends MainPanel{
         // Draw the image on the panel
         if(image != null){
             g.drawImage(image, 0, 0, getWidth(), getHeight(), null);
+            // Draw the text
+            g.setColor(Color.WHITE);  // Set the text color
+            g.setFont(new Font("Arial", Font.BOLD, 20));  // Set the font
+            g.drawString("PRESS ENTER TO CONTINUE           ", getWidth() - 320, getHeight() - 20);
         }
     }
 
