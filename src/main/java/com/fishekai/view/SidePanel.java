@@ -52,7 +52,7 @@ public class SidePanel extends JPanel {
 
 
         // Make the Help Button:
-        JButton helpButton = new JButton("Help");
+        JButton helpButton = new JButton("   Help   ");
         helpButton.setRequestFocusEnabled(false);
         helpButton.setBackground(buttonColor); // Sets the background color of the button
         helpButton.setForeground(Color.WHITE);
@@ -67,7 +67,7 @@ public class SidePanel extends JPanel {
         // Add space
         this.add(Box.createVerticalStrut(20));  // add 20 pixel space
 
-        JButton mapButton = new JButton("Map");
+        JButton mapButton = new JButton("   Map   ");
         mapButton.setRequestFocusEnabled(false);
         mapButton.setBackground(buttonColor); // Sets the background color of the button
         mapButton.setForeground(Color.WHITE);
