@@ -4,6 +4,8 @@ import com.fishekai.utilities.AudioManager;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
 
 
@@ -13,7 +15,20 @@ public class VolumeControl {
 
     public VolumeControl(AudioManager audioManager) {
         window = new JFrame();
-        window.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+
+        window.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        window.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                int confirm = JOptionPane.showOptionDialog(window,
+                        "Are You Sure to Close this window(it can't be opened again)?",
+                        "Confirmation", JOptionPane.YES_NO_OPTION,
+                        JOptionPane.QUESTION_MESSAGE, null, null, null);
+                if (confirm == JOptionPane.YES_OPTION) {
+                    window.dispose();
+                }
+            }
+        });
 
         // Set GridLayout with 2 columns to organize buttons
         GridBagLayout layout = new GridBagLayout();
@@ -108,7 +123,7 @@ public class VolumeControl {
 
         window.pack();
         window.setVisible(true);
-
+        window.toFront();
 
 
 
@@ -120,6 +135,7 @@ public class VolumeControl {
 
     public void showWindow() {
         window.setVisible(true);
+        changeImage();
     }
 
 
