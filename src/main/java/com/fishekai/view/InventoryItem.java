@@ -20,7 +20,7 @@ class InventoryItem extends JComponent {
     private final AudioManager audioManager;
     private final Player player;
     private StatusPanel statusPanel;
-
+    private JLabel label;
 
 
 
@@ -37,7 +37,7 @@ class InventoryItem extends JComponent {
         frontCard = new JPanel();
 
 
-        JLabel label = new JLabel();
+        label = new JLabel();
         label.setText("Go Fish!");
         frontCard.add(label);
         // Grow the size of the label:
@@ -210,17 +210,17 @@ class InventoryItem extends JComponent {
         icon = new ImageIcon(icon.getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH));
         image = icon.getImage();
         frontCard.removeAll();
+        if (item.getType().equals("misc")) {
+            label.setText(item.getName());
+            frontCard.add(label);
+        }
         frontCard.add(new JLabel(icon));
         itemPickedUp = true;
         revalidate();
         repaint();
     }
     void loadFish(){
-        frontCard.removeAll();
-        JLabel label = new JLabel();
         label.setText(item.getName());
-        label.setFont(new Font("Arial", Font.BOLD, 20));
-        frontCard.add(label);
         itemPickedUp = true;
         revalidate();
         repaint();
