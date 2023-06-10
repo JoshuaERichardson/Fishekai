@@ -19,7 +19,7 @@ public class StatusPanel extends JPanel {
     private boolean haveStick, haveRope, haveHook, havePole;
     private Image stickImage, ropeImage, hookImage, poleImage;
     private InventoryItem tunaFish, sunFish, fangFish;
-    private JPanel healthStatus, buildAPole;
+    private JPanel healthStatus, buildAPole, healthGrid;
     private boolean isFishing, fishDrawn;
 
     public StatusPanel(Fishekai fishekai, MainPanel mainPanel) {
@@ -53,6 +53,25 @@ public class StatusPanel extends JPanel {
         thirstPanel.add(thirstLabel);
         healthStatus.add(thirstPanel);
         add(healthStatus);
+
+        // The top row needs to have a grid layout of 5 rows and 2 columns for the health:
+        healthGrid = new JPanel();
+        healthGrid.setLayout(new GridLayout(5, 2));
+        // Add the health image:
+        for(int i = 1; i <= 10; i++){
+            ImageIcon healthIcon;
+            if (i <= fishekai.getTextPlayer().getHp()){
+                healthIcon = new ImageIcon(getClass().getResource("/sprites/items/heartfull.png"));
+            } else {
+                healthIcon = new ImageIcon(getClass().getResource("/sprites/items/heartempty.png"));
+            }
+            Image healthImage = healthIcon.getImage();
+//            Image scaledHealthImage = healthImage.getScaledInstance(width/10, height/10, Image.SCALE_SMOOTH);
+            JLabel healthImageLabel = new JLabel(new ImageIcon(healthImage));
+            healthGrid.add(healthImageLabel);
+        }
+        healthStatus.add(healthGrid);
+
 
         // Row 2 is a JPanel with 1 column
         buildAPole = new JPanel();
@@ -162,10 +181,27 @@ public class StatusPanel extends JPanel {
 
     }
 
+    public void updateHearts(){
+        healthGrid.removeAll();
+        // The top row needs to have a grid layout of 5 rows and 2 columns for the health:
+        // Add the health image:
+        for(int i = 0; i < 10; i++) {
+            ImageIcon healthIcon;
+            if (i <= fishekai.getTextPlayer().getHp()) {
+                healthIcon = new ImageIcon(getClass().getResource("/sprites/items/heartfull.png"));
+            } else {
+                healthIcon = new ImageIcon(getClass().getResource("/sprites/items/heartempty.png"));
+            }
+            Image healthImage = healthIcon.getImage();
+            JLabel healthImageLabel = new JLabel(new ImageIcon(healthImage));
+            healthGrid.add(healthImageLabel);
+        }
+    }
     public void update() {
         thirstLabel.setText("Thirst: " + updateThirst());
         hungerLabel.setText("Hunger: " + updateHunger());
         healthLabel.setText("Health: " + updateHealth());
+        updateHearts();
 
     }
     public void draw(Graphics2D g2){
