@@ -138,7 +138,7 @@ public class Player extends Entity{
     private void pickUpObject(int i) {
         if(i != 999) {
             String objectName = gp.obj[i].name;
-            if (objectName.equals("Apple") || objectName.equals("Banana") || objectName.equals("Flask") || objectName.equals("Hook") ||
+            if (objectName.equals("Apple") || objectName.equals("mushroom") || objectName.equals("Flask") || objectName.equals("Hook") ||
                 objectName.equals("Parachute") || objectName.equals("Stick")) {
                 inventory.add(gp.obj[i]);
                 fishekai.window.getInventoryPanel().updateInventory(inventory);

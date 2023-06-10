@@ -57,7 +57,7 @@ public void updateInventory(List<SuperObject> inventory) {
         String itemName = item.getName();
         switch (itemName) {
             case "Apple": appleItem.loadImage(); break;
-            case "Banana":bananaItem.loadImage();break;
+            case "mushroom":bananaItem.loadImage();break;
             case "Flask" : flaskItem.loadImage(); break;
             case "Hook" : hookItem.loadImage(); break;
             case "Parachute" : chordItem.loadImage(); break;
