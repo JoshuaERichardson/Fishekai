@@ -166,6 +166,7 @@ public class StatusPanel extends JPanel {
         thirstLabel.setText("Thirst: " + updateThirst());
         hungerLabel.setText("Hunger: " + updateHunger());
         healthLabel.setText("Health: " + updateHealth());
+
     }
     public void draw(Graphics2D g2){
         if(isFishing) {
