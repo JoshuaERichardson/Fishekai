@@ -12,7 +12,6 @@ public class DialogEngine {
     private final KeyHandler kh;
     String input;
     boolean display = false;
-    Timer timer;
 
     public DialogEngine(GamePanel gp){
         try {
@@ -22,36 +21,24 @@ public class DialogEngine {
         }
         this.gp = gp;
         this.kh = gp.getKh();
-        timer = new Timer(3000, e -> {
-            input = null;
-            display = false;
-        });
-
     }
 
     public void update(String input){
         display = true;
-        this.input = input;
+        StringBuilder sb = new StringBuilder();
+        sb.append(input);
+        sb.append("\n\nPress \"E\" to continue");
+        this.input = sb.toString();
         try {
             dialogBubble = ImageIO.read(getClass().getResourceAsStream("/images/dialogue.png"));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        timer.start();
     }
 
     public void update(){
-        if(kh.enterPressed){
+        if(kh.enterPressed || kh.ePressed){
             // Remove the dialogue bubble
-            dialogBubble = null;
-            input = null;
-            display = false;
-        }
-    }
-    public void update(boolean display){
-        if(display){
-            // Remove the dialogue bubble
-
             dialogBubble = null;
             input = null;
             display = false;

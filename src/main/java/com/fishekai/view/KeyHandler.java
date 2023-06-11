@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class KeyHandler implements KeyListener {
-    public boolean upPressed, downPressed, leftPressed, rightPressed, spacePressed, enterPressed;
+    public boolean upPressed, downPressed, leftPressed, rightPressed, spacePressed, enterPressed, ePressed;
     public boolean spaceTyped, enterTyped;
     public boolean enterJustPressed, spaceJustPressed;
     private boolean enterWasPressedLastTick, spaceWasPressedLastTick;
@@ -79,9 +79,9 @@ public class KeyHandler implements KeyListener {
                 // Start the game:
                 game.window.startGameTimer();
             }
-
-
-
+        }
+        if (code == KeyEvent.VK_E) {
+            ePressed = true;
         }
     }
 
@@ -106,6 +106,9 @@ public class KeyHandler implements KeyListener {
         }
         if (code == KeyEvent.VK_ENTER) {
             enterPressed = false;
+        }
+        if (code == KeyEvent.VK_E) {
+            ePressed = false;
         }
     }
 
