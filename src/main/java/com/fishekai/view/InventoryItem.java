@@ -66,7 +66,8 @@ class InventoryItem extends JComponent {
                     dialogEngine.update("You ate the " + item.getName() + ".");
                     audioManager.randomEat();
                     itemPickedUp = false;
-                    player.getFishekai().timeToEat(item.getModifier());
+                    player.getFishekai().timeToEat(3);
+                    statusPanel.update();
                     usedImage();
                     flipCard();
                     player.consumeObject(item.getName());

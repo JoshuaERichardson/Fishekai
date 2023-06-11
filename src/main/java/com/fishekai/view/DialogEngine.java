@@ -12,6 +12,7 @@ public class DialogEngine {
     private final KeyHandler kh;
     String input;
     boolean display = false;
+    Timer timer;
 
     public DialogEngine(GamePanel gp){
         try {
@@ -21,6 +22,11 @@ public class DialogEngine {
         }
         this.gp = gp;
         this.kh = gp.getKh();
+        timer = new Timer(3000, e -> {
+            input = null;
+            display = false;
+        });
+
     }
 
     public void update(String input){
@@ -31,6 +37,7 @@ public class DialogEngine {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+        timer.start();
     }
 
     public void update(){
@@ -40,7 +47,15 @@ public class DialogEngine {
             input = null;
             display = false;
         }
+    }
+    public void update(boolean display){
+        if(display){
+            // Remove the dialogue bubble
 
+            dialogBubble = null;
+            input = null;
+            display = false;
+        }
     }
 
     public void draw(Graphics2D g2){
@@ -58,6 +73,7 @@ public class DialogEngine {
         g2.setFont(new Font("Arial", Font.BOLD, 18));
         //            g2.drawString(input, 250, 250);
         drawWrappedText(g2, input, 10, 10, 90, 90);
+        // Start a timer to remove the text after a few seconds
     }
 
     static void drawWrappedText(Graphics g, String text, int x, int y, int w, int h) {

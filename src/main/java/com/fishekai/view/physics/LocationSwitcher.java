@@ -41,7 +41,7 @@ public class LocationSwitcher {
         fishekai.getTextPlayer().moveDamage(moves);
         System.out.println(fishekai.getTextPlayer().getThirst() + " " + fishekai.getTextPlayer().getHunger() + " " + fishekai.getTextPlayer().getHp());
         // Repaint the statusPanel with updated thirst and hunger:
-        fishekai.window.getStatusPanel().update();
+        fishekai.window.getStatusPanel().update(true);
 
 
         // Save the prevLocation direction:
@@ -122,12 +122,12 @@ public class LocationSwitcher {
         }
         // If mountain to Cave:
         else if (locationName.equals("Cave") && prevLocation.equals("Mountain")) {
-            fishekai.window.gamePanel.player.worldX = 5 * fishekai.window.gamePanel.tileSize;
+            fishekai.window.gamePanel.player.worldX = 4 * fishekai.window.gamePanel.tileSize;
             fishekai.window.gamePanel.player.worldY = 3 * fishekai.window.gamePanel.tileSize;
         }
         // If cave to mountain:
         else if (locationName.equals("Mountain") && prevLocation.equals("Cave")) {
-            fishekai.window.gamePanel.player.worldX = 8 * fishekai.window.gamePanel.tileSize;
+            fishekai.window.gamePanel.player.worldX = 7 * fishekai.window.gamePanel.tileSize;
             fishekai.window.gamePanel.player.worldY = 4 * fishekai.window.gamePanel.tileSize;
         }
         // If mountain to Forest:

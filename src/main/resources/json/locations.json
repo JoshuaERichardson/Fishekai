@@ -432,6 +432,13 @@
       {
         "door" : {
           "column": 0,
+          "row": 5,
+          "direction": 3
+        }
+      },
+      {
+        "door" : {
+          "column": 0,
           "row": 6,
           "direction": 3
         }
@@ -478,7 +485,7 @@
       {
         "column": "8",
         "row": "6",
-        "text": "Hi, I'm Cat, the lost teammate.  Something bad happened when I ate a fangfish.  I wouldn't suggest it.\n\nIt's ok though cause I'm going to find them a job in the after!"
+        "text": "Hi, I'm Cat, the lost teammate.  Something bad happened when I ate a fangfish.  I wouldn't suggest it.\n\nIt's ok though cause I'm going to find them a job in the afterlife!"
       }
     ]
   },

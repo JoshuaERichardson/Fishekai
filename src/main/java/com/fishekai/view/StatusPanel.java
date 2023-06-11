@@ -58,18 +58,7 @@ public class StatusPanel extends JPanel {
         healthGrid = new JPanel();
         healthGrid.setLayout(new GridLayout(5, 2));
         // Add the health image:
-        for(int i = 1; i <= 10; i++){
-            ImageIcon healthIcon;
-            if (i <= fishekai.getTextPlayer().getHp()){
-                healthIcon = new ImageIcon(getClass().getResource("/sprites/items/heartfull.png"));
-            } else {
-                healthIcon = new ImageIcon(getClass().getResource("/sprites/items/heartempty.png"));
-            }
-            Image healthImage = healthIcon.getImage();
-//            Image scaledHealthImage = healthImage.getScaledInstance(width/10, height/10, Image.SCALE_SMOOTH);
-            JLabel healthImageLabel = new JLabel(new ImageIcon(healthImage));
-            healthGrid.add(healthImageLabel);
-        }
+        updateHearts();
         healthStatus.add(healthGrid);
 
 
@@ -118,8 +107,7 @@ public class StatusPanel extends JPanel {
         buildAPole.add(sunFish);
 
         isFishing = true;
-        validate();
-        repaint();
+
 
 
     }
@@ -183,11 +171,9 @@ public class StatusPanel extends JPanel {
 
     public void updateHearts(){
         healthGrid.removeAll();
-        // The top row needs to have a grid layout of 5 rows and 2 columns for the health:
-        // Add the health image:
         for(int i = 0; i < 10; i++) {
             ImageIcon healthIcon;
-            if (i <= fishekai.getTextPlayer().getHp()) {
+            if (i < fishekai.getTextPlayer().getHp()) {
                 healthIcon = new ImageIcon(getClass().getResource("/sprites/items/heartfull.png"));
             } else {
                 healthIcon = new ImageIcon(getClass().getResource("/sprites/items/heartempty.png"));
@@ -197,19 +183,42 @@ public class StatusPanel extends JPanel {
             healthGrid.add(healthImageLabel);
         }
     }
-    public void update() {
+    public void update(){
         thirstLabel.setText("Thirst: " + updateThirst());
         hungerLabel.setText("Hunger: " + updateHunger());
         healthLabel.setText("Health: " + updateHealth());
         updateHearts();
+    }
+    public void update(boolean b) {
+        thirstLabel.setText("Thirst: " + updateThirst());
+        hungerLabel.setText("Hunger: " + updateHunger());
+        healthLabel.setText("Health: " + updateHealth());
+        updateHearts();
+        StringBuilder message = new StringBuilder();
+        int hunger = fishekai.textPlayer.getHunger();
+        int thirst = fishekai.textPlayer.getThirst();
+        if(7 <= hunger && hunger < 10){
+            message.append("Your stomach is rumbling. You should probably find something to eat.");
+        } else if (hunger >= 10){
+            message.append("How long has it been since you've had food?  You are starting to feel weak.");
+        }
+        if(7 <= thirst && thirst < 10){
+            message.append("\n\nYou are thirsty. You should drink something.");
+        } else if (thirst >= 10){
+            message.append("\n\nYou are so dehydrated.  You're probably not gonna make it long out here...");
+        }
+        if (message.length() > 0){
+            getFishekai().window.getGamePanel().getDialog().update(message.toString());
+        }
+
 
     }
     public void draw(Graphics2D g2){
         if(isFishing) {
             if(!fishDrawn) {
                 startedFishing();
-                return;
             }
+                return;
         };
         if (havePole) buildAPole.getGraphics().drawImage(poleImage, 0, 20, buildAPole.getWidth(), (int)(buildAPole.getHeight()*.75), null);
         else if(haveStick) buildAPole.getGraphics().drawImage(stickImage, 0, 20, buildAPole.getWidth(), (int)(buildAPole.getHeight()*.75), null);
