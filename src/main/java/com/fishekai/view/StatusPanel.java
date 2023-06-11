@@ -56,7 +56,7 @@ public class StatusPanel extends JPanel {
 
         // The top row needs to have a grid layout of 5 rows and 2 columns for the health:
         healthGrid = new JPanel();
-        healthGrid.setLayout(new GridLayout(5, 2));
+        healthGrid.setLayout(new GridLayout(2, 5));
         // Add the health image:
         updateHearts();
         healthStatus.add(healthGrid);
@@ -220,10 +220,13 @@ public class StatusPanel extends JPanel {
             }
                 return;
         };
-        if (havePole) buildAPole.getGraphics().drawImage(poleImage, 0, 20, buildAPole.getWidth(), (int)(buildAPole.getHeight()*.75), null);
-        else if(haveStick) buildAPole.getGraphics().drawImage(stickImage, 0, 20, buildAPole.getWidth(), (int)(buildAPole.getHeight()*.75), null);
-        else if(haveHook) buildAPole.getGraphics().drawImage(hookImage, 0, 20, buildAPole.getWidth(), (int)(buildAPole.getHeight()*.75), null);
-        else if(haveRope) buildAPole.getGraphics().drawImage(ropeImage, 0, 20, buildAPole.getWidth(), (int)(buildAPole.getHeight()*.75), null);
+        if (havePole) {
+            buildAPole.getGraphics().drawImage(poleImage, 0, 20, buildAPole.getWidth(), (int)(buildAPole.getHeight()*.75), null);
+        } else {
+            if (haveStick) buildAPole.getGraphics().drawImage(stickImage, 0, 20, buildAPole.getWidth(), (int)(buildAPole.getHeight()*.75), null);
+            if(haveHook) buildAPole.getGraphics().drawImage(hookImage, 0, 20, buildAPole.getWidth(), (int)(buildAPole.getHeight()*.75), null);
+            if(haveRope) buildAPole.getGraphics().drawImage(ropeImage, 0, 20, buildAPole.getWidth(), (int)(buildAPole.getHeight()*.75), null);
+        }
     }
 
     public void setFishing(boolean b) {
