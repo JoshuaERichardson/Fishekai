@@ -4,11 +4,12 @@ import com.fishekai.engine.Fishekai;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.security.Key;
 import java.util.ArrayList;
 import java.util.List;
 
 public class KeyHandler implements KeyListener {
-    public boolean upPressed, downPressed, leftPressed, rightPressed, spacePressed, enterPressed, ePressed;
+    public boolean upPressed, downPressed, leftPressed, rightPressed, spacePressed, enterPressed, shiftPressed, ePressed;
     public boolean spaceTyped, enterTyped;
     public boolean enterJustPressed, spaceJustPressed;
     private boolean enterWasPressedLastTick, spaceWasPressedLastTick;
@@ -83,6 +84,9 @@ public class KeyHandler implements KeyListener {
         if (code == KeyEvent.VK_E) {
             ePressed = true;
         }
+        if (code == KeyEvent.VK_SHIFT) {
+            shiftPressed = true;
+        }
     }
 
     @Override
@@ -109,6 +113,9 @@ public class KeyHandler implements KeyListener {
         }
         if (code == KeyEvent.VK_E) {
             ePressed = false;
+        }
+        if (code == KeyEvent.VK_SHIFT) {
+            shiftPressed = false;
         }
     }
 

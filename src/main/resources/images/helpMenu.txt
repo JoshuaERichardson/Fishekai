@@ -8,6 +8,7 @@ W = UP
 S = DOWN
 A = LEFT
 D = RIGHT
+Shift = RUN
 
 To interact:
 SPACE = INTERACT/PICK UP

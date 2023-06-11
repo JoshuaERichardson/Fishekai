@@ -76,7 +76,12 @@ public class Player extends Entity{
     }
 
     public void update(){
-        if(keyH.upPressed == true || keyH.downPressed == true || keyH.leftPressed == true || keyH.rightPressed == true || keyH.spacePressed == true){
+        if(keyH.upPressed == true || keyH.downPressed == true || keyH.leftPressed == true || keyH.rightPressed == true || keyH.spacePressed == true || keyH.shiftPressed){
+            if (keyH.shiftPressed){
+                speed = 8;
+            } else {
+                speed = 5;
+            }
             if (keyH.upPressed) {
                 direction = "up";
 
@@ -98,13 +103,15 @@ public class Player extends Entity{
             // Check Tile Collision
             collisionOn = false;
             gp.collisionChecker.checkTile(this);
-            // If Collision is false, player can move
+            // If Collision is false, AND player is pressing a movement key, the player can move
             if (collisionOn == false) {
-                switch (direction) {
-                    case "up"   :    worldY -= speed;   break;
-                    case "down" :    worldY += speed;   break;
-                    case "left" :    worldX -= speed;   break;
-                    case "right":    worldX += speed;   break;
+                if (keyH.leftPressed || keyH.rightPressed || keyH.upPressed || keyH.downPressed){
+                    switch (direction) {
+                        case "up"   :    worldY -= speed;   break;
+                        case "down" :    worldY += speed;   break;
+                        case "left" :    worldX -= speed;   break;
+                        case "right":    worldX += speed;   break;
+                    }
                 }
             }
 
