@@ -17,7 +17,7 @@ To use items:
 Interact with your inventory using the mouse.
 
 Don't forget to stay healthy!
-Keep your hunger and thirst levels down by eating and drinking.
+Keep your hunger and thirst levels down.
 
 
 
