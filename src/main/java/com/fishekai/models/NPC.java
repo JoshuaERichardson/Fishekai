@@ -1,10 +1,15 @@
 package com.fishekai.models;
 
+import com.google.gson.annotations.Expose;
+
 import java.util.Random;
 
 public class NPC extends Character {
+    @Expose
     private String location;
+    @Expose
     private String type;
+    @Expose
     private String[] randomQuotes;
 
     // constructors

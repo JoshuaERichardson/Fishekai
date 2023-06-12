@@ -1,5 +1,7 @@
 package com.fishekai.models;
 
+import com.google.gson.annotations.Expose;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -7,13 +9,18 @@ import java.util.Map;
 public class Location {
 
     // fields
+    @Expose
     private final String name;
+    @Expose
     private Map<String, String> directions;
     private boolean hasBeenHere = false; // default value is false
+    @Expose
     private Map<String, String> descriptions;
     private Map<String, Fish> fishes = new HashMap<>();
     private Map<String, NPC> npc = new HashMap<>();
+    @Expose
     private String tiles;
+    @Expose
     private List<Map<String, Map<String, Integer>>> items; // itemMap has items, locations, and directions(if door)
     private Map<String, Item> itemsInText;
     private List<Map<String, String>> signs;
