@@ -1,9 +1,10 @@
 package com.fishekai.view;
 
 import com.fishekai.engine.Fishekai;
-import com.fishekai.engine.Introduction;
+import com.fishekai.utilities.AudioManager;
 import com.fishekai.view.entity.Player;
 import com.fishekai.view.object.AssetSetter;
+import com.fishekai.view.object.Sign;
 import com.fishekai.view.object.SuperObject;
 import com.fishekai.view.physics.CollisionChecker;
 import com.fishekai.view.tile.TileManager;
@@ -12,35 +13,45 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.net.URL;
 
 public class GamePanel extends MainPanel{
     // SCREEN SETTINGS
     final int originalTileSize = 16; // original tile size
-    final int scale = 3; // scale of the game
+    final int scale = 4; // scale of the game
     public final int tileSize = originalTileSize * scale; // tile size
-    public final int maxScreenCol = 16; // max screen columns
-    public final int maxScreenRow = 12; // max screen rows
-    public final int screenWidth = tileSize * maxScreenCol; // screen width (768 pixels)
-    public final int screenHeight = tileSize * maxScreenRow; // screen height (576 pixels)
+    public static final int MAX_SCREEN_COL = 12; // max screen columns
+    public static final int MAX_SCREEN_ROW = 12; // max screen rows
+    public final int screenWidth = tileSize * MAX_SCREEN_COL;
+    public final int screenHeight = tileSize * MAX_SCREEN_ROW;
     final int FPS = 60; // screen frames per second
     private int order = 0;
     private Timer gameTimer;
 
     // Note: Player from entity package NOT from models
     public Player player;
-    public TileManager tileM = new TileManager(this);
+    public TileManager tileM;
     KeyHandler kh;
     public CollisionChecker collisionChecker = new CollisionChecker(this);
     public AssetSetter assetSetter = new AssetSetter(this);
-    public SuperObject obj[] = new SuperObject[10]; // 10 slots for objects but we can adjust
+    public SuperObject obj[] = new SuperObject[20]; // 20 slots for objects but we can adjust
+    public Sign sign[] = new Sign[4];
     public Fishekai fishekai;
+//    private final SidePanel sidePanel;
+
+
+
+    private DialogEngine dialog;
 
 
     public GamePanel(KeyHandler kh, Fishekai fishekai) {
         this.kh = kh;
         player = new Player(this, kh, fishekai);
         this.fishekai = fishekai;
-        tileM.loadMap(fishekai.current_location.getTiles());
+        tileM = new TileManager(this);
+        dialog = new DialogEngine(this);
+        setPreferredSize(MainPanel.MAIN_PANEL_SIZE);
+
     }
     public void setupGame() {
         assetSetter.setObject();
@@ -52,6 +63,7 @@ public class GamePanel extends MainPanel{
             @Override
             public void actionPerformed(ActionEvent e) {
                 // Update game state
+//                System.out.println("Main Window Height: " + fishekai.window.getHeight() + "\nMain Window Width: " + fishekai.window.getWidth());
                 update();
                 // Draw game state to screen
                 repaint();
@@ -73,6 +85,9 @@ public class GamePanel extends MainPanel{
      */
     public void update() {
                 player.update();
+                dialog.update();
+//                fishekai.window.getStatusPanel().update(); // Update the status panel
+
     }
 
     public void paintComponent(Graphics g) {
@@ -89,8 +104,21 @@ public class GamePanel extends MainPanel{
             }
         }
 
+        // Sign
+        for(int i = 0; i < sign.length; i++) {
+            if(sign[i] != null) {
+                sign[i].draw(g2, this);
+            }
+        }
+
         // Player
         player.draw(g2);
+
+        // Dialog
+        dialog.draw(g2);
+
+        // Status Panel
+        fishekai.window.getStatusPanel().draw(g2);
 
 
         g2.dispose();
@@ -110,11 +138,11 @@ public class GamePanel extends MainPanel{
     }
 
     public int getMaxScreenCol() {
-        return maxScreenCol;
+        return MAX_SCREEN_COL;
     }
 
     public int getMaxScreenRow() {
-        return maxScreenRow;
+        return MAX_SCREEN_ROW;
     }
 
     public int getScreenWidth() {
@@ -163,5 +191,60 @@ public class GamePanel extends MainPanel{
 
     public Fishekai getFishekai() {
         return fishekai;
+    }
+    public DialogEngine getDialog() {
+        return dialog;
+    }
+
+    public AudioManager getAudioManager() {
+        return fishekai.getAudioManager();
+    }
+
+    public void setPaused(boolean b) {
+        if (b) {
+            stopGameTimer();
+        } else {
+            startGameTimer();
+        }
+    }
+
+    public void gameOver(int reasonCode) {
+        // reasonCode: 0 = player died from hp, 1 player died from eating fangfish, 2 player died from volcano, 3 player won.
+        String message;
+        switch (reasonCode) {
+            case 0:
+                message = "You fall to the ground from hunger and thirst.";
+                break;
+            case 1:
+                message = "You died from eating fangfish.";
+                break;
+            case 2:
+                message = "You died from volcano.";
+                break;
+            case 3:
+                message = "You won!";
+                break;
+            default:
+                message = "You died from unknown reason.";
+                break;
+        }
+        getDialog().update(message);
+        // Make a pop up displaying the message:
+        JOptionPane.showMessageDialog(null, message, "Game Over", JOptionPane.INFORMATION_MESSAGE);
+
+        // sleep for 3 seconds
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        stopGameTimer();
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        System.exit(0);
+
     }
 }

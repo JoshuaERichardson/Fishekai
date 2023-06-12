@@ -25,6 +25,7 @@ public class Player extends Entity{
     private final com.fishekai.models.Player textPlayer;
     private final List<SuperObject> inventory;
 
+
     public Player(GamePanel gp, KeyHandler keyH, Fishekai fishekai){
 
         this.gp = gp;
@@ -55,7 +56,7 @@ public class Player extends Entity{
     public void setDefaultValues() {
         worldX = 400;
         worldY = 400;
-        speed = 4;
+        speed = 5;
         direction = "down";
     }
 
@@ -75,7 +76,12 @@ public class Player extends Entity{
     }
 
     public void update(){
-        if(keyH.upPressed == true || keyH.downPressed == true || keyH.leftPressed == true || keyH.rightPressed == true || keyH.spacePressed == true){
+        if(keyH.upPressed == true || keyH.downPressed == true || keyH.leftPressed == true || keyH.rightPressed == true || keyH.spacePressed == true || keyH.shiftPressed){
+            if (keyH.shiftPressed){
+                speed = 8;
+            } else {
+                speed = 5;
+            }
             if (keyH.upPressed) {
                 direction = "up";
 
@@ -89,25 +95,30 @@ public class Player extends Entity{
                 direction = "right";
             } else if (keyH.spacePressed ==  true) {
                 int objIndex = gp.collisionChecker.checkObject(this, true);
+                int signIndex = gp.collisionChecker.checkSign(this,true);
                 pickUpObject(objIndex);
+                readSign(signIndex);
             }
 
             // Check Tile Collision
             collisionOn = false;
             gp.collisionChecker.checkTile(this);
-            // If Collision is false, player can move
+            // If Collision is false, AND player is pressing a movement key, the player can move
             if (collisionOn == false) {
-                switch (direction) {
-                    case "up"   :    worldY -= speed;   break;
-                    case "down" :    worldY += speed;   break;
-                    case "left" :    worldX -= speed;   break;
-                    case "right":    worldX += speed;   break;
+                if (keyH.leftPressed || keyH.rightPressed || keyH.upPressed || keyH.downPressed){
+                    switch (direction) {
+                        case "up"   :    worldY -= speed;   break;
+                        case "down" :    worldY += speed;   break;
+                        case "left" :    worldX -= speed;   break;
+                        case "right":    worldX += speed;   break;
+                    }
                 }
             }
 
             // Check door Collision
             int objIndex = gp.collisionChecker.checkObject(this, true);
             walkThroughDoor(objIndex);
+
 
 
 
@@ -125,21 +136,43 @@ public class Player extends Entity{
 
     }
 
+    private void readSign(int i){
+        if(i != 999){
+            String text = gp.sign[i].getText();
+            fishekai.window.getGamePanel().getDialog().update(text);
+        }
+    }
     private void pickUpObject(int i) {
         if(i != 999) {
             String objectName = gp.obj[i].name;
-            switch (objectName) {
-                case "Apple":
-                    if (keyH.spacePressed) {
-                        inventory.add(gp.obj[i]);
-                        // Reload the side panel:
-                        fishekai.window.getInventoryPanel().updateInventory(inventory);
-
-
-                        gp.obj[i] = null;
-                        System.out.println("Apples: " + hasApple);
-                    }
-                    break;
+            if (objectName.equals("Apple") || objectName.equals("mushroom") || objectName.equals("Flask") || objectName.equals("Hook") ||
+                objectName.equals("Parachute") || objectName.equals("Stick")) {
+                inventory.add(gp.obj[i]);
+                fishekai.window.getInventoryPanel().updateInventory(inventory);
+                gp.obj[i] = null;
+                // Play sound effect:
+                fishekai.getAudioManager().randomGet();
+                return;
+            } else if (objectName.equals("Water")){
+                // Step 1: Do we have the flask? If yes then fill it up.
+                if (fishekai.getFlask() == null){
+                    fishekai.window.getGamePanel().getDialog().update("You need a flask to get water.");
+                    return;
+                } else {
+                    fishekai.getFlask().fill();
+                    String text = "You filled the flask with some water.  You have " + fishekai.getFlask().getCharges() + " charges left.";
+                    fishekai.window.getGamePanel().getDialog().update(text);
+                    gp.obj[i] = null;
+                    return;
+                }
+            }
+        }
+    }
+    public void consumeObject(String name){
+        for (SuperObject obj : inventory) {
+            if (obj.getName().equals(name)) {
+                inventory.remove(obj);
+                return;
             }
         }
     }
@@ -186,5 +219,21 @@ public class Player extends Entity{
                 break;
         }
         g2.drawImage(image, worldX, worldY, gp.tileSize, gp.tileSize, null);
+    }
+
+    public Fishekai getFishekai() {
+        return fishekai;
+    }
+
+    public LocationSwitcher getLocationSwitcher() {
+        return locationSwitcher;
+    }
+
+    public com.fishekai.models.Player getTextPlayer() {
+        return textPlayer;
+    }
+
+    public List<SuperObject> getInventory() {
+        return inventory;
     }
 }

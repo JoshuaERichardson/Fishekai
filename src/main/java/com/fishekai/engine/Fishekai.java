@@ -6,11 +6,11 @@ import com.fishekai.utilities.FrameHandler;
 import com.fishekai.utilities.Prompter;
 import com.fishekai.utilities.SplashApp;
 import com.fishekai.view.*;
+import com.fishekai.view.object.OBJ_Flask;
 import com.fishekai.view.object.SuperObject;
 
 
 import javax.swing.*;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -21,7 +21,6 @@ import static com.fishekai.utilities.Console.*;
 /**
  * This class is responsible for the game engine.
  * It contains the main method and the game loop.
- * TODO: Handling too many methods and fields. Refactor!
  */
 public class Fishekai extends JPanel implements SplashApp, Runnable {
     // constants
@@ -34,6 +33,7 @@ public class Fishekai extends JPanel implements SplashApp, Runnable {
     public Map<String, Location> locations; // will contain the locations loaded from JSON file
     public Player textPlayer = new Player("Ethan Rutherford", "Known for expertise in ancient artifacts.");
     Flask flask = new Flask("Hanley's flask");
+    OBJ_Flask obj_flask = null;
     private final int drinkCharge = -2; // the value when you drink
 
     // instances
@@ -42,7 +42,7 @@ public class Fishekai extends JPanel implements SplashApp, Runnable {
     private final UserInputParser parser = new UserInputParser();
     private final AudioManager audioManager = new AudioManager();
     VolumeControl volumeControl = new VolumeControl(audioManager);
-    FishingMechanic fishingMechanic = new FishingMechanic();
+    FishingMechanic fishingMechanic = new FishingMechanic(audioManager);
     private final FrameHandler frameHandler = new FrameHandler();
     KeyHandler keyHandler = new KeyHandler(this);
     public MainWindow window;
@@ -67,6 +67,7 @@ public class Fishekai extends JPanel implements SplashApp, Runnable {
         String input = prompter.prompt("Would you like to play a new game? [Y]es or [N]o.\n><(((º> ",
                 "Yes|yes|Y|y|No|no|N|n",
                 "That is not a valid input\n");
+        //
 
         // if New Game, go to begin()
         if (input.equalsIgnoreCase("yes") || input.equalsIgnoreCase("y")) {
@@ -83,6 +84,7 @@ public class Fishekai extends JPanel implements SplashApp, Runnable {
     }
 
     private void begin(){
+        audioManager.addVolumeControl(volumeControl);
         audioManager.playSoundEffect("intro");
         audioManager.playMusic(true);
         // set starting point
@@ -300,6 +302,9 @@ public class Fishekai extends JPanel implements SplashApp, Runnable {
     }
 
     // Eating food handler
+    public void timeToEat(int nourishment){
+        textPlayer.setHunger(textPlayer.getHunger() - nourishment);
+    }
     private void timeToEat(String word) {
         String itemToEat = word.toLowerCase();
         SuperObject superObject = new SuperObject(); // TODO: Change to passed object eventually
@@ -335,21 +340,27 @@ public class Fishekai extends JPanel implements SplashApp, Runnable {
         }
     }
 
-    // Drinking water handler TODO: Commented out for now
-//    private void rememberToHydrate() {
-//        if (textPlayer.getInventory().containsKey("flask") && parser.getItemList().contains("flask")) {
-//            if (textPlayer.getInventory().containsKey("flask") && flask.getCharges() > 0) {
-//                textPlayer.setThirst(textPlayer.getThirst() + drinkCharge);
-//                flask.setCharges(flask.getCharges() - 1);
-//                audioManager.randomDrink();
-//                System.out.println("You take a drink from the flask.");
-//            } else {
-//                System.out.println("Your flask is empty");
-//            }
-//        } else {
-//            System.out.println("You don't have any items to drink from.");
-//        }
-//    }
+    private void populateFlask(){
+        for (SuperObject i : window.getGamePanel().getPlayer().getInventory()){
+            if (i.getName().equals("Flask")){
+                obj_flask = (OBJ_Flask) i;
+            }
+        }
+    }
+    public void rememberToHydrate() {
+        if (obj_flask == null) populateFlask();
+        if (obj_flask != null){
+            if (obj_flask.getCharges() <= 0){
+                window.getGamePanel().getDialog().update("You are out of water.");
+            } else {
+                obj_flask.drink();
+                window.getGamePanel().getDialog().update("You take a drink from your flask.  You have " + obj_flask.getCharges() + " drinks left.");
+                textPlayer.setThirst(textPlayer.getThirst() - 3);
+            }
+        } else {
+            window.getGamePanel().getDialog().update("You do not have anything to drink from.");
+        }
+    }
 
 //    private void createFishingPole() {
 //        if (textPlayer.getInventory().containsKey("parachute")
@@ -541,5 +552,77 @@ public class Fishekai extends JPanel implements SplashApp, Runnable {
     @Override
     public void run() {
 
+    }
+
+    public boolean isGameOver() {
+        return isGameOver;
+    }
+
+    public static int getMoveCounter() {
+        return moveCounter;
+    }
+
+    public Map<String, Location> getLocations() {
+        return locations;
+    }
+
+    public Player getTextPlayer() {
+        return textPlayer;
+    }
+
+    public OBJ_Flask getFlask() {
+        if (obj_flask == null) {
+            for (SuperObject obj : window.getGamePanel().getPlayer().getInventory()){
+                if (obj instanceof OBJ_Flask){
+                    obj_flask = (OBJ_Flask) obj;
+                }
+            }
+
+        }
+        return obj_flask;
+    }
+
+    public int getDrinkCharge() {
+        return drinkCharge;
+    }
+
+    public Introduction getIntro() {
+        return intro;
+    }
+
+    public Prompter getPrompter() {
+        return prompter;
+    }
+
+    public UserInputParser getParser() {
+        return parser;
+    }
+
+    public AudioManager getAudioManager() {
+        return audioManager;
+    }
+
+    public VolumeControl getVolumeControl() {
+        return volumeControl;
+    }
+
+    public FishingMechanic getFishingMechanic() {
+        return fishingMechanic;
+    }
+
+    public FrameHandler getFrameHandler() {
+        return frameHandler;
+    }
+
+    public KeyHandler getKeyHandler() {
+        return keyHandler;
+    }
+
+    public MainWindow getWindow() {
+        return window;
+    }
+
+    public Location getCurrent_location() {
+        return current_location;
     }
 }

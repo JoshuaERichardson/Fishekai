@@ -21,7 +21,7 @@ public class Character {
     private int hp = 10;    // range 0 ~ 10
     private int hunger = 5; // range 0 ~ 10
     private int thirst = 5; // range 0 ~ 10
-    private final List<SuperObject> inventory = new ArrayList();
+    private final List<SuperObject> inventory = new ArrayList<>();
 
     // constructors
     public Character(String name) {
@@ -93,6 +93,7 @@ public class Character {
     public List<SuperObject> getInventory() {
         return inventory;
     }
+
 
 
 

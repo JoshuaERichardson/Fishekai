@@ -29,10 +29,10 @@
   },
   {
     "name": "banana",
-    "description": "it's bananas, B.A.N.A.N.A.S",
+    "description": "This isn't Ethan's first time doing shrooms",
     "location": "Jungle",
     "type": "food",
-    "modifier": "2"
+    "modifier": "3"
   },
   {
     "name": "apple",

@@ -1,12 +1,13 @@
 package com.fishekai.utilities;
 
+import com.fishekai.engine.Fishekai;
+import com.fishekai.engine.VolumeControl;
+
 import javax.sound.sampled.*;
 import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 
 public class AudioManager {
     private static final float MUSIC_MIN_VOLUME = 0.0f;
@@ -20,12 +21,17 @@ public class AudioManager {
     private float musicVolume;
     private float soundEffectsVolume;
     private boolean soundEffectsEnabled;
+    private VolumeControl volumeControl;
 
-    public AudioManager() {
+    public AudioManager(){
         soundEffects = new HashMap<>();
         musicVolume = 0.3f; // Default volume is maximum (1.0)
         soundEffectsVolume = 0.5f; // Default volume is maximum (1.0)
         soundEffectsEnabled = true; // Enable sound effects by default
+    }
+
+    public void addVolumeControl(VolumeControl volumeControl) {
+        this.volumeControl = volumeControl;
     }
 
     private InputStream openAudioResource(String resourcePath) {
@@ -93,6 +99,19 @@ public class AudioManager {
         if (clip != null) {
             clip.setFramePosition(0);
             clip.start();
+            Timer timer = new Timer();
+            double clipLength = clip.getMicrosecondLength() / 1000;
+            TimerTask task = new TimerTask() {
+                int numberOfTimes = (int) (clipLength / 200);
+                @Override
+                public void run() {
+                    volumeControl.changeImage();
+                    if(--numberOfTimes<=0){
+                        timer.cancel();
+                    }
+                }
+            };
+            timer.schedule(task, 300, 200);
         }
     }
 
@@ -100,9 +119,13 @@ public class AudioManager {
         if (volume >= MUSIC_MIN_VOLUME && volume <= MUSIC_MAX_VOLUME && musicClip != null) {
             FloatControl gainControl = (FloatControl) musicClip.getControl(FloatControl.Type.MASTER_GAIN);
             float dB = (float) (Math.log(volume) / Math.log(10.0) * 20.0);
-            gainControl.setValue(dB);
-            musicVolume = volume;
-            System.out.println("Music volume set to: " + String.format("%.0f", musicVolume * 100) + "%");
+            if (gainControl.getMinimum() <= dB && dB <= gainControl.getMaximum()) {
+                gainControl.setValue(dB);
+                musicVolume = volume;
+                System.out.println("Music volume set to: " + String.format("%.0f", musicVolume * 100) + "%");
+            } else {
+                System.out.println("The music can go no lower");
+            }
         }
     }
 
@@ -148,7 +171,12 @@ public class AudioManager {
                 if (clip != null) {
                     FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
                     float dB = (float) (Math.log(volume) / Math.log(10.0) * 20.0);
-                    gainControl.setValue(dB);
+                    if (gainControl.getMinimum() <= dB && dB <= gainControl.getMaximum()) {
+                        gainControl.setValue(dB);
+                    } else {
+                        gainControl.setValue(0);
+
+                    }
                 }
             }
             soundEffectsVolume = volume;
@@ -174,6 +202,7 @@ public class AudioManager {
 
     public void decreaseSoundEffectsVolume() {
         if (soundEffectsVolume == EFFECT_MIN_VOLUME) {
+            setSoundEffectsVolume(0);
             System.out.println("Sound effects already at minimum volume.");
         } else {
             float newVolume = soundEffectsVolume - 0.1f;

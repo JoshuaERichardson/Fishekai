@@ -16,18 +16,20 @@ public class Location {
     private String tiles;
     private List<Map<String, Map<String, Integer>>> items; // itemMap has items, locations, and directions(if door)
     private Map<String, Item> itemsInText;
+    private List<Map<String, String>> signs;
 
 
 
 
 
     // constructors
-    public Location(String name, Map<String, String> directions, Map<String, String> descriptions, String tileMap, List<Map<String, Map<String, Integer>>> items) {
+    public Location(String name, Map<String, String> directions, Map<String, String> descriptions, String tileMap, List<Map<String, Map<String, Integer>>> items, List<Map<String, String>> signs) {
         this.name = name;
         this.directions = directions;
         this.descriptions = descriptions;
         this.tiles = tileMap;
         this.items = items;
+        this.signs = signs;
     }
 
     // accessors
@@ -57,6 +59,24 @@ public class Location {
 
     public void setFishes(Map<String, Fish> fishes) {
         this.fishes = fishes;
+    }
+
+    public void addFishable() {
+        Map<String, Map<String, Integer>> fishMap = new HashMap<>();
+        fishMap.put("fish", null);
+        items.add(fishMap);
+
+        Map<String, Map<String, Integer>> doorMap = new HashMap<>();
+        Map<String, Integer> info = new HashMap<>();
+        info.put("column", 1);
+        info.put("row", 4);
+        info.put("direction", 3);
+        doorMap.put("door", info);
+        items.add(doorMap);
+
+
+
+
     }
 
 
@@ -92,6 +112,10 @@ public class Location {
     }
     public void setItemsInText(Map<String, Item> itemMap) {
         itemsInText = itemMap;
+    }
+
+    public List<Map<String, String>> getSigns() {
+        return signs;
     }
 
 

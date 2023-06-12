@@ -14,7 +14,7 @@ public class SuperObject {
     public int solidAreaDefaultX = 0;
     public int solidAreaDefaultY = 0;
 
-    private String location;
+    public String location;
     public String description;
     public String type;
     public int modifier;

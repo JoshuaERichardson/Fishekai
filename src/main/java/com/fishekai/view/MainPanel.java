@@ -9,22 +9,25 @@ import java.awt.*;
 class MainPanel extends JPanel {
     // Screen Size:
     // SCREEN SETTINGS
-    final int originalTileSize = 16; // original tile size
-    final int scale = 3; // scale of the game
-    public final int tileSize = originalTileSize * scale; // tile size
-    public final int maxScreenCol = 16; // max screen columns
-    public final int maxScreenRow = 12; // max screen rows
-    public final int screenWidth = tileSize * maxScreenCol; // screen width (768 pixels)
-    public final int screenHeight = tileSize * maxScreenRow; // screen height (576 pixels)
+
+    final static int originalTileSize = 16; // original tile size
+    final static int scale = 3; // scale of the game
+    public final static int tileSize = originalTileSize * scale; // tile size
+    public final static int maxScreenCol = 12; // max screen columns
+    public final static int maxScreenRow = 12; // max screen rows
+    public final static int screenWidth = tileSize * maxScreenCol;
+    public final static int screenHeight = tileSize * maxScreenRow;
     final int FPS = 60; // screen frames per second
-    final Dimension MAIN_PANEL_SIZE = new Dimension(screenWidth, screenHeight);
+    final static Dimension MAIN_PANEL_SIZE = new Dimension(screenWidth, screenHeight);
 
 
     public MainPanel() {
-        setSize(MAIN_PANEL_SIZE);
-        System.out.println("MainPanel: " + getWidth() + " " + getHeight());
+//        setSize(MAIN_PANEL_SIZE);
+//        setMaximumSize(MAIN_PANEL_SIZE);
+//        setMinimumSize(MAIN_PANEL_SIZE);
+        setPreferredSize(MAIN_PANEL_SIZE);
         setVisible(true);
-        setBackground(Color.BLUE);
+//        setBackground(Color.GRAY);
 
     }
 
