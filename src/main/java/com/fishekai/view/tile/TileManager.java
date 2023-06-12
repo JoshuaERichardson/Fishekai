@@ -17,7 +17,7 @@ public class TileManager {
         this.gp = gp;
         tile = new Tile[4];
         getMapImage();
-        mapTileNum = new int[gp.maxScreenCol][gp.maxScreenRow];
+        mapTileNum = new int[gp.MAX_SCREEN_COL][gp.MAX_SCREEN_ROW];
         loadCollisionMap();
     }
 

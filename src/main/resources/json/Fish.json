@@ -19,19 +19,5 @@
     "type" : "fish",
     "causesDeath": false,
     "hungerValue": -8
-  },
-  {
-    "name": "parrotfish",
-    "description": "A kaleidoscope of vibrant colors adorns the scales of the rainbow parrotfish, making it a sight to behold. Its beak-like mouth is specially designed for nibbling on coral, transforming it into fine, white sand. Capturing the rainbow parrotfish provides a unique opportunity to glimpse the underwater wonders it once called home.",
-    "type" : "fish",
-    "causesDeath": false,
-    "hungerValue": -6
-  },
-  {
-    "name": "lanternfish",
-    "description": "As darkness falls, the depths come alive with the soft glow of the luminous lanternfish. Its bioluminescent display creates an otherworldly ambiance, lighting up the surrounding waters like a constellation of stars. This enchanting catch not only offers a mesmerizing spectacle but also serves as a natural light source during the island's nocturnal hours.",
-    "type" : "fish",
-    "causesDeath": false,
-    "hungerValue": -4
   }
 ]

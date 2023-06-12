@@ -3,7 +3,7 @@ package com.fishekai.view.object;
 import javax.imageio.ImageIO;
 import java.io.IOException;
 
-class OBJ_Parachute extends SuperObject {
+public class OBJ_Parachute extends SuperObject {
     public OBJ_Parachute() {
         name = "Parachute";
         description = "the chord could come in handy";

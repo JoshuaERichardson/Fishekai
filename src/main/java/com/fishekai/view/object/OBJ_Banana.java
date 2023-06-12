@@ -3,12 +3,12 @@ package com.fishekai.view.object;
 import javax.imageio.ImageIO;
 import java.io.IOException;
 
-class OBJ_Banana extends SuperObject{
+public class OBJ_Banana extends SuperObject{
     public OBJ_Banana() {
-        name = "Banana";
-        description = "it's bananas, B.A.N.A.N.A.S";
+        name = "mushroom";
+        description = "This isn't Ethan's first time doing shrooms";
         type =  "food";
-        modifier = 2;
+        modifier = 5;
         try {
             image = ImageIO.read(getClass().getResourceAsStream("/sprites/items/banana.png"));
         } catch(

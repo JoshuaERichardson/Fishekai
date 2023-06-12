@@ -15,7 +15,6 @@ public class AssetSetter {
     public void setObject() {
         // Max X = 12(columns)
         // Max Y = 12(rows)
-        System.out.println(gp.fishekai);
         Location current_location = gp.fishekai.current_location;
 
         List<Map<String, Map<String, Integer>>> itemList = current_location.getItems();
@@ -73,6 +72,11 @@ public class AssetSetter {
                 gp.obj[i].worldX = water.get("column") * gp.tileSize;
                 gp.obj[i].worldY = water.get("row") * gp.tileSize;
                 i++;
+            } else if (item.containsKey("fish")){
+                gp.obj[i] = new OBJ_Fish();
+                gp.obj[i].worldY = gp.obj[i].worldY * gp.tileSize;
+                gp.obj[i].worldX = gp.obj[i].worldX * gp.tileSize;
+                i++;
             } else if (item.containsKey("door")) {
                 Map<String, Integer> door = item.get("door");
                 gp.obj[i] = new OBJ_Door();
@@ -83,12 +87,30 @@ public class AssetSetter {
                 String prevDirection = switchDirection((door.get("direction")+2) % 4);
                 // Now find out what location the door leads to
                 String doorGoesTo = current_location.getDirections().get(nextLocation);
-                String doorComesFrom = gp.fishekai.locations.get(doorGoesTo).getDirections().get(prevDirection);
+//                String doorComesFrom = gp.fishekai.locations.get(doorGoesTo).getDirections().get(prevDirection);
                 ((OBJ_Door) gp.obj[i]).setLocation(doorGoesTo);
-                ((OBJ_Door) gp.obj[i]).setFromLocation(doorComesFrom);
+//                ((OBJ_Door) gp.obj[i]).setFromLocation(doorComesFrom);
                 i++;
+                }
+
             }
+        // Load the signs:
+        List<Map<String, String>> signs = current_location.getSigns();
+        // Wipe the map of all signs first:
+        for (int j = 0; j < gp.sign.length; j++) {
+            gp.sign[j] = null;
         }
+        i = 0;
+        for (Map<String, String> sign : signs){
+            int row = Integer.parseInt(sign.get("row")) * gp.tileSize;
+            int col = Integer.parseInt(sign.get("column")) * gp.tileSize;
+            String text = sign.get("text");
+            Sign s = new Sign(col, row, text);
+            gp.sign[i] = s;
+            i++;
+        }
+
+
 
     }
 

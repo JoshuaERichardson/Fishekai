@@ -3,13 +3,13 @@ package com.fishekai.view.object;
 import javax.imageio.ImageIO;
 import java.io.IOException;
 
-class OBJ_Apple extends SuperObject {
+public class OBJ_Apple extends SuperObject {
     public OBJ_Apple() {
 
         name = "Apple";
         description = "an apple a day keeps the doctor away";
         type =  "food";
-        modifier = 2;
+        modifier = 5;
 
         try {
             image = ImageIO.read(getClass().getResourceAsStream("/sprites/items/apple.png"));

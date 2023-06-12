@@ -100,19 +100,18 @@ public class AudioManager {
             clip.setFramePosition(0);
             clip.start();
             Timer timer = new Timer();
+            double clipLength = clip.getMicrosecondLength() / 1000;
             TimerTask task = new TimerTask() {
+                int numberOfTimes = (int) (clipLength / 200);
                 @Override
                 public void run() {
                     volumeControl.changeImage();
+                    if(--numberOfTimes<=0){
+                        timer.cancel();
+                    }
                 }
             };
             timer.schedule(task, 300, 200);
-
-            while(clip.isRunning()) {
-
-            }
-            timer.cancel();
-
         }
     }
 
@@ -120,9 +119,13 @@ public class AudioManager {
         if (volume >= MUSIC_MIN_VOLUME && volume <= MUSIC_MAX_VOLUME && musicClip != null) {
             FloatControl gainControl = (FloatControl) musicClip.getControl(FloatControl.Type.MASTER_GAIN);
             float dB = (float) (Math.log(volume) / Math.log(10.0) * 20.0);
-            gainControl.setValue(dB);
-            musicVolume = volume;
-            System.out.println("Music volume set to: " + String.format("%.0f", musicVolume * 100) + "%");
+            if (gainControl.getMinimum() <= dB && dB <= gainControl.getMaximum()) {
+                gainControl.setValue(dB);
+                musicVolume = volume;
+                System.out.println("Music volume set to: " + String.format("%.0f", musicVolume * 100) + "%");
+            } else {
+                System.out.println("The music can go no lower");
+            }
         }
     }
 
@@ -168,7 +171,12 @@ public class AudioManager {
                 if (clip != null) {
                     FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
                     float dB = (float) (Math.log(volume) / Math.log(10.0) * 20.0);
-                    gainControl.setValue(dB);
+                    if (gainControl.getMinimum() <= dB && dB <= gainControl.getMaximum()) {
+                        gainControl.setValue(dB);
+                    } else {
+                        gainControl.setValue(0);
+
+                    }
                 }
             }
             soundEffectsVolume = volume;
@@ -194,6 +202,7 @@ public class AudioManager {
 
     public void decreaseSoundEffectsVolume() {
         if (soundEffectsVolume == EFFECT_MIN_VOLUME) {
+            setSoundEffectsVolume(0);
             System.out.println("Sound effects already at minimum volume.");
         } else {
             float newVolume = soundEffectsVolume - 0.1f;

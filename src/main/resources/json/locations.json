@@ -3,7 +3,8 @@
     "name": "Beach",
     "directions": {
       "north": "North Beach",
-      "east": "Jungle"
+      "east": "Jungle",
+      "west": null
     },
     "descriptions": {
       "before": "As you awaken from a disorienting haze, your surroundings slowly come into focus. You find yourself standing upon a pristine beach, the rhythmic melody of lapping waves punctuating the air. The shimmering sand beneath your feet tells tales of countless tides, their whispers blending with the distant calls of seagulls. Surrounded by a picturesque landscape, you instinctively clutch the amulet that brought you here, its mysterious power revealing a path you never anticipated. The beach, now your newfound sanctuary, holds the promise of survival and the key to unlocking the island's enigmatic secrets. With resolve in your heart, you take your first step into the untamed wilderness, eager to confront the challenges that lie ahead.",
@@ -31,14 +32,29 @@
             "direction" : 1
             }
         }
-      ]
+      ],
+    "signs":
+            [
+              {
+                "column": "8",
+                "row": "1",
+                "text": "This way to the North Beach."
+              },
+              {
+                "column": "10",
+                "row": "4",
+                "text": "This way to the Forest."
+              }
+            ]
 
   },
+
   {
     "name": "North Beach",
     "directions": {
       "east": "Mountain",
-      "south": "Beach"
+      "south": "Beach",
+      "west": null
     },
     "descriptions": {
       "before": "You step onto the pristine sands of the North Beach, greeted by the rhythmic melody of crashing waves and the salty tang of the sea. The expansive shoreline stretches as far as the eye can see, adorned with delicate seashells and occasional pieces of driftwood. Crystal-clear waters gently lap at the shore, inviting you to dip your toes into their refreshing embrace. Seagulls glide overhead, their calls carried by the ocean breeze. The North Beach holds the promise of respite and the allure of untold treasures washed ashore. It's a sanctuary where land meets sea, offering a temporary escape from the challenges that lie ahead.",
@@ -47,12 +63,6 @@
     "tiles": "1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1\n1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1\n1 1 1 1 2 2 2 2 2 2 2 2 2 2 2 2\n1 1 1 1 2 2 0 0 0 0 0 0 0 0 0 0\n1 1 1 1 2 2 0 0 0 0 0 0 2 0 0 0\n1 1 1 1 1 2 0 0 0 0 0 0 0 0 0 0\n1 1 1 1 1 2 0 0 2 2 2 2 2 2 2 2\n1 3 3 3 3 3 2 0 2 0 0 0 0 0 0 0\n1 1 1 1 1 2 2 2 2 0 2 0 0 0 0 0\n1 1 1 1 1 1 2 2 2 0 0 0 0 0 0 0\n1 1 1 1 1 2 2 2 2 0 0 0 0 0 0 0\n1 1 1 1 1 1 2 2 2 2 2 0 0 0 0 0",
     "items":
     [
-      {"apple" : {
-        "column": 4,
-        "row" : 4,
-        "direction" : 0
-      }
-      },
         {"door" : {
             "column" : 11,
             "row" : 9,
@@ -64,7 +74,31 @@
             "row" : 11,
             "direction" : 2
           }
-        }
+        },
+      {"door" :  {
+        "column": 0,
+        "row": 10,
+        "direction": 3
+      }}
+    ],
+    "signs":
+    [
+      {
+        "column": "6",
+        "row": "9",
+        "text": "This way to the Beach."
+      },
+      {
+        "column": "10",
+        "row": "8",
+        "text": "This way to the Mountain."
+      },
+      {
+        "column": "8",
+        "row": "3",
+        "text": "I'm just a volleyball, and you look really sunburned.\n\nMaybe if you could find a stick, a rope, and a hook you could go fishing around here so you don't ...you know... like die or something."
+
+      }
     ]
   },
   {
@@ -81,11 +115,19 @@
     "tiles": "1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1\n1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1\n1 1 1 1 2 2 2 2 2 2 2 2 2 2 2 2\n1 1 1 1 2 2 0 0 0 0 0 0 0 0 0 0\n1 1 1 1 2 2 0 0 0 0 0 0 2 0 0 0\n1 1 1 1 1 2 0 0 0 0 0 0 0 0 0 0\n1 1 1 1 1 2 0 0 2 2 2 2 2 2 2 2\n1 3 3 3 3 3 2 0 2 0 0 0 0 0 0 0\n1 1 1 1 1 2 2 2 2 0 2 0 0 0 0 0\n1 1 1 1 1 1 2 2 2 0 0 0 0 0 0 0\n1 1 1 1 1 2 2 2 2 0 0 0 0 0 0 0\n1 1 1 1 1 1 2 2 2 2 2 0 0 0 0 0",
     "items":
     [
-      {"parachute" : {
-        "column": 4,
-        "row" : 8,
-        "direction" :  0
-      }
+      {
+        "parachute": {
+          "column": 5,
+          "row": 7,
+          "direction": 0
+        }
+      },
+      {
+        "banana" : {
+          "column" : 8,
+          "row" : 3,
+          "direction" : 0
+        }
       },
       {
         "door" : {
@@ -108,7 +150,26 @@
                 "direction" :  1
             }
         }
+    ],
+    "signs":
+    [
+      {
+        "column": "1",
+        "row": "4",
+        "text": "This way to the Beach."
+      },
+      {
+        "column": "4",
+        "row": "1",
+        "text": "This way to the Mountain."
+      },
+      {
+        "column": "10",
+        "row": "4",
+        "text": "This way to the Waterfall"
+      }
     ]
+
   },
   {
     "name": "Mountain",
@@ -124,13 +185,6 @@
     "tiles": "1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1\n1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1\n1 1 1 1 2 2 2 2 2 2 2 2 2 2 2 2\n1 1 1 1 2 2 0 0 0 0 0 0 0 0 0 0\n1 1 1 1 2 2 0 0 0 0 0 0 2 0 0 0\n1 1 1 1 1 2 0 0 0 0 0 0 0 0 0 0\n1 1 1 1 1 2 0 0 2 2 2 2 2 2 2 2\n1 3 3 3 3 3 2 0 2 0 0 0 0 0 0 0\n1 1 1 1 1 2 2 2 2 0 2 0 0 0 0 0\n1 1 1 1 1 1 2 2 2 0 0 0 0 0 0 0\n1 1 1 1 1 2 2 2 2 0 0 0 0 0 0 0\n1 1 1 1 1 1 2 2 2 2 2 0 0 0 0 0",
     "items":
     [
-      {
-        "apple" : {
-        "column": 4,
-        "row" : 4,
-        "direction" :  0
-        }
-      },
       {
         "door" : {
           "column": 0,
@@ -194,6 +248,14 @@
           "direction": 1
         }
       }
+    ],
+    "signs":
+    [
+      {
+        "column": "0",
+        "row": "8",
+        "text": "This way to the North Beach."
+      }
     ]
   },
   {
@@ -211,7 +273,7 @@
       {
         "hook" : {
         "column": 10,
-        "row" : 7,
+        "row" : 6,
         "direction" :  0
         }
       },
@@ -228,6 +290,14 @@
           "row": 2,
           "direction": 3
         }
+      }
+    ],
+    "signs":
+    [
+      {
+        "column": "0",
+        "row": "0",
+        "text": "This should be fake."
       }
     ]
   },
@@ -246,16 +316,9 @@
     [
       {
         "stick" : {
-        "column":8,
-        "row" : 4,
+        "column":9,
+        "row" : 7,
         "direction" :  0
-        }
-      },
-      {
-        "water" : {
-        "column": 3,
-        "row": 4,
-        "direction": 0
         }
       },
       {
@@ -289,13 +352,6 @@
       {
         "water" : {
           "column": 7,
-          "row": 5,
-          "direction": 0
-        }
-      },
-      {
-        "water" : {
-          "column": 8,
           "row": 5,
           "direction": 0
         }
@@ -349,6 +405,14 @@
           "direction": 3
         }
       }
+    ],
+    "signs":
+    [
+      {
+        "column": "0",
+        "row": "4",
+        "text": "This way to the beach."
+      }
     ]
   },
   {
@@ -365,10 +429,17 @@
     "items":
     [
       {
-        "apple" : {
-        "column": 10,
-        "row" : 6,
-        "direction" :  0
+        "apple": {
+          "column": 7,
+          "row": 9,
+          "direction" : 0
+        }
+      },
+      {
+        "door" : {
+          "column": 0,
+          "row": 5,
+          "direction": 3
         }
       },
       {
@@ -414,6 +485,14 @@
         }
       }
 
+    ],
+    "signs":
+    [
+      {
+        "column": "8",
+        "row": "6",
+        "text": "Hi, I'm Cat, the lost teammate.  Something bad happened when I ate a fangfish.  I wouldn't suggest it.\n\nIt's ok though cause I'm going to find them a job in the afterlife!"
+      }
     ]
   },
   {
@@ -429,13 +508,6 @@
     "items":
     [
       {
-        "apple" : {
-        "column": 4,
-        "row" : 4,
-        "direction" :  0
-        }
-      },
-      {
         "door" : {
             "column": 5,
             "row": 11,
@@ -448,6 +520,14 @@
           "row": 11,
           "direction": 2
         }
+      }
+    ],
+    "signs":
+    [
+      {
+        "column": "0",
+        "row": "0",
+        "text": "You should never see this"
       }
     ]
   }

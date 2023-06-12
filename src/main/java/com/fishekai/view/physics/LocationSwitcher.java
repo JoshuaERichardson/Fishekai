@@ -2,13 +2,46 @@ package com.fishekai.view.physics;
 
 import com.fishekai.engine.Fishekai;
 import com.fishekai.models.Location;
+import com.fishekai.models.Player;
+import com.fishekai.utilities.AudioManager;
+import com.fishekai.view.FishingFrame;
 import com.fishekai.view.GamePanel;
 import com.fishekai.view.object.OBJ_Door;
 import com.fishekai.view.tile.TileManager;
 
+import javax.swing.*;
+
 public class LocationSwitcher {
+    static int moves = 0;
 
     public static void moveScenes(Fishekai fishekai, String locationName){
+
+
+        if (locationName == null){ // Fishing starts!
+            Player player = fishekai.getTextPlayer();
+            Location location = fishekai.getCurrent_location();
+            AudioManager audioManager = fishekai.getAudioManager();
+            fishekai.getFishingMechanic().startFishing(player, location, audioManager);
+
+            FishingFrame fishingFrame = new FishingFrame(fishekai.getFishingMechanic(), fishekai.getWindow().getGamePanel());
+            // Pause the game while fishing:
+            GamePanel gamePanel = fishekai.getWindow().getGamePanel();
+            gamePanel.setPaused(true);
+            // Change the status panel from the build-a-pole to the caught fish:
+            fishekai.getWindow().getStatusPanel().setFishing(true);
+            audioManager.playSoundEffect("fishing");
+            fishingFrame.setVisible(true);
+            fishingFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            fishekai.getKeyHandler().leftPressed = false;
+            fishekai.window.gamePanel.player.worldX = 2 * fishekai.window.gamePanel.tileSize;
+            fishekai.window.gamePanel.player.worldY = 4 * fishekai.window.gamePanel.tileSize;
+            return;
+        }
+        moves++;
+        fishekai.getTextPlayer().moveDamage(moves);
+        System.out.println(fishekai.getTextPlayer().getThirst() + " " + fishekai.getTextPlayer().getHunger() + " " + fishekai.getTextPlayer().getHp());
+        // Repaint the statusPanel with updated thirst and hunger:
+        fishekai.window.getStatusPanel().update(true);
 
 
         // Save the prevLocation direction:
@@ -89,12 +122,12 @@ public class LocationSwitcher {
         }
         // If mountain to Cave:
         else if (locationName.equals("Cave") && prevLocation.equals("Mountain")) {
-            fishekai.window.gamePanel.player.worldX = 5 * fishekai.window.gamePanel.tileSize;
+            fishekai.window.gamePanel.player.worldX = 4 * fishekai.window.gamePanel.tileSize;
             fishekai.window.gamePanel.player.worldY = 3 * fishekai.window.gamePanel.tileSize;
         }
         // If cave to mountain:
         else if (locationName.equals("Mountain") && prevLocation.equals("Cave")) {
-            fishekai.window.gamePanel.player.worldX = 8 * fishekai.window.gamePanel.tileSize;
+            fishekai.window.gamePanel.player.worldX = 7 * fishekai.window.gamePanel.tileSize;
             fishekai.window.gamePanel.player.worldY = 4 * fishekai.window.gamePanel.tileSize;
         }
         // If mountain to Forest:
@@ -107,6 +140,10 @@ public class LocationSwitcher {
             fishekai.window.gamePanel.player.worldX = 4 * fishekai.window.gamePanel.tileSize;
             fishekai.window.gamePanel.player.worldY = 10 * fishekai.window.gamePanel.tileSize;
         }
+
+        // Play sound effect
+        fishekai.getAudioManager().randomGo();
+
 
 
 
