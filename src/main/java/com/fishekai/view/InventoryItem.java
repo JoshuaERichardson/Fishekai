@@ -95,7 +95,7 @@ class InventoryItem extends JComponent {
         add(frontCard, "front");
         add(backCard, "back");
 
-        ImageIcon icon = new ImageIcon(getClass().getResource("/sprites/items/fishblue.png"));
+        ImageIcon icon = new ImageIcon(getClass().getResource("/sprites/items/clear.png"));
         image = icon.getImage();
         // Stretch the image to fit the panel
         icon = new ImageIcon(image.getScaledInstance(50, 50, Image.SCALE_SMOOTH));

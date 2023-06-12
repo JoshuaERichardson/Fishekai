@@ -42,11 +42,12 @@ public class InventoryPanel extends JPanel{
 
         add(appleItem);
         add(chordItem);
-        add(stickItem);
-        add(hookItem);
         add(flaskItem);
-//        add(waterItem);
+        add(stickItem);
         add(bananaItem);
+        add(hookItem);
+
+//        add(waterItem);
 
         setFocusable(false);
 
